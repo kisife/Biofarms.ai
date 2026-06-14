@@ -4,959 +4,229 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Biofarms.ai — Ground Truth. Global Standards.</title>
-  <meta name="description" content="Biofarms.ai is an environmental intelligence consultancy delivering field-verified biodiversity data, EUDR compliance, and AI-powered ecosystem analysis — bridging Africa's tropical ecosystems with European sustainability markets." />
+  <meta name="description" content="Field-verified biodiversity intelligence, EUDR compliance, and AI-powered ecosystem analysis — bridging Africa's tropical ecosystems with European sustainability markets." />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --green-900: #0D2B1E;
-      --green-800: #1B4332;
-      --green-700: #2D6A4F;
-      --green-600: #40916C;
-      --green-400: #74C69D;
-      --green-100: #D8F3DC;
-      --green-50:  #F0FBF3;
-      --amber:     #F59E0B;
-      --amber-light: #FEF3C7;
-      --text-dark: #111827;
-      --text-mid:  #374151;
-      --text-soft: #6B7280;
-      --border:    #E5E7EB;
-      --white:     #FFFFFF;
-      --bg-light:  #F9FAFB;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      color: var(--text-dark);
-      background: var(--white);
-      line-height: 1.6;
-      font-size: 16px;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 5%;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 68px;
-    }
-    .nav-logo {
-      font-size: 1.25rem; font-weight: 800;
-      color: var(--green-800);
-      text-decoration: none; letter-spacing: -0.5px;
-    }
-    .nav-logo span { color: var(--amber); }
-    .nav-links {
-      display: flex; gap: 2rem; list-style: none; align-items: center;
-    }
-    .nav-links a {
-      text-decoration: none; color: var(--text-mid);
-      font-size: 0.9rem; font-weight: 500;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--green-700); }
-    .nav-cta {
-      background: var(--green-800); color: var(--white) !important;
-      padding: 0.5rem 1.25rem; border-radius: 6px;
-      transition: background 0.2s !important;
-    }
-    .nav-cta:hover { background: var(--green-700) !important; color: var(--white) !important; }
-
-    .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
-    .hamburger span { width: 24px; height: 2px; background: var(--text-dark); border-radius: 2px; display: block; transition: 0.3s; }
-
-    /* ── HERO ── */
-    #hero {
-      min-height: 100vh;
-      background: linear-gradient(135deg, var(--green-900) 0%, var(--green-800) 50%, var(--green-700) 100%);
-      display: flex; align-items: center;
-      padding: 100px 5% 60px;
-      position: relative; overflow: hidden;
-    }
-    #hero::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-      background-image: radial-gradient(circle at 20% 80%, rgba(116,198,157,0.15) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(245,158,11,0.08) 0%, transparent 50%);
-    }
-    .hero-inner {
-      max-width: 1100px; margin: 0 auto; width: 100%;
-      position: relative; z-index: 1;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
-    }
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3);
-      color: var(--amber); font-size: 0.8rem; font-weight: 600;
-      padding: 6px 14px; border-radius: 20px; margin-bottom: 1.5rem;
-      letter-spacing: 0.5px; text-transform: uppercase;
-    }
-    .hero-tag::before { content: '●'; font-size: 0.5rem; }
-    .hero-title {
-      font-size: clamp(2.2rem, 4vw, 3.4rem);
-      font-weight: 800; color: var(--white);
-      line-height: 1.15; letter-spacing: -1px;
-      margin-bottom: 1.25rem;
-    }
-    .hero-title em { color: var(--green-400); font-style: normal; }
-    .hero-sub {
-      font-size: 1.1rem; color: rgba(255,255,255,0.75);
-      line-height: 1.7; margin-bottom: 2.5rem; max-width: 480px;
-    }
-    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn-primary {
-      background: var(--amber); color: var(--green-900);
-      padding: 0.85rem 1.75rem; border-radius: 8px;
-      font-weight: 700; font-size: 0.95rem;
-      text-decoration: none; transition: all 0.2s;
-      display: inline-block;
-    }
-    .btn-primary:hover { background: #FBBF24; transform: translateY(-1px); }
-    .btn-outline {
-      border: 2px solid rgba(255,255,255,0.4); color: var(--white);
-      padding: 0.85rem 1.75rem; border-radius: 8px;
-      font-weight: 600; font-size: 0.95rem;
-      text-decoration: none; transition: all 0.2s;
-      display: inline-block;
-    }
-    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
-    .hero-stats {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
-    }
-    .stat-card {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 12px; padding: 1.25rem 1.5rem;
-      backdrop-filter: blur(10px);
-    }
-    .stat-num {
-      font-size: 2rem; font-weight: 800; color: var(--white);
-      line-height: 1; margin-bottom: 4px;
-    }
-    .stat-num span { color: var(--amber); }
-    .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.6); font-weight: 500; }
-
-    /* ── TRUST BAR ── */
-    .trust-bar {
-      background: var(--bg-light);
-      border-bottom: 1px solid var(--border);
-      padding: 1.25rem 5%;
-    }
-    .trust-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
-    }
-    .trust-label { font-size: 0.75rem; color: var(--text-soft); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; }
-    .trust-logos { display: flex; gap: 1.75rem; flex-wrap: wrap; align-items: center; }
-    .trust-logo-item {
-      font-size: 0.8rem; font-weight: 700; color: var(--text-soft);
-      letter-spacing: 0.3px; white-space: nowrap;
-    }
-
-    /* ── SECTIONS ── */
-    section { padding: 80px 5%; }
-    .section-inner { max-width: 1100px; margin: 0 auto; }
-    .section-tag {
-      font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
-      color: var(--green-700); margin-bottom: 0.75rem;
-    }
-    .section-title {
-      font-size: clamp(1.7rem, 3vw, 2.4rem);
-      font-weight: 800; letter-spacing: -0.5px;
-      line-height: 1.2; margin-bottom: 1rem; color: var(--text-dark);
-    }
-    .section-sub {
-      font-size: 1rem; color: var(--text-soft);
-      max-width: 560px; line-height: 1.7;
-    }
-    .section-header { margin-bottom: 3rem; }
-
-    /* ── SERVICES ── */
-    #services { background: var(--white); }
-    .services-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
-    }
-    .service-card {
-      border: 1px solid var(--border); border-radius: 16px;
-      padding: 2rem; transition: all 0.25s;
-      position: relative; overflow: hidden;
-    }
-    .service-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--green-700), var(--green-400));
-      opacity: 0; transition: opacity 0.25s;
-    }
-    .service-card:hover { border-color: var(--green-400); box-shadow: 0 8px 30px rgba(27,67,50,0.1); transform: translateY(-2px); }
-    .service-card:hover::before { opacity: 1; }
-    .service-icon {
-      width: 52px; height: 52px; border-radius: 12px;
-      background: var(--green-50); display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem; margin-bottom: 1.25rem;
-    }
-    .service-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; color: var(--text-dark); }
-    .service-desc { font-size: 0.9rem; color: var(--text-soft); line-height: 1.65; margin-bottom: 1.25rem; }
-    .service-items { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
-    .service-items li {
-      font-size: 0.82rem; color: var(--text-mid); font-weight: 500;
-      display: flex; align-items: flex-start; gap: 8px;
-    }
-    .service-items li::before { content: '→'; color: var(--green-600); flex-shrink: 0; margin-top: 1px; }
-
-    /* ── WHY US ── */
-    #why { background: var(--green-900); color: var(--white); }
-    #why .section-tag { color: var(--green-400); }
-    #why .section-title { color: var(--white); }
-    #why .section-sub { color: rgba(255,255,255,0.65); }
-    .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-    .why-points { display: flex; flex-direction: column; gap: 1.75rem; }
-    .why-point { display: flex; gap: 1rem; align-items: flex-start; }
-    .why-num {
-      width: 36px; height: 36px; border-radius: 8px;
-      background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.3);
-      color: var(--amber); font-weight: 800; font-size: 0.9rem;
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-    }
-    .why-point-title { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.35rem; }
-    .why-point-desc { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.65; }
-    .why-card {
-      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 16px; padding: 2rem;
-    }
-    .why-card-title { font-size: 1rem; font-weight: 700; color: var(--green-400); margin-bottom: 1.5rem; }
-    .credential-list { display: flex; flex-direction: column; gap: 1rem; }
-    .credential {
-      display: flex; align-items: flex-start; gap: 0.75rem;
-      padding-bottom: 1rem; border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .credential:last-child { border-bottom: none; padding-bottom: 0; }
-    .cred-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); flex-shrink: 0; margin-top: 5px; }
-    .cred-text { font-size: 0.85rem; color: rgba(255,255,255,0.75); line-height: 1.5; }
-    .cred-text strong { color: var(--white); font-weight: 600; }
-
-    /* ── ABOUT ── */
-    #about { background: var(--bg-light); }
-    .about-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 3.5rem; align-items: start; }
-    .about-photo-box {
-      background: linear-gradient(135deg, var(--green-800), var(--green-600));
-      border-radius: 16px; aspect-ratio: 4/5;
-      display: flex; align-items: center; justify-content: center;
-      color: rgba(255,255,255,0.4); font-size: 0.85rem; font-weight: 500;
-      text-align: center; padding: 1rem; position: relative; overflow: hidden;
-    }
-    .about-photo-box::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
-      background: linear-gradient(transparent, rgba(0,0,0,0.3));
-    }
-    .photo-placeholder { font-size: 3rem; display: block; margin-bottom: 0.5rem; opacity: 0.5; }
-    .about-name-tag {
-      position: absolute; bottom: 1.25rem; left: 1.25rem; right: 1.25rem; z-index: 1;
-      background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 10px; padding: 0.75rem 1rem;
-    }
-    .about-name-tag strong { display: block; font-size: 0.95rem; color: var(--white); font-weight: 700; }
-    .about-name-tag span { font-size: 0.75rem; color: rgba(255,255,255,0.7); }
-    .about-content {}
-    .about-intro { font-size: 1.05rem; line-height: 1.75; color: var(--text-mid); margin-bottom: 1.5rem; }
-    .about-intro strong { color: var(--text-dark); font-weight: 600; }
-    .about-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
-    .about-tag {
-      background: var(--green-50); border: 1px solid var(--green-100);
-      color: var(--green-700); font-size: 0.78rem; font-weight: 600;
-      padding: 5px 12px; border-radius: 20px;
-    }
-    .about-langs { margin-top: 1.5rem; }
-    .lang-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-soft); margin-bottom: 0.75rem; }
-    .lang-list { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .lang-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-    .lang-name { font-size: 0.8rem; font-weight: 700; color: var(--text-dark); }
-    .lang-level {
-      font-size: 0.7rem; color: var(--text-soft);
-      background: var(--border); padding: 2px 8px; border-radius: 10px;
-    }
-
-    /* ── WORK / PUBLICATIONS ── */
-    #work { background: var(--white); }
-    .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    .pub-card {
-      border: 1px solid var(--border); border-radius: 14px;
-      padding: 1.75rem; transition: all 0.2s;
-      display: flex; flex-direction: column;
-    }
-    .pub-card:hover { border-color: var(--green-400); box-shadow: 0 4px 20px rgba(27,67,50,0.08); }
-    .pub-type {
-      font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
-      color: var(--green-700); background: var(--green-50);
-      padding: 3px 10px; border-radius: 10px; display: inline-block; margin-bottom: 1rem;
-    }
-    .pub-title { font-size: 0.95rem; font-weight: 700; line-height: 1.45; margin-bottom: 0.6rem; color: var(--text-dark); }
-    .pub-desc { font-size: 0.83rem; color: var(--text-soft); line-height: 1.65; flex: 1; margin-bottom: 1.25rem; }
-    .pub-meta { font-size: 0.78rem; color: var(--text-soft); font-weight: 500; }
-    .pub-link {
-      font-size: 0.82rem; font-weight: 600; color: var(--green-700);
-      text-decoration: none; display: inline-flex; align-items: center; gap: 4px; margin-top: 1rem;
-    }
-    .pub-link:hover { color: var(--green-600); }
-    .pub-link::after { content: '↗'; }
-
-    /* ── CERTIFICATIONS ── */
-    #certs { background: var(--bg-light); }
-    .certs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-    .cert-card {
-      background: var(--white); border: 1px solid var(--border);
-      border-radius: 12px; padding: 1.25rem;
-      transition: all 0.2s;
-    }
-    .cert-card:hover { border-color: var(--green-400); box-shadow: 0 2px 12px rgba(27,67,50,0.06); }
-    .cert-issuer { font-size: 0.7rem; font-weight: 700; color: var(--amber); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.4rem; }
-    .cert-name { font-size: 0.83rem; font-weight: 600; color: var(--text-dark); line-height: 1.4; }
-    .cert-year { font-size: 0.72rem; color: var(--text-soft); margin-top: 0.4rem; }
-
-    /* ── CONTACT ── */
-    #contact { background: var(--white); }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-    .contact-info {}
-    .contact-intro { font-size: 1.05rem; color: var(--text-mid); line-height: 1.7; margin-bottom: 2rem; }
-    .contact-details { display: flex; flex-direction: column; gap: 1rem; }
-    .contact-item { display: flex; align-items: center; gap: 0.75rem; }
-    .contact-icon {
-      width: 40px; height: 40px; border-radius: 10px;
-      background: var(--green-50); display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem; flex-shrink: 0;
-    }
-    .contact-item a { color: var(--text-dark); text-decoration: none; font-weight: 500; font-size: 0.9rem; }
-    .contact-item a:hover { color: var(--green-700); }
-    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
-    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-    .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--text-mid); }
-    .form-group input, .form-group select, .form-group textarea {
-      border: 1px solid var(--border); border-radius: 8px;
-      padding: 0.75rem 1rem; font-size: 0.9rem; font-family: inherit;
-      color: var(--text-dark); background: var(--white);
-      transition: border-color 0.2s; outline: none; width: 100%;
-    }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      border-color: var(--green-600); box-shadow: 0 0 0 3px rgba(64,145,108,0.1);
-    }
-    .form-group textarea { resize: vertical; min-height: 130px; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .btn-submit {
-      background: var(--green-800); color: var(--white);
-      border: none; padding: 0.9rem 2rem; border-radius: 8px;
-      font-size: 0.95rem; font-weight: 700; cursor: pointer;
-      font-family: inherit; transition: all 0.2s; width: 100%;
-    }
-    .btn-submit:hover { background: var(--green-700); transform: translateY(-1px); }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--green-900); color: rgba(255,255,255,0.6);
-      padding: 3rem 5%;
-    }
-    .footer-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;
-    }
-    .footer-logo { font-size: 1.1rem; font-weight: 800; color: var(--white); letter-spacing: -0.5px; }
-    .footer-logo span { color: var(--amber); }
-    .footer-tagline { font-size: 0.8rem; margin-top: 4px; color: rgba(255,255,255,0.45); }
-    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-    .footer-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
-    .footer-links a:hover { color: var(--white); }
-    .footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.35); width: 100%; text-align: center; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 1rem; }
-
-    /* ── MOBILE ── */
-    @media (max-width: 900px) {
-      .hero-inner { grid-template-columns: 1fr; }
-      .hero-stats { grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
-      .stat-num { font-size: 1.4rem; }
-      .services-grid { grid-template-columns: 1fr; }
-      .why-grid { grid-template-columns: 1fr; }
-      .about-grid { grid-template-columns: 1fr; }
-      .about-photo-box { aspect-ratio: 16/9; }
-      .work-grid { grid-template-columns: 1fr; }
-      .certs-grid { grid-template-columns: repeat(2, 1fr); }
-      .contact-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .footer-inner { flex-direction: column; text-align: center; }
-      .form-row { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 600px) {
-      section { padding: 60px 5%; }
-      .hero-stats { grid-template-columns: repeat(2, 1fr); }
-      .certs-grid { grid-template-columns: 1fr; }
-    }
-
-    /* ── UTILITIES ── */
-    .divider { width: 40px; height: 3px; background: var(--amber); border-radius: 2px; margin: 1rem 0 2rem; }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- NAV -->
-<nav>
-  <a href="#hero" class="nav-logo">Biofarms<span>.ai</span></a>
-  <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#why">Why Us</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#work">Publications</a></li>
-    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
-  </ul>
-  <div class="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-inner">
-    <div>
-      <div class="hero-tag">Environmental Intelligence Consultancy</div>
-      <h1 class="hero-title">
-        Ground Truth.<br/>
-        <em>Global Standards.</em>
-      </h1>
-      <p class="hero-sub">
-        Field-verified biodiversity intelligence, EUDR compliance, and AI-powered ecosystem analysis — bridging Africa's tropical ecosystems with European sustainability markets.
-      </p>
-      <div class="hero-btns">
-        <a href="#contact" class="btn-primary">Start a Project</a>
-        <a href="#services" class="btn-outline">Our Services</a>
-      </div>
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html"><img src="assets/favicon.svg" alt="" /> Biofarms<span>.ai</span></a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <ul class="nav-links">
+        <li><a href="services.html">Services</a></li>
+        <li><a href="insights.html">Insights</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="nav-cta"><a class="btn btn--dark" href="contact.html">Start a project →</a></li>
+      </ul>
     </div>
-    <div>
-      <div class="hero-stats">
-        <div class="stat-card">
-          <div class="stat-num">6<span>+</span></div>
-          <div class="stat-label">Years field conservation in Central &amp; West Africa</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">2</div>
-          <div class="stat-label">European MSc degrees — TU Dresden &amp; Copenhagen</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">4</div>
-          <div class="stat-label">Languages — English, French, German, Lamnso</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">20<span>+</span></div>
-          <div class="stat-label">Certifications across AI, remote sensing &amp; ESG</div>
+  </header>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero" style="--hero-img:url('assets/img/home.svg')">
+      <div class="container hero__inner">
+        <p class="eyebrow" style="color:var(--earth-light)">Environmental Intelligence Consultancy</p>
+        <h1>Ground Truth. <em>Global Standards.</em></h1>
+        <p class="hero__sub">Field-verified biodiversity intelligence, EUDR compliance, and AI-powered ecosystem analysis — bridging Africa's tropical ecosystems with European sustainability markets.</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="contact.html">Start a project →</a>
+          <a class="btn btn--ghost" href="services.html">Explore services</a>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- TRUST BAR -->
-<div class="trust-bar">
-  <div class="trust-inner">
-    <span class="trust-label">Trained &amp; active at</span>
-    <div class="trust-logos">
-      <span class="trust-logo-item">TU Dresden</span>
-      <span class="trust-logo-item">Univ. of Copenhagen</span>
-      <span class="trust-logo-item">Cleantech Nexus</span>
-      <span class="trust-logo-item">Outlier.ai</span>
-      <span class="trust-logo-item">Alignerr</span>
-      <span class="trust-logo-item">DeepLearning.AI</span>
-      <span class="trust-logo-item">Duke University</span>
-      <span class="trust-logo-item">UN Habitat</span>
-    </div>
-  </div>
-</div>
-
-<!-- SERVICES -->
-<section id="services">
-  <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">What We Do</div>
-      <h2 class="section-title">Four pillars of environmental intelligence</h2>
-      <div class="divider"></div>
-      <p class="section-sub">From EU regulatory compliance to on-the-ground field verification — we deliver the data and analysis that nature-positive organisations need to operate with confidence.</p>
-    </div>
-    <div class="services-grid">
-
-      <div class="service-card">
-        <div class="service-icon">📋</div>
-        <div class="service-title">EUDR &amp; Regulatory Compliance</div>
-        <p class="service-desc">We help European companies navigate the EU Deforestation Regulation, CSRD biodiversity reporting, and emerging nature-risk frameworks — backed by real field data from origin landscapes.</p>
-        <ul class="service-items">
-          <li>Deforestation risk assessments &amp; supply chain traceability</li>
-          <li>EUDR due diligence documentation</li>
-          <li>CSRD / ESRS E4 biodiversity disclosures</li>
-          <li>EU Taxonomy alignment &amp; TNFD / SBTN support</li>
-          <li>Horizon Europe &amp; LIFE programme technical inputs</li>
-        </ul>
+    <!-- ============ STATS BAR ============ -->
+    <section class="stats">
+      <div class="container">
+        <div class="stats__grid">
+          <div class="stat"><div class="stat__num">6+</div><div class="stat__label">Years field conservation, Central &amp; West Africa</div></div>
+          <div class="stat"><div class="stat__num">2</div><div class="stat__label">European MSc degrees — TU Dresden &amp; Copenhagen</div></div>
+          <div class="stat"><div class="stat__num">4</div><div class="stat__label">Languages — English, French, German, Lamnso</div></div>
+          <div class="stat"><div class="stat__num">20+</div><div class="stat__label">Certifications across AI, remote sensing &amp; ESG</div></div>
+        </div>
       </div>
+    </section>
 
-      <div class="service-card">
-        <div class="service-icon">🌿</div>
-        <div class="service-title">Biodiversity &amp; Nature-Based Solutions</div>
-        <p class="service-desc">We design, assess, and validate biodiversity projects — from REDD+ monitoring to biodiversity credit scoping — with a scientific rigour rooted in field experience across tropical ecosystems.</p>
-        <ul class="service-items">
-          <li>Ecosystem assessment &amp; biodiversity monitoring</li>
-          <li>Biodiversity credit scoping &amp; verification support</li>
-          <li>REDD+ MRV systems &amp; carbon project advisory</li>
-          <li>Assisted Natural Regeneration (ANR) planning</li>
-          <li>Nature-based solution feasibility studies</li>
-        </ul>
-      </div>
-
-      <div class="service-card">
-        <div class="service-icon">🤖</div>
-        <div class="service-title">Environmental AI &amp; Data Intelligence</div>
-        <p class="service-desc">We develop expert-level environmental datasets for frontier AI models, conduct remote sensing analysis, and deliver predictive modelling for land-use and climate risks.</p>
-        <ul class="service-items">
-          <li>Expert LLM training datasets for climate &amp; ecology</li>
-          <li>Remote sensing analysis (Sentinel-2, Landsat, GEE)</li>
-          <li>Land-use change detection &amp; predictive modelling</li>
-          <li>AI model evaluation for environmental reasoning</li>
-          <li>Data visualisation &amp; spatial analysis reports</li>
-        </ul>
-      </div>
-
-      <div class="service-card">
-        <div class="service-icon">🛸</div>
-        <div class="service-title">Field Verification &amp; Drone Intelligence</div>
-        <p class="service-desc">We deploy drone-assisted surveys, GIS mapping, and ground-truth data collection across Central and West Africa — providing the field credibility that desk-based analysis cannot replicate.</p>
-        <ul class="service-items">
-          <li>Drone photogrammetry &amp; aerial surveys</li>
-          <li>GIS mapping &amp; spatial data collection</li>
-          <li>Ground-truth validation for carbon &amp; biodiversity projects</li>
-          <li>Community &amp; stakeholder engagement in field operations</li>
-          <li>Forest monitoring &amp; ecosystem health assessments</li>
-        </ul>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- WHY US -->
-<section id="why">
-  <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">Why Biofarms.ai</div>
-      <h2 class="section-title">The bridge most consultancies can't build</h2>
-      <div class="divider"></div>
-      <p class="section-sub">Most environmental consultancies either have the academic credentials or the field experience. We have both — and we connect them with AI-era data capabilities.</p>
-    </div>
-    <div class="why-grid">
-      <div class="why-points">
-        <div class="why-point">
-          <div class="why-num">01</div>
-          <div>
-            <div class="why-point-title">Field truth from Africa's most complex ecosystems</div>
-            <p class="why-point-desc">Over six years of conservation fieldwork in Cameroon — including WWF partner assessments in the Campo Ma'an National Park, community land-use mapping, and biodiversity monitoring in the Congo Basin region. We don't just read reports about these landscapes. We have worked in them.</p>
+    <!-- ============ SERVICES TEASER ============ -->
+    <section class="section section--tint" id="services">
+      <div class="container">
+        <div class="center">
+          <p class="eyebrow">What I do</p>
+          <h2>Four pillars of environmental intelligence</h2>
+          <p class="lead">From EU regulatory compliance to on-the-ground field verification — I deliver the data and analysis that nature-positive organisations need to operate with confidence.</p>
+        </div>
+        <div class="grid grid--4 mt-2">
+          <div class="card">
+            <div class="card__icon">📋</div>
+            <h3>EUDR &amp; Regulatory Compliance</h3>
+            <p>Navigate the EU Deforestation Regulation, CSRD biodiversity reporting, and nature-risk frameworks — backed by real field data from origin landscapes.</p>
+            <a class="arrow" href="services.html#eudr">Learn more →</a>
           </div>
-        </div>
-        <div class="why-point">
-          <div class="why-num">02</div>
-          <div>
-            <div class="why-point-title">European academic and regulatory fluency</div>
-            <p class="why-point-desc">Dual European MSc degrees from TU Dresden and the University of Copenhagen, plus active engagement with EUDR, CSRD, REDD+, EU Taxonomy, TNFD, and SBTN frameworks. We speak the language of European regulators and institutional clients.</p>
+          <div class="card">
+            <div class="card__icon">🌿</div>
+            <h3>Biodiversity &amp; Nature-Based Solutions</h3>
+            <p>Design, assess, and validate biodiversity projects — from REDD+ monitoring to biodiversity credit scoping — with field-rooted scientific rigour.</p>
+            <a class="arrow" href="services.html#biodiversity">Learn more →</a>
           </div>
-        </div>
-        <div class="why-point">
-          <div class="why-num">03</div>
-          <div>
-            <div class="why-point-title">AI capability built at the frontier</div>
-            <p class="why-point-desc">Active as an environmental AI expert at Alignerr and Outlier.ai's Pegasus HLE Project — designing expert-level environmental reasoning datasets for state-of-the-art AI models. We don't just talk about AI in sustainability. We build the intelligence systems behind it.</p>
+          <div class="card">
+            <div class="card__icon">🤖</div>
+            <h3>Environmental AI &amp; Data Intelligence</h3>
+            <p>Expert environmental datasets for frontier AI models, remote sensing analysis, and predictive modelling for land-use and climate risk.</p>
+            <a class="arrow" href="services.html#ai">Learn more →</a>
           </div>
-        </div>
-        <div class="why-point">
-          <div class="why-num">04</div>
-          <div>
-            <div class="why-point-title">Multilingual across the markets that matter</div>
-            <p class="why-point-desc">Operating in English, French, German, and Lamnso — covering European client markets, Francophone African field operations, and indigenous community engagement without relying on intermediaries.</p>
+          <div class="card">
+            <div class="card__icon">🛸</div>
+            <h3>Field Verification &amp; Drone Intelligence</h3>
+            <p>Drone-assisted surveys, GIS mapping, and ground-truth data collection across Central and West Africa.</p>
+            <a class="arrow" href="services.html#field">Learn more →</a>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="why-card">
-        <div class="why-card-title">Core credentials at a glance</div>
-        <div class="credential-list">
-          <div class="credential">
-            <div class="cred-dot"></div>
-            <div class="cred-text"><strong>MSc Tropical Forestry</strong> — Technische Universität Dresden, Germany (Erasmus Mundus Scholarship)</div>
+    <!-- ============ INSIGHTS CAROUSEL ============ -->
+    <section class="section" id="insights">
+      <div class="container">
+        <div class="center">
+          <p class="eyebrow">Insights &amp; field notes</p>
+          <h2>Recent findings</h2>
+          <p class="lead">Commentary and analysis on forest governance, tropical deforestation, climate finance, and AI for nature.</p>
+        </div>
+
+        <div class="carousel mt-2">
+          <!--
+            ===================================================================
+            TO ADD A NEW POST: duplicate one <article class="card post-card">…</article>
+            block below and update the title, tag, date, excerpt, and link.
+            No other changes needed.
+            ===================================================================
+          -->
+          <div class="carousel__track">
+            <article class="card post-card">
+              <span class="tag">Scientific commentary</span>
+              <h3>The forests that heal themselves</h3>
+              <p class="meta">May 2025</p>
+              <p>Expert commentary on Chazdon et al. (2025) in Nature Reviews Biodiversity — examining what natural forest regeneration means for ANR policy across the tropics.</p>
+              <a class="arrow" href="https://www.linkedin.com/pulse/forests-heal-themselves-commentary-chazdon-et-al-2025-fomotar-jude-yylee/" target="_blank" rel="noopener">Read on LinkedIn →</a>
+            </article>
+
+            <article class="card post-card">
+              <span class="tag">Comparative research</span>
+              <h3>Deforestation in the Congo Basin &amp; Brazilian Amazon (2010–2025)</h3>
+              <p class="meta">April 2025</p>
+              <p>A 56-source comparative assessment of deforestation drivers across two major tropical forest regions — land tenure, governance, commodity expansion, and AI-driven monitoring.</p>
+              <a class="arrow" href="https://www.linkedin.com/pulse/comparative-analysis-deforestation-forest-degradation-fomotar-jude-ywaxe/" target="_blank" rel="noopener">Read on LinkedIn →</a>
+            </article>
           </div>
-          <div class="credential">
-            <div class="cred-dot"></div>
-            <div class="cred-text"><strong>MSc Forest &amp; Nature Management</strong> — University of Copenhagen, Denmark</div>
-          </div>
-          <div class="credential">
-            <div class="cred-dot"></div>
-            <div class="cred-text"><strong>BSc Geography &amp; Environmental Studies</strong> — Catholic University of Cameroon, Bamenda</div>
-          </div>
-          <div class="credential">
-            <div class="cred-dot"></div>
-            <div class="cred-text"><strong>Published researcher</strong> — MSc thesis on constitutionality and forest governance (SLUB Dresden); LinkedIn articles on Congo Basin deforestation and green colonialism</div>
-          </div>
-          <div class="credential">
-            <div class="cred-dot"></div>
-            <div class="cred-text"><strong>AI &amp; Climate Change</strong> — DeepLearning.AI (Dec 2025); <strong>Develop GenAI Applications</strong> — IBM (Dec 2025); <strong>Drones for Environmental Science</strong> — Duke University (Dec 2025)</div>
-          </div>
-          <div class="credential">
-            <div class="cred-dot"></div>
-            <div class="cred-text"><strong>IPBES &amp; IPCC: Bridging Science, Policy and Practice</strong> — Learning for Nature / RESPIN (May 2026)</div>
-          </div>
-          <div class="credential">
-            <div class="cred-dot"></div>
-            <div class="cred-text"><strong>Conservation field experience</strong> — WWF partner capacity assessments, Campo Ma'an National Park; community mobilisation across Northwest Cameroon</div>
-          </div>
-          <div class="credential">
-            <div class="cred-dot"></div>
-            <div class="cred-text"><strong>Technical skills</strong> — QGIS, ArcGIS, Google Earth Engine, R, SPSS, Sentinel-2/Landsat remote sensing, drone photogrammetry, LLM evaluation</div>
+          <div class="carousel__nav">
+            <button class="carousel__btn" data-dir="prev" aria-label="Previous">‹</button>
+            <button class="carousel__btn" data-dir="next" aria-label="Next">›</button>
           </div>
         </div>
+        <div class="center mt-1"><a class="btn btn--outline" href="insights.html">View all insights</a></div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">The Founder</div>
-      <h2 class="section-title">Kisife Fomotar Jude</h2>
-      <div class="divider"></div>
-    </div>
-    <div class="about-grid">
-      <div class="about-photo-box" style="background:none; padding:0;">
-        <img src="photo.jpg" alt="Kisife Fomotar Jude — Founder, Biofarms.ai" style="width:100%; height:100%; object-fit:cover; border-radius:16px; display:block;" />
-        <div class="about-name-tag">
-          <strong>Kisife Fomotar Jude</strong>
-          <span>Founder, Biofarms.ai</span>
+    <!-- ============ WHY BIOFARMS ============ -->
+    <section class="section section--tint" id="why">
+      <div class="container">
+        <div class="center">
+          <p class="eyebrow">Why Biofarms.ai</p>
+          <h2>The bridge most consultancies can't build</h2>
+          <p class="lead">Most environmental consultancies either have the academic credentials or the field experience. I have both — and I connect them with AI-era data capabilities.</p>
+        </div>
+        <div class="grid grid--2 mt-2">
+          <div class="why-item"><span class="num">01</span><div><h3>Field truth from Africa's most complex ecosystems</h3><p>Over six years of conservation fieldwork in Cameroon — including WWF partner assessments in Campo Ma'an National Park, community land-use mapping, and biodiversity monitoring in the Congo Basin region. I don't just read reports about these landscapes. I have worked in them.</p></div></div>
+          <div class="why-item"><span class="num">02</span><div><h3>European academic and regulatory fluency</h3><p>Dual European MSc degrees from TU Dresden and the University of Copenhagen, plus active engagement with EUDR, CSRD, REDD+, EU Taxonomy, TNFD, and SBTN frameworks. I speak the language of European regulators and institutional clients.</p></div></div>
+          <div class="why-item"><span class="num">03</span><div><h3>AI capability built at the frontier</h3><p>Active as an environmental AI expert at Alignerr and Outlier.ai's Pegasus HLE Project — designing expert-level environmental reasoning datasets for state-of-the-art AI models. I build the intelligence systems behind AI for sustainability.</p></div></div>
+          <div class="why-item"><span class="num">04</span><div><h3>Multilingual across the markets that matter</h3><p>Operating in English, French, German, and Lamnso — covering European client markets, Francophone African field operations, and indigenous community engagement without relying on intermediaries.</p></div></div>
         </div>
       </div>
-      <div class="about-content">
-        <p class="about-intro">
-          I am an <strong>environmental professional and field-verified intelligence specialist</strong> combining tropical forestry expertise, AI and machine learning capabilities, and hands-on remote sensing to deliver ground-truth insights at the intersection of forestry, biodiversity, climate policy, and emerging technology.
-        </p>
-        <p class="about-intro">
-          I founded Biofarms.ai to bridge a gap I witnessed firsthand: European institutions and markets increasingly depend on environmental data from Africa's tropical landscapes — yet most of that data is generated at a distance, without the field credibility that rigorous verification demands.
-        </p>
-        <p class="about-intro">
-          With dual European MSc degrees, six years of field conservation work in Central and West Africa, and active roles at the frontier of AI-driven environmental science, I bring a rare combination of academic rigour, on-the-ground experience, and technical capability to every engagement.
-        </p>
-        <div class="about-tags">
-          <span class="about-tag">EUDR Compliance</span>
-          <span class="about-tag">REDD+ MRV</span>
-          <span class="about-tag">Biodiversity Credits</span>
-          <span class="about-tag">Nature-Based Solutions</span>
-          <span class="about-tag">LLM Evaluation</span>
-          <span class="about-tag">Remote Sensing</span>
-          <span class="about-tag">Drone Photogrammetry</span>
-          <span class="about-tag">Forest Governance</span>
-          <span class="about-tag">ESG Due Diligence</span>
-          <span class="about-tag">Article 6 Carbon Markets</span>
-          <span class="about-tag">Google Earth Engine</span>
-          <span class="about-tag">EU Taxonomy</span>
-          <span class="about-tag">TNFD / SBTN</span>
-          <span class="about-tag">Indigenous Knowledge</span>
-        </div>
-        <div class="about-langs">
-          <div class="lang-title">Languages</div>
-          <div class="lang-list">
-            <div class="lang-item"><span class="lang-name">English</span><span class="lang-level">Native</span></div>
-            <div class="lang-item"><span class="lang-name">Lamnso</span><span class="lang-level">C1</span></div>
-            <div class="lang-item"><span class="lang-name">French</span><span class="lang-level">B2</span></div>
-            <div class="lang-item"><span class="lang-name">German</span><span class="lang-level">B1</span></div>
-          </div>
+    </section>
+
+    <!-- ============ PULL QUOTE ============ -->
+    <section class="section pullquote">
+      <div class="container">
+        <blockquote>"Most environmental consultancies either have the academic credentials or the field experience. I have both — and I connect them with AI-era data capabilities."
+          <span class="cite">— Kisife Fomotar Jude, Founder</span>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ============ CREDENTIALS STRIP ============ -->
+    <section class="section section--tint">
+      <div class="container center">
+        <p class="eyebrow">Trained &amp; active at</p>
+        <div class="cred-strip mt-1">
+          <span class="cred-badge">TU Dresden</span>
+          <span class="cred-badge">University of Copenhagen</span>
+          <span class="cred-badge">Cleantech Nexus</span>
+          <span class="cred-badge">DeepLearning.AI</span>
+          <span class="cred-badge">Duke University</span>
+          <span class="cred-badge">Outlier.ai</span>
+          <span class="cred-badge">Alignerr</span>
+          <span class="cred-badge">UN-Habitat</span>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- LINKEDIN BADGE -->
-<section id="linkedin" style="background: var(--bg-light); padding: 60px 5%;">
-  <div class="section-inner" style="text-align:center;">
-    <div class="section-tag" style="text-align:center;">Connect</div>
-    <h2 class="section-title" style="text-align:center;">Find me on LinkedIn</h2>
-    <div class="divider" style="margin: 1rem auto 2.5rem;"></div>
-    <p style="color:var(--text-soft); font-size:1rem; max-width:500px; margin: 0 auto 2.5rem; line-height:1.7;">
-      Follow my work in environmental intelligence, forest governance, and AI for climate — or reach out directly to discuss a project.
-    </p>
-    <div style="display:flex; justify-content:center;">
-      <div style="background:#1B4332; border-radius:16px; padding:2rem 2.5rem; max-width:320px; width:100%; text-align:center; box-shadow:0 8px 30px rgba(27,67,50,0.15);">
-        <img src="photo.jpg" alt="Kisife Fomotar Jude" style="width:90px; height:90px; border-radius:50%; object-fit:cover; border:3px solid #74C69D; margin-bottom:1rem;" />
-        <div style="font-size:1.05rem; font-weight:800; color:#fff; margin-bottom:4px;">Kisife Fomotar Jude</div>
-        <div style="font-size:0.8rem; color:rgba(255,255,255,0.65); margin-bottom:1.25rem; line-height:1.5;">Environmental Intelligence Specialist<br/>Tropical Forestry · AI for Climate · EUDR</div>
-        <a href="https://www.linkedin.com/in/kisifefomotarjude" target="_blank"
-           style="display:inline-flex; align-items:center; gap:8px; background:#0A66C2; color:#fff; text-decoration:none; padding:0.6rem 1.4rem; border-radius:8px; font-size:0.88rem; font-weight:700;"
-           onmouseover="this.style.background='#004182'" onmouseout="this.style.background='#0A66C2'">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          View LinkedIn Profile
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PUBLICATIONS / WORK -->
-<section id="work">
-  <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">Published Work</div>
-      <h2 class="section-title">Research &amp; publications</h2>
-      <div class="divider"></div>
-      <p class="section-sub">Peer-reviewed research, academic theses, and published analysis spanning forest governance, tropical deforestation, and climate justice.</p>
-    </div>
-    <div class="work-grid">
-
-      <div class="pub-card">
-        <span class="pub-type">MSc Thesis</span>
-        <div class="pub-title">Constitutionality and Forest Resource Management: The Bakossi Landscape, Cameroon</div>
-        <p class="pub-desc">Investigated how six constitutionality principles shape bottom-up forest governance in SW Cameroon. Qualitative fieldwork — focus groups and key informant interviews with traditional councils and conservation officers. Findings show indigenous institutions play a decisive governance role when formally recognised within national conservation frameworks.</p>
-        <div class="pub-meta">Technische Universität Dresden · 2023</div>
-        <a href="https://katalog.slub-dresden.de/id/0-1880756277" target="_blank" class="pub-link">Read in SLUB Dresden</a>
-      </div>
-
-      <div class="pub-card">
-        <span class="pub-type">Research Article</span>
-        <div class="pub-title">Deforestation in the Congo Basin &amp; Brazilian Amazon (2010–2025): Scientific Evidence and AI-Driven Solutions</div>
-        <p class="pub-desc">A 56-source comparative assessment of deforestation drivers across two major tropical forest regions. Evaluates land tenure, governance, commodity expansion, and infrastructure — and examines how AI technologies are transforming forest monitoring and enforcement.</p>
-        <div class="pub-meta">LinkedIn Articles · April 2025</div>
-        <a href="https://www.linkedin.com/pulse/comparative-analysis-deforestation-forest-degradation-fomotar-jude-ywaxe/" target="_blank" class="pub-link">Read the article</a>
-      </div>
-
-      <div class="pub-card">
-        <span class="pub-type">Critical Analysis</span>
-        <div class="pub-title">Green Colonialism Unmasked: How the Global North Weaponizes Climate Policy Against the South</div>
-        <p class="pub-desc">Mixed methods critical analysis of climate finance disparities, biodiversity funding gaps, and the systematic exclusion of Global South actors from climate governance. Sources: UNEP, UNDP, OECD, WRI, ODI.</p>
-        <div class="pub-meta">LinkedIn Articles · April 2025</div>
-        <a href="https://www.linkedin.com/pulse/green-colonialism-unmasked-how-global-north-climate-fomotar-jude-jibye/" target="_blank" class="pub-link">Read the article</a>
-      </div>
-
-      <div class="pub-card">
-        <span class="pub-type">Scientific Commentary</span>
-        <div class="pub-title">The Forests That Heal Themselves: Commentary on Chazdon et al. (2025)</div>
-        <p class="pub-desc">Expert commentary on the findings of Chazdon et al. (2025) in Nature Reviews Biodiversity — examining the implications of natural forest regeneration for assisted natural regeneration policy and biodiversity outcomes across the tropics.</p>
-        <div class="pub-meta">LinkedIn Articles · May 2025</div>
-        <a href="https://www.linkedin.com/pulse/forests-heal-themselves-commentary-chazdon-et-al-2025-fomotar-jude-yylee/" target="_blank" class="pub-link">Read the article</a>
-      </div>
-
-      <div class="pub-card">
-        <span class="pub-type">Narrative Essay</span>
-        <div class="pub-title">The Last Harvest: A Story of Soil, Survival, and the Silent War Beneath Our Feet</div>
-        <p class="pub-desc">Long-form narrative essay on the global soil crisis — tracing how the Green Revolution's legacy of chemical dependency is depleting the biological foundations of global food security. Anchored in Punjab, India and connected to global patterns.</p>
-        <div class="pub-meta">LinkedIn Articles · May 2025</div>
-      </div>
-
-      <div class="pub-card">
-        <span class="pub-type">Conference</span>
-        <div class="pub-title">Build Peace Conference, Chemnitz — Conflict Management &amp; Social Cohesion</div>
-        <p class="pub-desc">Participated in discussions on supremacy, polarisation, conflict management, and social cohesion — with a focus on connecting divided spaces, environmental peacebuilding, and identifying systemic turning points.</p>
-        <div class="pub-meta">Chemnitz, Germany · November 2022</div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- CERTIFICATIONS -->
-<section id="certs">
-  <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">Credentials</div>
-      <h2 class="section-title">Key certifications</h2>
-      <div class="divider"></div>
-    </div>
-    <div class="certs-grid">
-      <div class="cert-card">
-        <div class="cert-issuer">Learning for Nature / RESPIN</div>
-        <div class="cert-name">IPBES &amp; IPCC: Bridging Science, Policy and Practice</div>
-        <div class="cert-year">2026</div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-issuer">DeepLearning.AI</div>
-        <div class="cert-name">AI and Climate Change</div>
-        <div class="cert-year">2025</div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-issuer">Duke University</div>
-        <div class="cert-name">Drones for Environmental Science</div>
-        <div class="cert-year">2025</div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-issuer">IBM</div>
-        <div class="cert-name">Develop Generative AI Applications</div>
-        <div class="cert-year">2025</div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-issuer">LinkedIn Learning</div>
-        <div class="cert-name">Advanced Predictive Modeling: Ensembles &amp; Metamodeling</div>
-        <div class="cert-year">2025</div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-issuer">LinkedIn Learning</div>
-        <div class="cert-name">R for Data Science: Analysis and Visualization</div>
-        <div class="cert-year">2025</div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-issuer">LinkedIn Learning</div>
-        <div class="cert-name">Aerial Photography with Drones</div>
-        <div class="cert-year">2025</div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-issuer">LinkedIn Learning</div>
-        <div class="cert-name">Applications of Generative AI in L&amp;D</div>
-        <div class="cert-year">2025</div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-issuer">LinkedIn Learning</div>
-        <div class="cert-name">AWS Cloud Practitioner Cert Prep</div>
-        <div class="cert-year">2025</div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-issuer">LinkedIn Learning</div>
-        <div class="cert-name">Mastering Data Governance and Ethics</div>
-        <div class="cert-year">2025</div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-issuer">LinkedIn Learning</div>
-        <div class="cert-name">Corporate Finance: ESG</div>
-        <div class="cert-year">2025</div>
-      </div>
-      <div class="cert-card">
-        <div class="cert-issuer">UN-Habitat</div>
-        <div class="cert-name">Metropolitan Planning &amp; Development Workshop</div>
-        <div class="cert-year">2017</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="section-inner">
-    <div class="section-header">
-      <div class="section-tag">Get in Touch</div>
-      <h2 class="section-title">Start a conversation</h2>
-      <div class="divider"></div>
-    </div>
-    <div class="contact-grid">
-      <div class="contact-info">
-        <p class="contact-intro">
-          Whether you need EUDR compliance support, biodiversity project verification, environmental AI datasets, or field survey capacity in Central or West Africa — we want to hear from you.
-        </p>
-        <p class="contact-intro">
-          We work with organisations across Europe and Africa on a project and retainer basis. First conversations are always free.
-        </p>
-        <div class="contact-details">
-          <div class="contact-item">
-            <div class="contact-icon">✉️</div>
-            <a href="mailto:kisifejude@gmail.com">kisifejude@gmail.com</a>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">💼</div>
-            <a href="https://www.linkedin.com/in/kisifefomotarjude" target="_blank">linkedin.com/in/kisifefomotarjude</a>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">📍</div>
-            <span style="font-size:0.9rem; font-weight:500; color:var(--text-dark)">Bad Oeynhausen, Germany &mdash; serving Europe &amp; Africa</span>
-          </div>
+    <!-- ============ FAQ ============ -->
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="center"><p class="eyebrow">Questions</p><h2>Frequently asked</h2></div>
+        <div class="faq mt-2">
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">What is environmental intelligence?</button><div class="faq-a"><p>Environmental intelligence is the practice of turning field data, remote sensing, and scientific analysis into decisions organisations can act on — covering biodiversity, deforestation risk, carbon, and regulatory compliance. It combines ground-truth verification with AI-era data capabilities.</p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Who do you work with?</button><div class="faq-a"><p>European companies and institutions facing EUDR and CSRD obligations, carbon and biodiversity project developers, AI labs building environmental datasets, and conservation organisations needing field verification across Central and West Africa.</p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">Do you work with organisations outside Europe?</button><div class="faq-a"><p>Yes. I work across Europe and Africa on a project and retainer basis, with field operations concentrated in Central and West Africa and regulatory work focused on European markets.</p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">What frameworks do you cover?</button><div class="faq-a"><p>EUDR, CSRD / ESRS E4, REDD+, the EU Taxonomy, TNFD, and SBTN — plus Article 6 carbon market mechanisms and biodiversity credit methodologies.</p></div></div>
+          <div class="faq-item"><button class="faq-q" aria-expanded="false">How do I start a project?</button><div class="faq-a"><p>Use the <a href="contact.html">contact form</a> or email info@biofarms.ai with a short description of your need. First conversations are always free.</p></div></div>
         </div>
       </div>
-      <div>
-        <form class="contact-form" action="mailto:kisifejude@gmail.com" method="post" enctype="text/plain">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="name">Full name</label>
-              <input type="text" id="name" name="name" placeholder="Your name" required />
-            </div>
-            <div class="form-group">
-              <label for="org">Organisation</label>
-              <input type="text" id="org" name="organisation" placeholder="Company or NGO" />
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="email">Email address</label>
-            <input type="email" id="email" name="email" placeholder="you@organisation.com" required />
-          </div>
-          <div class="form-group">
-            <label for="service">Service area</label>
-            <select id="service" name="service">
-              <option value="">Select a service</option>
-              <option>EUDR &amp; Regulatory Compliance</option>
-              <option>Biodiversity &amp; Nature-Based Solutions</option>
-              <option>Environmental AI &amp; Data Intelligence</option>
-              <option>Field Verification &amp; Drone Intelligence</option>
-              <option>Other / General Enquiry</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="message">Tell us about your project</label>
-            <textarea id="message" name="message" placeholder="Briefly describe what you're working on and how we can help…"></textarea>
-          </div>
-          <button type="submit" class="btn-submit">Send Enquiry →</button>
-        </form>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand-line">Biofarms.ai</div>
+          <p class="tagline">Ground Truth. Global Standards.</p>
+          <p>Field-verified environmental intelligence bridging Africa's tropical ecosystems with European sustainability markets.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul class="footer-links">
+            <li><a href="services.html">Services</a></li>
+            <li><a href="insights.html">Insights</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:info@biofarms.ai">info@biofarms.ai</a></li>
+            <li><a href="mailto:kisifej@biofarms.ai">kisifej@biofarms.ai</a></li>
+            <li><a href="https://www.linkedin.com/in/kisifefomotarjude" target="_blank" rel="noopener">linkedin.com/in/kisifefomotarjude</a></li>
+            <li>Bad Oeynhausen, Germany</li>
+          </ul>
+        </div>
       </div>
+      <div class="footer-bottom">© 2026 Biofarms.ai · Kisife Fomotar Jude · Bad Oeynhausen, Germany</div>
     </div>
-  </div>
-</section>
+  </footer>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div>
-      <div class="footer-logo">Biofarms<span>.ai</span></div>
-      <div class="footer-tagline">Ground Truth. Global Standards.</div>
-    </div>
-    <nav class="footer-links">
-      <a href="#services">Services</a>
-      <a href="#why">Why Us</a>
-      <a href="#about">About</a>
-      <a href="#work">Publications</a>
-      <a href="#contact">Contact</a>
-      <a href="https://www.linkedin.com/in/kisifefomotarjude" target="_blank">LinkedIn</a>
-    </nav>
-    <div class="footer-copy">
-      © 2026 Biofarms.ai · Kisife Fomotar Jude · Bad Oeynhausen, Germany · kisifejude@gmail.com
-    </div>
-  </div>
-</footer>
-
-<script>
-  function toggleMenu() {
-    const links = document.querySelector('.nav-links');
-    links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
-    links.style.flexDirection = 'column';
-    links.style.position = 'absolute';
-    links.style.top = '68px';
-    links.style.left = '0';
-    links.style.right = '0';
-    links.style.background = 'white';
-    links.style.padding = '1.5rem 5%';
-    links.style.borderBottom = '1px solid #E5E7EB';
-    links.style.gap = '1rem';
-  }
-
-  // Smooth active nav highlighting
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id');
-    });
-    navLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === '#' + current ? '#2D6A4F' : '';
-    });
-  });
-</script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
