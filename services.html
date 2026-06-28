@@ -1,127 +1,355 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Services — Biofarms.ai</title>
-  <meta name="description" content="Four pillars of environmental intelligence: EUDR & regulatory compliance, biodiversity & nature-based solutions, environmental AI & data intelligence, and field verification & drone intelligence." />
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Biofarms.ai - Field-verified environmental intelligence at the intersection of ground-truth ecology and frontier AI. EU compliance, remote sensing, AI evaluation, carbon markets.">
+<meta name="author" content="Kisife Fomotar Jude">
+<meta name="theme-color" content="#1B4D3E">
+<title>Services | Biofarms.ai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="container nav">
-      <a class="brand" href="index.html"><img src="assets/favicon.svg" alt="" /> Biofarms<span>.ai</span></a>
-      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
-      <ul class="nav-links">
-        <li><a href="services.html" class="active">Services</a></li>
-        <li><a href="insights.html">Insights</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="publications.html">Publications</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li class="nav-cta"><a class="btn btn--dark" href="contact.html">Start a project →</a></li>
-      </ul>
+<nav role="navigation" aria-label="Main navigation">
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <div class="container">
+    <a href="index.html" class="logo"><img src="logo.svg" alt="" width="40" height="40"><span class="logo-text">biofarms<span class="logo-dot">.ai</span></span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="videos.html">Stories</a>
+      <a href="case-studies.html">Case Studies</a>
+      <a href="publications.html">Publications</a>
+      <a href="pricing.html">Pricing</a>
+      <a href="faq.html">FAQ</a>
+      <a href="contact.html" class="btn btn-primary">Get in Touch</a>
     </div>
-  </header>
-
-  <main id="main">
-    <section class="hero hero--inner" style="--hero-img:url('assets/img/services.svg')">
-      <div class="container hero__inner">
-        <p class="eyebrow" style="color:var(--earth-light)">Services</p>
-        <h1>Four pillars of environmental intelligence</h1>
-        <p class="hero__sub">From EU regulatory compliance to on-the-ground field verification — the data and analysis that nature-positive organisations need to operate with confidence.</p>
-      </div>
-    </section>
-
-    <section class="section section--tint">
-      <div class="container">
-
-        <div class="service-block" id="eudr">
-          <div><div class="icon">📋</div><h2>EUDR &amp; Regulatory Compliance</h2></div>
-          <div>
-            <p>I help European companies navigate the EU Deforestation Regulation, CSRD biodiversity reporting, and emerging nature-risk frameworks — backed by real field data from origin landscapes rather than desk estimates.</p>
-            <ul>
-              <li>Deforestation risk assessments &amp; supply chain traceability</li>
-              <li>EUDR due diligence documentation</li>
-              <li>CSRD / ESRS E4 biodiversity disclosures</li>
-              <li>EU Taxonomy alignment &amp; TNFD / SBTN support</li>
-              <li>Horizon Europe &amp; LIFE programme technical inputs</li>
-            </ul>
-            <a class="btn btn--outline" href="contact.html">Enquire about this service →</a>
-          </div>
-        </div>
-
-        <div class="service-block" id="biodiversity">
-          <div><div class="icon">🌿</div><h2>Biodiversity &amp; Nature-Based Solutions</h2></div>
-          <div>
-            <p>I design, assess, and validate biodiversity projects — from REDD+ monitoring to biodiversity credit scoping — with scientific rigour rooted in field experience across tropical ecosystems.</p>
-            <ul>
-              <li>Ecosystem assessment &amp; biodiversity monitoring</li>
-              <li>Biodiversity credit scoping &amp; verification support</li>
-              <li>REDD+ MRV systems &amp; carbon project advisory</li>
-              <li>Assisted Natural Regeneration (ANR) planning</li>
-              <li>Nature-based solution feasibility studies</li>
-            </ul>
-            <a class="btn btn--outline" href="contact.html">Enquire about this service →</a>
-          </div>
-        </div>
-
-        <div class="service-block" id="ai">
-          <div><div class="icon">🤖</div><h2>Environmental AI &amp; Data Intelligence</h2></div>
-          <div>
-            <p>I develop expert-level environmental datasets for frontier AI models, conduct remote sensing analysis, and deliver predictive modelling for land-use and climate risks.</p>
-            <ul>
-              <li>Expert LLM training datasets for climate &amp; ecology</li>
-              <li>Remote sensing analysis (Sentinel-2, Landsat, GEE)</li>
-              <li>Land-use change detection &amp; predictive modelling</li>
-              <li>AI model evaluation for environmental reasoning</li>
-              <li>Data visualisation &amp; spatial analysis reports</li>
-            </ul>
-            <a class="btn btn--outline" href="contact.html">Enquire about this service →</a>
-          </div>
-        </div>
-
-        <div class="service-block" id="field">
-          <div><div class="icon">🛸</div><h2>Field Verification &amp; Drone Intelligence</h2></div>
-          <div>
-            <p>I deploy drone-assisted surveys, GIS mapping, and ground-truth data collection across Central and West Africa — providing the field credibility that desk-based analysis cannot replicate.</p>
-            <ul>
-              <li>Drone photogrammetry &amp; aerial surveys</li>
-              <li>GIS mapping &amp; spatial data collection</li>
-              <li>Ground-truth validation for carbon &amp; biodiversity projects</li>
-              <li>Community &amp; stakeholder engagement in field operations</li>
-              <li>Forest monitoring &amp; ecosystem health assessments</li>
-            </ul>
-            <a class="btn btn--outline" href="contact.html">Enquire about this service →</a>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="section pullquote">
-      <div class="container center">
-        <blockquote>"I don't just read reports about these landscapes. I have worked in them."
-          <span class="cite">— Kisife Fomotar Jude, Founder</span></blockquote>
-        <div class="mt-2"><a class="btn btn--primary" href="contact.html">Start a project →</a></div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
+    <button class="mobile-menu-btn" aria-label="Toggle menu" onclick="document.querySelector('.mobile-nav').classList.toggle('active')">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div class="mobile-nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="videos.html">Stories</a>
+    <a href="case-studies.html">Case Studies</a>
+    <a href="publications.html">Publications</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="faq.html">FAQ</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
+<main id="main-content">
+<section class="hero" style="min-height:50vh;">
+  <div class="hero-content" style="padding-top:6rem;">
     <div class="container">
-      <div class="footer-grid">
-        <div><div class="brand-line">Biofarms.ai</div><p class="tagline">Ground Truth. Global Standards.</p><p>Field-verified environmental intelligence bridging Africa's tropical ecosystems with European sustainability markets.</p></div>
-        <div><h4>Explore</h4><ul class="footer-links"><li><a href="services.html">Services</a></li><li><a href="insights.html">Insights</a></li><li><a href="about.html">About</a></li><li><a href="publications.html">Publications</a></li><li><a href="contact.html">Contact</a></li></ul></div>
-        <div><h4>Contact</h4><ul class="footer-links"><li><a href="mailto:info@biofarms.ai">info@biofarms.ai</a></li><li><a href="mailto:kisifej@biofarms.ai">kisifej@biofarms.ai</a></li><li><a href="https://www.linkedin.com/in/kisifefomotarjude" target="_blank" rel="noopener">linkedin.com/in/kisifefomotarjude</a></li><li>Bad Oeynhausen, Germany</li></ul></div>
-      </div>
-      <div class="footer-bottom">© 2026 Biofarms.ai · Kisife Fomotar Jude · Bad Oeynhausen, Germany</div>
+      <span class="hero-tag">Services</span>
+      <h1>Environmental Intelligence, Delivered</h1>
+      <p>Four tiers of service — from frontier AI evaluation to field-verified compliance. Every engagement is built on ground-truth credibility.</p>
     </div>
-  </footer>
-  <script src="assets/js/main.js"></script>
+  </div>
+</section>
+
+<section class="bg-white">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="text-caption">Tier 1</span>
+      <h2>Frontier AI and Environmental Intelligence</h2>
+      <p>Premium services at the intersection of environmental science and artificial intelligence.</p>
+    </div>
+    <div class="grid grid-2">
+      <div class="service-card fade-in">
+        <span class="service-card-tag">AI / ML</span>
+        <h3>AI Model Evaluation and Benchmarking</h3>
+        <div class="price">$5,000 – $15,000</div>
+        <p style="font-size:0.9375rem;color:var(--slate);margin-bottom:1rem;">Design expert-level environmental science challenge items that stress-test LLM reasoning on climate, ecology, and sustainability. Produce benchmark-quality datasets for model evaluation.</p>
+        <ul>
+          <li>Expert dataset development for frontier AI models</li>
+          <li>Climate, ecology, and sustainability reasoning tests</li>
+          <li>Benchmark report and model capability assessment</li>
+          <li>Collaboration with AI researchers and prompt engineers</li>
+          <li>Coverage: tropical forestry, REDD+, carbon markets, NbS</li>
+        </ul>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-card-tag">Due Diligence</span>
+        <h3>AI-Enhanced Environmental Due Diligence</h3>
+        <div class="price">$10,000 – $50,000</div>
+        <p style="font-size:0.9375rem;color:var(--slate);margin-bottom:1rem;">Combine remote sensing, field verification, and AI analysis to provide defensible EUDR, CSRD ESRS E4, and EU Taxonomy compliance assessments. Ground-truth satellite data with field verification.</p>
+        <ul>
+          <li>Supply chain deforestation risk assessment</li>
+          <li>EUDR compliance gap analysis</li>
+          <li>CSRD ESRS E4 biodiversity reporting</li>
+          <li>EU Taxonomy alignment verification</li>
+          <li>Field-verified documentation package</li>
+        </ul>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-card-tag">AI Training</span>
+        <h3>Prompt Engineering and AI Workflow Design</h3>
+        <div class="price">$3,000 – $8,000</div>
+        <p style="font-size:0.9375rem;color:var(--slate);margin-bottom:1rem;">Design custom AI workflows for environmental monitoring, policy analysis, and knowledge management. Train teams on prompt engineering and responsible AI use.</p>
+        <ul>
+          <li>Custom AI workflow architecture</li>
+          <li>Prompt engineering training (4D Framework)</li>
+          <li>Environmental monitoring automation</li>
+          <li>Responsible AI governance framework</li>
+          <li>Team training and knowledge transfer</li>
+        </ul>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-card-tag">MRV Systems</span>
+        <h3>MRV System Design with AI Integration</h3>
+        <div class="price">$15,000 – $75,000</div>
+        <p style="font-size:0.9375rem;color:var(--slate);margin-bottom:1rem;">Design end-to-end MRV systems that leverage AI for automated monitoring, satellite classification, and verification. Integrate field data with remote sensing and blockchain registries.</p>
+        <ul>
+          <li>REDD+ MRV architecture design</li>
+          <li>Article 6 carbon market integration</li>
+          <li>AI-powered satellite classification</li>
+          <li>Field data verification protocols</li>
+          <li>Blockchain registry integration</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-light">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="text-caption">Tier 2</span>
+      <h2>Remote Sensing and Field Intelligence</h2>
+      <p>Core technical services powered by satellite, drone, and GIS expertise.</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="service-card fade-in">
+        <span class="service-card-tag">Satellite</span>
+        <h3>Satellite-Based Environmental Monitoring</h3>
+        <div class="price">$3,000 – $12,000</div>
+        <p style="font-size:0.9375rem;color:var(--slate);margin-bottom:1rem;">Sentinel-2, Landsat, and Google Earth Engine analysis for land use change, deforestation detection, and ecosystem health monitoring.</p>
+        <ul>
+          <li>Time series land use change detection</li>
+          <li>Deforestation and degradation mapping</li>
+          <li>Ecosystem health indices</li>
+          <li>Carbon stock estimation</li>
+        </ul>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-card-tag">Drone</span>
+        <h3>Drone Survey and Mapping</h3>
+        <div class="price">$2,000 – $8,000</div>
+        <p style="font-size:0.9375rem;color:var(--slate);margin-bottom:1rem;">Drone-assisted surveys, photogrammetry, 3D mapping, and ground-truthing for environmental monitoring and carbon stock assessment.</p>
+        <ul>
+          <li>Aerial survey and photogrammetry</li>
+          <li>3D terrain and vegetation mapping</li>
+          <li>Carbon stock ground-truthing</li>
+          <li>Biodiversity survey support</li>
+        </ul>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-card-tag">GIS</span>
+        <h3>GIS and Spatial Analysis</h3>
+        <div class="price">$2,000 – $10,000</div>
+        <p style="font-size:0.9375rem;color:var(--slate);margin-bottom:1rem;">QGIS and ArcGIS spatial analysis for land use planning, ecosystem mapping, conservation prioritization, and risk assessment.</p>
+        <ul>
+          <li>Spatial data analysis and modeling</li>
+          <li>Conservation prioritization mapping</li>
+          <li>Environmental risk assessment</li>
+          <li>Decision support tool development</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-white">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="text-caption">Tier 3</span>
+      <h2>Policy, Governance and Compliance</h2>
+      <p>Advisory services for regulatory navigation, governance, and carbon markets.</p>
+    </div>
+    <div class="grid grid-2">
+      <div class="service-card fade-in">
+        <span class="service-card-tag">Governance</span>
+        <h3>Forest Governance and Indigenous Rights</h3>
+        <div class="price">$5,000 – $20,000</div>
+        <p style="font-size:0.9375rem;color:var(--slate);margin-bottom:1rem;">Governance assessment, institutional capacity building, community rights documentation, and participatory land use planning.</p>
+        <ul>
+          <li>WWF-style partner capacity assessments</li>
+          <li>Indigenous knowledge integration</li>
+          <li>Community rights documentation</li>
+          <li>FLEGT and REDD+ readiness</li>
+        </ul>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-card-tag">Compliance</span>
+        <h3>EU Regulatory Compliance</h3>
+        <div class="price">$8,000 – $30,000</div>
+        <p style="font-size:0.9375rem;color:var(--slate);margin-bottom:1rem;">Navigate EUDR, CSRD ESRS E4, and EU Taxonomy requirements with field-verified evidence.</p>
+        <ul>
+          <li>EUDR deforestation-free supply chains</li>
+          <li>CSRD ESRS E4 biodiversity reporting</li>
+          <li>EU Taxonomy alignment</li>
+          <li>Field-verified compliance documentation</li>
+        </ul>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-card-tag">Nature</span>
+        <h3>Nature-Based Solutions (NbS) Scoping</h3>
+        <div class="price">$5,000 – $25,000</div>
+        <p style="font-size:0.9375rem;color:var(--slate);margin-bottom:1rem;">NbS project design, biodiversity credit scoping, ecosystem assessment, and assisted natural regeneration planning.</p>
+        <ul>
+          <li>Ecosystem baseline assessment</li>
+          <li>Biodiversity credit scoping</li>
+          <li>Assisted natural regeneration design</li>
+          <li>ESG-driven mandate support</li>
+        </ul>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-card-tag">Carbon</span>
+        <h3>Carbon Market Strategy and MRV</h3>
+        <div class="price">$10,000 – $40,000</div>
+        <p style="font-size:0.9375rem;color:var(--slate);margin-bottom:1rem;">REDD+ readiness, Article 6 strategy, voluntary carbon market positioning, and ICVCM Core Carbon Principles alignment.</p>
+        <ul>
+          <li>REDD+ readiness assessment</li>
+          <li>Article 6 carbon market strategy</li>
+          <li>VCM positioning and ICVCM alignment</li>
+          <li>Carbon credit verification pathway</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-light">
+  <div class="container">
+    <div class="section-header fade-in">
+      <span class="text-caption">Tier 4</span>
+      <h2>Research, Training and Advisory</h2>
+      <p>Accessible services for research design, training, and stakeholder engagement.</p>
+    </div>
+    <div class="grid grid-2">
+      <div class="service-card fade-in">
+        <span class="service-card-tag">Research</span>
+        <h3>Research Design and Field Methods</h3>
+        <div class="price">$2,000 – $8,000</div>
+        <p style="font-size:0.9375rem;color:var(--slate);margin-bottom:1rem;">Design qualitative and quantitative research studies, field methods, and data collection protocols for environmental and social science.</p>
+        <ul>
+          <li>Qualitative and quantitative research design</li>
+          <li>Field protocol development</li>
+          <li>Data analysis plan</li>
+          <li>Ethical review compliance support</li>
+        </ul>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-card-tag">Training</span>
+        <h3>AI-Enhanced Sustainability Training</h3>
+        <div class="price">$1,500 – $5,000</div>
+        <p style="font-size:0.9375rem;color:var(--slate);margin-bottom:1rem;">Workshops on using GenAI for environmental monitoring, policy analysis, and sustainability reporting.</p>
+        <ul>
+          <li>Custom GenAI workshop</li>
+          <li>Prompt engineering for environmental teams</li>
+          <li>AI governance guide</li>
+          <li>Ongoing support package</li>
+        </ul>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-card-tag">Engagement</span>
+        <h3>Stakeholder Engagement and Facilitation</h3>
+        <div class="price">$2,000 – $10,000</div>
+        <p style="font-size:0.9375rem;color:var(--slate);margin-bottom:1rem;">Multi-stakeholder facilitation, community engagement, and cross-cultural communication in English, French, and Lamnso.</p>
+        <ul>
+          <li>Stakeholder mapping and analysis</li>
+          <li>Cross-cultural facilitation</li>
+          <li>Conflict resolution framework</li>
+          <li>Community engagement strategy</li>
+        </ul>
+      </div>
+      <div class="service-card fade-in">
+        <span class="service-card-tag">Assessment</span>
+        <h3>Environmental Impact Assessment</h3>
+        <div class="price">$3,000 – $15,000</div>
+        <p style="font-size:0.9375rem;color:var(--slate);margin-bottom:1rem;">Environmental impact assessments and management plans compliant with Cameroonian and international environmental law.</p>
+        <ul>
+          <li>Full EIA report</li>
+          <li>Environmental Management Plan (EMP)</li>
+          <li>Compliance roadmap</li>
+          <li>Monitoring protocol design</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-forest">
+  <div class="container">
+    <div class="cta-banner fade-in">
+      <span class="text-caption" style="color:var(--neon);">Custom Engagements</span>
+      <h2>Not Sure What You Need?</h2>
+      <p>Every project is different. Book a free 30-minute consultation to discuss your specific challenges and I will recommend the right approach.</p>
+      <a href="contact.html" class="btn btn-white btn-large">Book Free Consultation</a>
+    </div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="logo" style="color:#fff;margin-bottom:1rem;display:inline-block;">biofarms<span>.ai</span></a>
+        <p>Field-verified environmental intelligence at the intersection of ground-truth ecology and frontier AI. Bad Oeynhausen, NRW, Germany — global remote.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <a href="services.html">AI Model Evaluation</a><br>
+        <a href="services.html">Remote Sensing</a><br>
+        <a href="services.html">EU Compliance</a><br>
+        <a href="services.html">Training</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About</a><br>
+        <a href="videos.html">Stories</a><br>
+        <a href="case-studies.html">Case Studies</a><br>
+        <a href="publications.html">Publications</a><br>
+        <a href="pricing.html">Pricing</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <a href="https://www.linkedin.com/in/kisifefomotarjude" target="_blank" rel="noopener">LinkedIn</a><br>
+        <a href="contact.html">Contact</a><br>
+        <a href="mailto:info@biofarms.ai">info@biofarms.ai</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Biofarms.ai. All rights reserved.</p>
+      <p>Built with field-verified precision.</p>
+    </div>
+  </div>
+</footer>
+<script>
+document.querySelectorAll('.mobile-nav a').forEach(link=>{
+  link.addEventListener('click',()=>document.querySelector('.mobile-nav').classList.remove('active'));
+});
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible');});
+},{threshold:0.1});
+document.querySelectorAll('.fade-in').forEach(el=>observer.observe(el));
+document.querySelectorAll('.faq-question').forEach(q=>{
+  q.addEventListener('click',()=>{const a=q.nextElementSibling;q.classList.toggle('active');a.classList.toggle('active');});
+});
+window.addEventListener('scroll',()=>{
+  document.querySelector('nav').style.boxShadow=window.scrollY>50?'0 2px 10px rgba(0,0,0,0.08)':'none';
+});
+</script>
 </body>
 </html>
