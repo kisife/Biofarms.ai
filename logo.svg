@@ -1,53 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <!-- Background circle with gradient -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Biofarms.ai logo">
   <defs>
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0a3a2a"/>
-      <stop offset="100%" style="stop-color:#1a6b4d"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a3a2a"/>
+      <stop offset="1" stop-color="#1a6b4d"/>
     </linearGradient>
-    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#34d399"/>
-      <stop offset="100%" style="stop-color:#10b981"/>
+    <linearGradient id="leaf" x1="0.2" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#a3e635"/>
+      <stop offset="0.55" stop-color="#34d399"/>
+      <stop offset="1" stop-color="#10b981"/>
     </linearGradient>
   </defs>
-  
-  <!-- Main circle background -->
-  <circle cx="100" cy="100" r="95" fill="url(#bgGrad)"/>
-  
-  <!-- Outer ring -->
-  <circle cx="100" cy="100" r="90" fill="none" stroke="#34d399" stroke-width="2" opacity="0.3"/>
-  
-  <!-- B shape formed by leaf silhouette -->
-  <!-- Leaf body -->
-  <path d="M 100 45 
-           Q 70 50 55 80 
-           Q 50 100 65 120
-           Q 55 130 55 145
-           Q 55 160 70 165
-           L 130 165
-           Q 145 160 145 145
-           Q 145 130 135 120
-           Q 150 100 145 80
-           Q 130 50 100 45 Z" 
-        fill="url(#leafGrad)"/>
-  
-  <!-- Leaf vein line -->
-  <path d="M 100 50 L 100 160" stroke="#0a3a2a" stroke-width="3" fill="none" opacity="0.2"/>
-  
-  <!-- B negative space (the letter cutout) -->
-  <!-- B top loop -->
-  <ellipse cx="100" cy="85" rx="22" ry="20" fill="#0a3a2a"/>
-  <!-- B bottom loop -->
-  <ellipse cx="100" cy="130" rx="25" ry="22" fill="#0a3a2a"/>
-  <!-- B vertical bar -->
-  <rect x="82" y="70" width="10" height="80" rx="3" fill="#0a3a2a"/>
-  
-  <!-- AI dot accent (the dot on the i) -->
-  <circle cx="155" cy="55" r="8" fill="#0ea5e9"/>
-  
-  <!-- Subtle circuit/pixel pattern overlay for AI -->
-  <rect x="75" y="75" width="4" height="4" fill="#0a3a2a" opacity="0.15"/>
-  <rect x="121" y="75" width="4" height="4" fill="#0a3a2a" opacity="0.15"/>
-  <rect x="75" y="121" width="4" height="4" fill="#0a3a2a" opacity="0.15"/>
-  <rect x="121" y="121" width="4" height="4" fill="#0a3a2a" opacity="0.15"/>
+
+  <!-- badge -->
+  <rect x="2" y="2" width="96" height="96" rx="26" fill="url(#bg)"/>
+  <rect x="2.75" y="2.75" width="94.5" height="94.5" rx="25.25" fill="none" stroke="#34d399" stroke-opacity="0.25" stroke-width="1.5"/>
+
+  <!-- leaf -->
+  <path d="M50 24
+           C68 33 71 56 52 80
+           C50 82 50 82 48 80
+           C29 56 32 33 50 24 Z"
+        fill="url(#leaf)"/>
+  <!-- midrib -->
+  <path d="M50 30 L50 78" stroke="#0a3a2a" stroke-width="2.4" stroke-linecap="round" opacity="0.32"/>
+  <!-- side veins -->
+  <path d="M50 46 L40 41 M50 56 L60 51 M50 66 L41 61"
+        stroke="#0a3a2a" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.22"/>
+
+  <!-- AI data node at the growing tip -->
+  <circle cx="50" cy="24" r="9.5" fill="#0a3a2a"/>
+  <circle cx="50" cy="24" r="6.5" fill="#0ea5e9"/>
+  <circle cx="50" cy="24" r="6.5" fill="none" stroke="#bae6fd" stroke-width="1.2" opacity="0.7"/>
+  <circle cx="47.6" cy="21.6" r="1.7" fill="#e0f2fe"/>
 </svg>
