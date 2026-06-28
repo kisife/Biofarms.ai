@@ -347,3 +347,7 @@ footer p { color: rgba(255,255,255,0.5); font-size: 0.875rem; }
   .fade-in { transition: none; opacity: 1; transform: none; }
   .hero::before { animation: none; }
 }
+
+/* Pricing project-based tiers: plain rows, no overlapping checkmark */
+.service-card ul.price-list li { padding-left: 0; }
+.service-card ul.price-list li::before { content: none; }
