@@ -6,46 +6,14 @@
 <title>EU Regulatory Compliance (EUDR/CSRD) | biofarms.ai</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../shared/common.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="../shared/shaders.js"></script>
-<style>
-  .client-banner { background: linear-gradient(135deg, var(--forest), var(--forest-dark)); padding: 2rem 0; color: #fff; }
-  .client-banner h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem; }
-  .client-banner p { opacity: 0.8; font-size: 0.875rem; }
-  .challenge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-  .challenge-text { font-size: 1.125rem; color: var(--slate); line-height: 1.8; }
-  .challenge-text strong { color: var(--forest); }
-  .viz-full { width: 100%; height: 500px; position: relative; }
-  .viz-full canvas { display: block; width: 100%; height: 100%; }
-  .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
-  .result-card { background: #fff; border-radius: var(--radius); padding: 2rem; border: 1px solid var(--border); text-align: center; }
-  .result-card .result-icon { font-size: 2rem; margin-bottom: 1rem; }
-  .result-card h4 { font-size: 1rem; font-weight: 700; color: var(--forest); margin-bottom: 0.5rem; }
-  .result-card p { font-size: 0.875rem; color: var(--slate); }
-  .academic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-  .academic-card { background: #fff; border-radius: var(--radius); padding: 1.5rem; border-left: 4px solid var(--neon); box-shadow: var(--shadow); }
-  .academic-card .cite-doi { font-size: 0.75rem; color: var(--forest); font-weight: 600; margin-top: 0.5rem; display: block; }
-  .academic-card .cite-doi:hover { text-decoration: underline; }
-  .sankey-viz { width: 100%; height: 480px; }
-  .timeline-wrap { margin: 3rem 0; }
-  .method-flow { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-top: 2rem; }
-  .method-step { background: var(--forest); color: #fff; padding: 0.75rem 1.25rem; border-radius: 100px; font-size: 0.875rem; font-weight: 500; }
-  .method-arrow { color: var(--neon); font-size: 1.25rem; font-weight: 700; }
-  .hero-stats-row { display: flex; gap: 2.5rem; margin-top: 2rem; }
-  .hero-stat { text-align: center; }
-  .hero-stat .val { font-size: 2rem; font-weight: 800; color: var(--neon); }
-  .hero-stat .lbl { font-size: 0.75rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.05em; }
-  .reg-card { display: flex; align-items: flex-start; gap: 1rem; background: #fff; border-radius: var(--radius); padding: 1.5rem; border: 1px solid var(--border); }
-  .reg-card .reg-icon { font-size: 1.5rem; }
-  .reg-card h4 { font-size: 1rem; font-weight: 700; color: var(--forest); margin-bottom: 0.25rem; }
-  .reg-card p { font-size: 0.875rem; color: var(--slate); }
-  .dataset-list { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
-  .dataset-tag { background: rgba(27,77,62,0.08); color: var(--forest); padding: 0.375rem 0.75rem; border-radius: 100px; font-size: 0.75rem; font-weight: 600; }
-</style>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="stylesheet" href="../shared/case.css">
+
+
+
+
+
+
 </head>
 <body>
 
@@ -79,7 +47,7 @@
 </nav>
 
 <section class="service-hero">
-  <canvas id="hero-canvas"></canvas>
+  
   <div class="container hero-content">
     <span class="hero-tag">Service</span>
     <h1>EU Regulatory Compliance</h1>
@@ -311,172 +279,7 @@
   </div>
 </footer>
 
-<script>
-// Init shader
-initShaderBackground('hero-canvas', 'gradientMesh');
 
-// GSAP
-if (typeof gsap !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-
-  const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-  heroTl.from('.hero-tag', { opacity: 0, y: 20, duration: 0.6 })
-    .from('h1', { opacity: 0, y: 30, duration: 0.8 }, '-=0.3')
-    .from('.hero-subtitle', { opacity: 0, y: 20, duration: 0.6 }, '-=0.4')
-    .from('.hero-stat', { opacity: 0, y: 20, duration: 0.5, stagger: 0.1 }, '-=0.3');
-
-  gsap.utils.toArray('.reveal').forEach(el => {
-    gsap.fromTo(el, { opacity: 0, y: 40 }, {
-      opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-      scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
-    });
-  });
-
-  document.querySelectorAll('[data-count]').forEach(el => {
-    const target = +el.getAttribute('data-count');
-    gsap.fromTo(el, { innerText: 0 }, {
-      innerText: target, duration: 2, ease: 'power2.out',
-      snap: { innerText: 1 },
-      scrollTrigger: { trigger: el, start: 'top 85%' },
-      onUpdate: function() { el.textContent = Math.round(this.targets()[0].innerText); }
-    });
-  });
-}
-
-// D3 Sankey-style Flow Diagram
-(function() {
-  const container = document.getElementById('sankey-chart');
-  const width = container.clientWidth || 900;
-  const height = 480;
-  const svg = d3.select(container).append('svg').attr('viewBox', `0 0 ${width} ${height}`).attr('preserveAspectRatio', 'xMidYMid meet').style('width', '100%').style('height', '100%');
-
-  const nodes = [
-    { id: 0, name: 'Supplier Geolocation', x: 50, y: 60, w: 160, h: 50 },
-    { id: 1, name: 'Production Data', x: 50, y: 150, w: 160, h: 50 },
-    { id: 2, name: 'Risk Assessment', x: 50, y: 240, w: 160, h: 50 },
-    { id: 3, name: 'Due Diligence', x: 50, y: 330, w: 160, h: 50 },
-    { id: 4, name: 'EUDR Database', x: 320, y: 105, w: 160, h: 50 },
-    { id: 5, name: 'Compliance Report', x: 320, y: 240, w: 160, h: 50 },
-    { id: 6, name: 'CSRD Disclosure', x: 320, y: 330, w: 160, h: 50 },
-    { id: 7, name: 'EU Market Entry', x: 600, y: 180, w: 180, h: 60 },
-  ];
-
-  const links = [
-    { source: 0, target: 4, value: 50 }, { source: 1, target: 4, value: 40 },
-    { source: 2, target: 5, value: 60 }, { source: 3, target: 5, value: 70 },
-    { source: 4, target: 7, value: 90 }, { source: 5, target: 7, value: 130 },
-    { source: 5, target: 6, value: 30 }, { source: 6, target: 7, value: 30 },
-  ];
-
-  const color = d3.scaleOrdinal().range(['#1B4D3E', '#2A6B52', '#4ADE80', '#86EFAC']);
-
-  // Draw links as curved paths
-  const linkGen = d3.linkHorizontal().x(d => d.x).y(d => d.y);
-
-  links.forEach(l => {
-    const s = nodes[l.source]; const t = nodes[l.target];
-    const sx = s.x + s.w; const sy = s.y + s.h / 2;
-    const tx = t.x; const ty = t.y + t.h / 2;
-    const path = d3.path(); path.moveTo(sx, sy); path.bezierCurveTo((sx + tx) / 2, sy, (sx + tx) / 2, ty, tx, ty);
-    svg.append('path').attr('d', path.toString()).attr('fill', 'none').attr('stroke', '#1B4D3E').attr('stroke-width', Math.max(2, l.value / 8)).attr('opacity', 0.4);
-  });
-
-  // Draw nodes
-  const nodeSel = svg.selectAll('g.node').data(nodes).enter().append('g').attr('transform', d => `translate(${d.x},${d.y})`);
-  nodeSel.append('rect').attr('width', d => d.w).attr('height', d => d.h).attr('rx', 8).attr('fill', (d, i) => color(i)).attr('opacity', 0.9);
-  nodeSel.append('text').attr('x', d => d.w / 2).attr('y', d => d.h / 2).attr('dy', '0.35em').attr('text-anchor', 'middle').style('fill', '#fff').style('font-size', '12px').style('font-weight', '600').text(d => d.name);
-})();
-
-// Three.js Globe with Risk-coded supply chain points
-(function() {
-  const container = document.getElementById('globe-viz');
-  if (!container) return;
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-  camera.position.z = 3.5;
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  renderer.setSize(container.clientWidth, container.clientHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  container.appendChild(renderer.domElement);
-
-  const geometry = new THREE.SphereGeometry(1, 64, 64);
-  const material = new THREE.MeshPhongMaterial({ color: 0x1B4D3E, emissive: 0x0F2E25, specular: 0x4ADE80, shininess: 10, transparent: true, opacity: 0.92 });
-  const globe = new THREE.Mesh(geometry, material);
-  scene.add(globe);
-
-  const wireframe = new THREE.WireframeGeometry(geometry);
-  const wireMat = new THREE.LineBasicMaterial({ color: 0x4ADE80, transparent: true, opacity: 0.12 });
-  const wire = new THREE.LineSegments(wireframe, wireMat);
-  globe.add(wire);
-
-  const light = new THREE.DirectionalLight(0xffffff, 1);
-  light.position.set(5, 3, 5);
-  scene.add(light);
-  scene.add(new THREE.AmbientLight(0x404040));
-
-  // Supply chain points color-coded by risk: 0=green (low), 1=yellow (med), 2=red (high)
-  const points = [
-    // Latin America (soy, beef, coffee) - mostly medium risk
-    { lat: -10, lon: -55, risk: 1 }, { lat: -15, lon: -60, risk: 1 }, { lat: 5, lon: -75, risk: 1 }, { lat: 10, lon: -85, risk: 1 },
-    // Southeast Asia (palm oil, rubber) - high risk
-    { lat: 0, lon: 110, risk: 2 }, { lat: 5, lon: 100, risk: 2 }, { lat: -2, lon: 115, risk: 2 },
-    // Africa (cocoa, timber) - mixed
-    { lat: 6, lon: -5, risk: 1 }, { lat: 5, lon: -3, risk: 2 }, { lat: 0, lon: 10, risk: 1 },
-    // Europe (import) - low
-    { lat: 51, lon: 9, risk: 0 }, { lat: 50, lon: 8, risk: 0 }
-  ];
-
-  const riskColor = [0x4ADE80, 0xFBBF24, 0xEF4444]; // green, yellow, red
-
-  points.forEach(p => {
-    const phi = (90 - p.lat) * Math.PI / 180;
-    const theta = (p.lon + 180) * Math.PI / 180;
-    const r = 1.04;
-    const x = r * Math.sin(phi) * Math.cos(theta);
-    const y = r * Math.cos(phi);
-    const z = r * Math.sin(phi) * Math.sin(theta);
-    const dotGeo = new THREE.SphereGeometry(0.035, 12, 12);
-    const dotMat = new THREE.MeshBasicMaterial({ color: riskColor[p.risk] });
-    const dot = new THREE.Mesh(dotGeo, dotMat);
-    dot.position.set(x, y, z);
-    globe.add(dot);
-  });
-
-  // Arcs from origin to EU
-  const euPoints = points.filter(p => p.risk === 0);
-  const originPoints = points.filter(p => p.risk > 0);
-  originPoints.forEach(op => {
-    const ep = euPoints[0];
-    const phi1 = (90 - op.lat) * Math.PI / 180; const theta1 = (op.lon + 180) * Math.PI / 180;
-    const phi2 = (90 - ep.lat) * Math.PI / 180; const theta2 = (ep.lon + 180) * Math.PI / 180;
-    const r = 1.06;
-    const x1 = r * Math.sin(phi1) * Math.cos(theta1); const y1 = r * Math.cos(phi1); const z1 = r * Math.sin(phi1) * Math.sin(theta1);
-    const x2 = r * Math.sin(phi2) * Math.cos(theta2); const y2 = r * Math.cos(phi2); const z2 = r * Math.sin(phi2) * Math.sin(theta2);
-    const curve = new THREE.QuadraticBezierCurve3(
-      new THREE.Vector3(x1, y1, z1),
-      new THREE.Vector3((x1 + x2) / 2 * 1.4, (y1 + y2) / 2 * 1.4, (z1 + z2) / 2 * 1.4),
-      new THREE.Vector3(x2, y2, z2)
-    );
-    const tubeGeo = new THREE.TubeGeometry(curve, 20, 0.003, 4, false);
-    const tubeMat = new THREE.MeshBasicMaterial({ color: riskColor[op.risk], transparent: true, opacity: 0.3 });
-    const tube = new THREE.Mesh(tubeGeo, tubeMat);
-    globe.add(tube);
-  });
-
-  function animate() { requestAnimationFrame(animate); globe.rotation.y += 0.0015; renderer.render(scene, camera); }
-  animate();
-
-  window.addEventListener('resize', () => {
-    camera.aspect = container.clientWidth / container.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(container.clientWidth, container.clientHeight);
-  });
-})();
-
-window.addEventListener('scroll', () => {
-  const nav = document.querySelector('.bio-nav');
-  if (nav) nav.style.boxShadow = window.scrollY > 50 ? '0 2px 10px rgba(0,0,0,0.08)' : 'none';
-});
-</script>
+<script src="../shared/case.js"></script>
 </body>
 </html>

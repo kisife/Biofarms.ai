@@ -7,24 +7,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../shared/common.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="../shared/shaders.js"></script>
-  <style>
-    .page-eia .d3-axis text { fill: #64748B; font-family: Inter, sans-serif; font-size: 11px; }
-    .page-eia .d3-axis path, .page-eia .d3-axis line { stroke: rgba(255,255,255,0.1); }
-    .page-eia .impact-cell { stroke: rgba(255,255,255,0.06); stroke-width: 1; }
-    .page-eia .impact-label { fill: #F5F7F6; font-size: 11px; font-family: Inter, sans-serif; font-weight: 500; text-anchor: middle; dominant-baseline: middle; pointer-events: none; }
-    .page-eia .impact-legend-text { fill: #64748B; font-size: 11px; font-family: Inter, sans-serif; }
-    .page-eia .axis-label { fill: #64748B; font-size: 13px; font-family: Inter, sans-serif; }
-    .page-eia .matrix-title { fill: #F5F7F6; font-size: 14px; font-family: Inter, sans-serif; font-weight: 600; }
-    .page-eia .component-label { fill: #F5F7F6; font-size: 12px; font-family: Inter, sans-serif; font-weight: 500; }
-    .client-banner { background: linear-gradient(135deg, rgba(27,77,62,0.6) 0%, rgba(15,46,37,0.8) 100%); border: 1px solid rgba(74,222,128,0.15); border-radius: 16px; padding: 32px 40px; display: flex; align-items: center; gap: 24px; }
-    .client-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #4ADE80, #1B4D3E); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; color: #0F2E25; flex-shrink: 0; }
-  </style>
+  <link rel="icon" type="image/png" href="../favicon.png">
+<link rel="stylesheet" href="../shared/case.css">
+  
+  
+  
+  
+  
+  
 </head>
 <body class="page-eia">
 
@@ -58,7 +48,7 @@
 </nav>
 
 <section class="hero" id="hero">
-  <canvas class="hero-shader-bg" id="shaderCanvas"></canvas>
+  
   <div class="hero-content">
     <div class="section-label gsap-reveal">Services</div>
     <h1 class="hero-title gsap-reveal">Environmental Impact<br>Assessment</h1>
@@ -313,222 +303,7 @@
   </div>
 </footer>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  if (window.BiofarmsShaders) {
-    window.BiofarmsShaders.init('#shaderCanvas', 'matrix');
-  }
 
-  const nav = document.getElementById('siteNav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 50);
-  });
-
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.from('.hero .gsap-reveal', { y: 60, opacity: 0, duration: 1.2, stagger: 0.2, ease: 'power3.out', delay: 0.3 });
-  gsap.utils.toArray('.section .gsap-reveal').forEach(el => {
-    gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }, y: 40, opacity: 0, duration: 0.8, ease: 'power3.out' });
-  });
-
-  const statNumbers = document.querySelectorAll('#statsGrid .stat-number');
-  statNumbers.forEach(num => {
-    const target = parseInt(num.dataset.target);
-    gsap.to(num, {
-      scrollTrigger: { trigger: num, start: 'top 85%' },
-      innerText: target, duration: 2.5, snap: { innerText: 1 }, ease: 'power2.out',
-      onUpdate: function() {
-        const val = Math.round(this.targets()[0].innerText);
-        num.innerText = target === 12500 ? val.toLocaleString() : val;
-      }
-    });
-  });
-
-  // ==================== D3.js Impact Severity vs Probability Matrix ====================
-  const impactData = [
-    { component: 'Biodiversity', severity: 4.5, probability: 4.2, category: 'Biological' },
-    { component: 'Water Quality', severity: 3.8, probability: 3.5, category: 'Physical' },
-    { component: 'Soil Erosion', severity: 3.2, probability: 4.0, category: 'Physical' },
-    { component: 'Air Quality', severity: 2.0, probability: 2.5, category: 'Physical' },
-    { component: 'Noise', severity: 1.5, probability: 3.0, category: 'Physical' },
-    { component: 'Land Use', severity: 3.5, probability: 4.5, category: 'Socio-Economic' },
-    { component: 'Community Health', severity: 2.8, probability: 2.2, category: 'Socio-Economic' },
-    { component: 'Cultural Heritage', severity: 3.0, probability: 1.8, category: 'Socio-Economic' }
-  ];
-
-  const matrixContainer = document.getElementById('impactMatrix');
-  const iw = matrixContainer.clientWidth - 48;
-  const ih = 500;
-  const im = { top: 40, right: 60, bottom: 60, left: 140 };
-  const iiw = iw - im.left - im.right;
-  const iih = ih - im.top - im.bottom;
-
-  const isvg = d3.select('#impactMatrix').append('svg').attr('width', iw).attr('height', ih);
-  const ig = isvg.append('g').attr('transform', `translate(${im.left},${im.top})`);
-
-  const xS = d3.scaleLinear().domain([0, 5]).range([0, iiw]);
-  const yS = d3.scaleLinear().domain([0, 5]).range([iih, 0]);
-
-  // Grid cells (5x5)
-  const cellColors = ['#1B4D3E', '#2d6e52', '#4a8a5e', '#e8b84b', '#d14f4f'];
-  for (let r = 0; r < 5; r++) {
-    for (let c = 0; c < 5; c++) {
-      const sig = (r + 1) * (c + 1);
-      let color = cellColors[0];
-      if (sig <= 6) color = cellColors[0];
-      else if (sig <= 10) color = cellColors[1];
-      else if (sig <= 15) color = cellColors[2];
-      else if (sig <= 20) color = cellColors[3];
-      else color = cellColors[4];
-
-      ig.append('rect')
-        .attr('x', xS(c)).attr('y', yS(r + 1))
-        .attr('width', xS(1) - xS(0)).attr('height', yS(0) - yS(1))
-        .attr('fill', color).attr('opacity', 0.15).attr('class', 'impact-cell');
-    }
-  }
-
-  // Axes
-  ig.append('g').attr('class', 'd3-axis').attr('transform', `translate(0,${iih})`).call(d3.axisBottom(xS).ticks(5));
-  ig.append('g').attr('class', 'd3-axis').call(d3.axisLeft(yS).ticks(5));
-  ig.append('text').attr('x', iiw / 2).attr('y', iih + 48).attr('text-anchor', 'middle').attr('class', 'axis-label').text('Probability (Likelihood of Occurrence)');
-  ig.append('text').attr('transform', 'rotate(-90)').attr('x', -iih / 2).attr('y', -100).attr('text-anchor', 'middle').attr('class', 'axis-label').text('Severity (Magnitude of Consequence)');
-
-  // Grid lines
-  for (let i = 1; i <= 4; i++) {
-    ig.append('line').attr('x1', xS(i)).attr('x2', xS(i)).attr('y1', 0).attr('y2', iih).attr('stroke', 'rgba(255,255,255,0.05)').attr('stroke-dasharray', '2,2');
-    ig.append('line').attr('x1', 0).attr('x2', iiw).attr('y1', yS(i)).attr('y2', yS(i)).attr('stroke', 'rgba(255,255,255,0.05)').attr('stroke-dasharray', '2,2');
-  }
-
-  // Significance labels
-  const sigLabels = [
-    { x: 0.5, y: 4.5, text: 'Very Low' }, { x: 2.5, y: 2.5, text: 'Moderate' }, { x: 4.5, y: 4.5, text: 'Very High' }
-  ];
-  sigLabels.forEach(l => {
-    ig.append('text').attr('x', xS(l.x)).attr('y', yS(l.y)).attr('text-anchor', 'middle').attr('class', 'quadrant-label').attr('opacity', 0.2).text(l.text);
-  });
-
-  // Data points
-  const catColor = { 'Biological': '#4ADE80', 'Physical': '#60A5FA', 'Socio-Economic': '#FBBF24' };
-  const points = ig.selectAll('.impact-point').data(impactData).enter().append('circle')
-    .attr('cx', d => xS(d.probability)).attr('cy', d => yS(d.severity)).attr('r', 0)
-    .attr('fill', d => catColor[d.category]).attr('opacity', 0.85).attr('stroke', '#fff').attr('stroke-width', 1.5);
-
-  // Component labels
-  const labels = ig.selectAll('.component-label').data(impactData).enter().append('text')
-    .attr('x', -10).attr('y', d => yS(d.severity) + 4).attr('text-anchor', 'end')
-    .attr('class', 'component-label').text(d => d.component).attr('opacity', 0);
-
-  // Connecting lines from labels to points
-  const connLines = ig.selectAll('.conn-line').data(impactData).enter().append('line')
-    .attr('x1', -5).attr('y1', d => yS(d.severity)).attr('x2', d => xS(d.probability)).attr('y2', d => yS(d.severity))
-    .attr('stroke', 'rgba(255,255,255,0.1)').attr('stroke-width', 1).attr('opacity', 0);
-
-  // Animate
-  ScrollTrigger.create({
-    trigger: '#impactMatrix', start: 'top 80%',
-    onEnter: () => {
-      labels.transition().duration(600).attr('opacity', 1);
-      connLines.transition().delay(300).duration(600).attr('opacity', 1);
-      points.transition().delay(600).duration(800).ease(d3.easeBackOut).attr('r', 10);
-    }
-  });
-
-  // Legend
-  const legend = isvg.append('g').attr('transform', `translate(${iw - 140}, 20)`);
-  Object.entries(catColor).forEach(([cat, col], i) => {
-    legend.append('circle').attr('cx', 6).attr('cy', i * 22 + 6).attr('r', 6).attr('fill', col);
-    legend.append('text').attr('x', 20).attr('y', i * 22 + 11).attr('fill', '#64748B').attr('font-size', '11px').attr('font-family', 'Inter, sans-serif').text(cat);
-  });
-
-  // ==================== Three.js 3D Terrain with Impact Zones ====================
-  const tContainer = document.getElementById('threeTerrain');
-  const tScene = new THREE.Scene();
-  const tCamera = new THREE.PerspectiveCamera(45, tContainer.clientWidth / tContainer.clientHeight, 0.1, 1000);
-  const tRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  tRenderer.setSize(tContainer.clientWidth, tContainer.clientHeight);
-  tRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  tContainer.appendChild(tRenderer.domElement);
-
-  // Terrain geometry
-  const terrainSize = 120;
-  const terrainGeo = new THREE.PlaneGeometry(20, 20, terrainSize - 1, terrainSize - 1);
-  const positions = terrainGeo.attributes.position;
-
-  // Simple noise function for terrain
-  function noise(x, y) {
-    return Math.sin(x * 2.3 + y * 1.7) * 0.3 + Math.sin(x * 5.1 - y * 3.2) * 0.15 + Math.sin(x * 11.3 + y * 7.1) * 0.08;
-  }
-
-  for (let i = 0; i < positions.count; i++) {
-    const x = positions.getX(i);
-    const y = positions.getY(i);
-    const z = noise(x, y) * 1.5;
-    positions.setZ(i, z);
-  }
-  terrainGeo.computeVertexNormals();
-
-  const terrainMat = new THREE.MeshPhongMaterial({
-    color: 0x1B4D3E, emissive: 0x0a1f18, emissiveIntensity: 0.2,
-    specular: 0x4ADE80, shininess: 5, flatShading: true, transparent: true, opacity: 0.9
-  });
-  const terrain = new THREE.Mesh(terrainGeo, terrainMat);
-  terrain.rotation.x = -Math.PI / 2.5;
-  tScene.add(terrain);
-
-  // Impact zones (colored circles on terrain)
-  const impactZones = [
-    { x: -4, z: -3, radius: 1.8, color: 0xd14f4f, label: 'High Impact' },
-    { x: 3, z: 2, radius: 1.2, color: 0xe8b84b, label: 'Moderate Impact' },
-    { x: -2, z: 4, radius: 0.9, color: 0x4a8a5e, label: 'Low Impact' },
-    { x: 5, z: -4, radius: 1.5, color: 0xe8b84b, label: 'Moderate Impact' }
-  ];
-
-  impactZones.forEach(zone => {
-    const zoneGeo = new THREE.CircleGeometry(zone.radius, 32);
-    const zoneMat = new THREE.MeshBasicMaterial({ color: zone.color, transparent: true, opacity: 0.25, side: THREE.DoubleSide });
-    const zoneMesh = new THREE.Mesh(zoneGeo, zoneMat);
-    zoneMesh.rotation.x = -Math.PI / 2;
-    zoneMesh.position.set(zone.x, 0.1, zone.z);
-    tScene.add(zoneMesh);
-
-    // Ring border
-    const ringGeo = new THREE.RingGeometry(zone.radius - 0.05, zone.radius, 32);
-    const ringMat = new THREE.MeshBasicMaterial({ color: zone.color, transparent: true, opacity: 0.5, side: THREE.DoubleSide });
-    const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-    ringMesh.rotation.x = -Math.PI / 2;
-    ringMesh.position.set(zone.x, 0.12, zone.z);
-    tScene.add(ringMesh);
-  });
-
-  // Grid overlay
-  const gridHelper = new THREE.GridHelper(20, 20, 0x4ADE80, 0x1B4D3E);
-  gridHelper.position.y = -0.5;
-  gridHelper.material.opacity = 0.15;
-  gridHelper.material.transparent = true;
-  tScene.add(gridHelper);
-
-  tScene.add(new THREE.AmbientLight(0xffffff, 0.6));
-  const tDir = new THREE.DirectionalLight(0xF5F7F6, 0.8); tDir.position.set(5, 10, 5); tScene.add(tDir);
-  tCamera.position.set(0, 8, 14);
-  tCamera.lookAt(0, 0, 0);
-
-  let tt = 0;
-  function animateTerrain() {
-    requestAnimationFrame(animateTerrain);
-    tt += 0.003;
-    terrain.rotation.z = Math.sin(tt) * 0.05;
-    tRenderer.render(tScene, tCamera);
-  }
-  animateTerrain();
-
-  window.addEventListener('resize', () => {
-    const w = tContainer.clientWidth;
-    const h = tContainer.clientHeight;
-    tCamera.aspect = w / h;
-    tCamera.updateProjectionMatrix();
-    tRenderer.setSize(w, h);
-  });
-});
-</script>
+<script src="../shared/case.js"></script>
 </body>
 </html>

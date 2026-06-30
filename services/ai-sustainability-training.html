@@ -7,27 +7,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../shared/common.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="../shared/shaders.js"></script>
-  <style>
-    .page-training .d3-axis text { fill: #64748B; font-family: Inter, sans-serif; font-size: 11px; }
-    .page-training .d3-axis path, .page-training .d3-axis line { stroke: rgba(255,255,255,0.1); }
-    .page-training .radar-grid { stroke: rgba(255,255,255,0.08); stroke-dasharray: 3,3; }
-    .page-training .radar-axis { stroke: rgba(255,255,255,0.15); }
-    .page-training .radar-area-before { fill: rgba(100,116,139,0.2); stroke: #64748B; stroke-width: 2; }
-    .page-training .radar-area-after { fill: rgba(74,222,128,0.2); stroke: #4ADE80; stroke-width: 2.5; }
-    .page-training .radar-label { fill: #F5F7F6; font-size: 12px; font-family: Inter, sans-serif; font-weight: 500; }
-    .page-training .radar-point { fill: #4ADE80; }
-    .page-training .radar-legend { fill: #64748B; font-size: 12px; font-family: Inter, sans-serif; }
-    .page-training .legend-box-before { fill: rgba(100,116,139,0.4); }
-    .page-training .legend-box-after { fill: rgba(74,222,128,0.4); }
-    .client-banner { background: linear-gradient(135deg, rgba(27,77,62,0.6) 0%, rgba(15,46,37,0.8) 100%); border: 1px solid rgba(74,222,128,0.15); border-radius: 16px; padding: 32px 40px; display: flex; align-items: center; gap: 24px; }
-    .client-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #4ADE80, #1B4D3E); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; color: #0F2E25; flex-shrink: 0; }
-  </style>
+  <link rel="icon" type="image/png" href="../favicon.png">
+<link rel="stylesheet" href="../shared/case.css">
+  
+  
+  
+  
+  
+  
 </head>
 <body class="page-training">
 
@@ -61,7 +48,7 @@
 </nav>
 
 <section class="hero" id="hero">
-  <canvas class="hero-shader-bg" id="shaderCanvas"></canvas>
+  
   <div class="hero-content">
     <div class="section-label gsap-reveal">Services</div>
     <h1 class="hero-title gsap-reveal">AI-Enhanced<br>Sustainability Training</h1>
@@ -308,211 +295,7 @@
   </div>
 </footer>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  if (window.BiofarmsShaders) {
-    window.BiofarmsShaders.init('#shaderCanvas', 'network');
-  }
 
-  const nav = document.getElementById('siteNav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 50);
-  });
-
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.from('.hero .gsap-reveal', { y: 60, opacity: 0, duration: 1.2, stagger: 0.2, ease: 'power3.out', delay: 0.3 });
-  gsap.utils.toArray('.section .gsap-reveal').forEach(el => {
-    gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }, y: 40, opacity: 0, duration: 0.8, ease: 'power3.out' });
-  });
-
-  const statNumbers = document.querySelectorAll('#statsGrid .stat-number');
-  statNumbers.forEach(num => {
-    const target = parseInt(num.dataset.target);
-    gsap.to(num, {
-      scrollTrigger: { trigger: num, start: 'top 85%' },
-      innerText: target, duration: 2.5, snap: { innerText: 1 }, ease: 'power2.out',
-      onUpdate: function() {
-        const val = Math.round(this.targets()[0].innerText);
-        num.innerText = (target === 67 || target === 92) ? val + '%' : val;
-      }
-    });
-  });
-
-  // ==================== D3.js Radar Chart ====================
-  const radarData = {
-    dimensions: ['AI Literacy', 'Data Analysis', 'Policy Knowledge', 'Communication', 'Leadership'],
-    before: [32, 28, 45, 52, 38],
-    after: [58, 48, 68, 74, 61]
-  };
-
-  const radarContainer = document.getElementById('radarChart');
-  const w = radarContainer.clientWidth - 48;
-  const h = 460;
-  const m = { top: 60, right: 120, bottom: 60, left: 60 };
-  const iw = w - m.left - m.right;
-  const ih = h - m.top - m.bottom;
-  const radius = Math.min(iw, ih) / 2;
-  const centerX = iw / 2;
-  const centerY = ih / 2;
-
-  const rsvg = d3.select('#radarChart').append('svg').attr('width', w).attr('height', h);
-  const rg = rsvg.append('g').attr('transform', `translate(${m.left},${m.top})`);
-
-  const levels = 5;
-  for (let i = 1; i <= levels; i++) {
-    const r = (radius / levels) * i;
-    rg.append('circle').attr('cx', centerX).attr('cy', centerY).attr('r', r)
-      .attr('class', 'radar-grid').attr('fill', 'none');
-  }
-
-  const angleSlice = (Math.PI * 2) / radarData.dimensions.length;
-  radarData.dimensions.forEach((dim, i) => {
-    const angle = angleSlice * i - Math.PI / 2;
-    const x = centerX + radius * Math.cos(angle);
-    const y = centerY + radius * Math.sin(angle);
-    rg.append('line').attr('x1', centerX).attr('y1', centerY).attr('x2', x).attr('y2', y).attr('class', 'radar-axis');
-    rg.append('text').attr('x', centerX + (radius + 25) * Math.cos(angle)).attr('y', centerY + (radius + 25) * Math.sin(angle))
-      .attr('text-anchor', 'middle').attr('dominant-baseline', 'middle').attr('class', 'radar-label').text(dim);
-  });
-
-  const rScale = d3.scaleLinear().domain([0, 100]).range([0, radius]);
-
-  function getPoints(values) {
-    return values.map((v, i) => {
-      const angle = angleSlice * i - Math.PI / 2;
-      return [centerX + rScale(v) * Math.cos(angle), centerY + rScale(v) * Math.sin(angle)];
-    });
-  }
-
-  const beforePoints = getPoints(radarData.before);
-  const afterPoints = getPoints(radarData.after);
-
-  const lineGen = d3.line().curve(d3.curveLinearClosed);
-
-  // Before area
-  const beforePath = rg.append('path').attr('d', lineGen(beforePoints)).attr('class', 'radar-area-before')
-    .attr('fill-opacity', 0).attr('stroke-opacity', 0);
-
-  // After area
-  const afterPath = rg.append('path').attr('d', lineGen(afterPoints)).attr('class', 'radar-area-after')
-    .attr('fill-opacity', 0).attr('stroke-opacity', 0);
-
-  // Animate on scroll
-  ScrollTrigger.create({
-    trigger: '#radarChart', start: 'top 80%',
-    onEnter: () => {
-      beforePath.transition().duration(1200).attr('fill-opacity', 0.2).attr('stroke-opacity', 1);
-      afterPath.transition().duration(1200).delay(400).attr('fill-opacity', 0.25).attr('stroke-opacity', 1);
-      beforePoints.forEach((pt, i) => {
-        rg.append('circle').attr('cx', pt[0]).attr('cy', pt[1]).attr('r', 0).attr('class', 'radar-point')
-          .attr('fill', '#64748B').transition().delay(600).duration(600).attr('r', 4);
-      });
-      afterPoints.forEach((pt, i) => {
-        rg.append('circle').attr('cx', pt[0]).attr('cy', pt[1]).attr('r', 0).attr('class', 'radar-point')
-          .attr('fill', '#4ADE80').transition().delay(900).duration(600).attr('r', 5);
-      });
-    }
-  });
-
-  // Legend
-  const legend = rg.append('g').attr('transform', `translate(${iw + 20}, 20)`);
-  legend.append('rect').attr('x', 0).attr('y', 0).attr('width', 16).attr('height', 16).attr('rx', 3).attr('class', 'legend-box-before');
-  legend.append('text').attr('x', 24).attr('y', 13).attr('class', 'radar-legend').text('Before Training');
-  legend.append('rect').attr('x', 0).attr('y', 28).attr('width', 16).attr('height', 16).attr('rx', 3).attr('class', 'legend-box-after');
-  legend.append('text').attr('x', 24).attr('y', 41).attr('class', 'radar-legend').text('After Training');
-
-  // ==================== Three.js Particle Network ====================
-  const pContainer = document.getElementById('threeParticles');
-  const pScene = new THREE.Scene();
-  const pCamera = new THREE.PerspectiveCamera(45, pContainer.clientWidth / pContainer.clientHeight, 0.1, 1000);
-  const pRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  pRenderer.setSize(pContainer.clientWidth, pContainer.clientHeight);
-  pRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  pContainer.appendChild(pRenderer.domElement);
-
-  const particleCount = 120;
-  const particles = [];
-  const particleGeo = new THREE.SphereGeometry(0.05, 16, 16);
-  const particleMat = new THREE.MeshBasicMaterial({ color: 0x4ADE80, transparent: true, opacity: 0.8 });
-  const nodeGroup = new THREE.Group();
-
-  for (let i = 0; i < particleCount; i++) {
-    const mesh = new THREE.Mesh(particleGeo, particleMat.clone());
-    mesh.position.set(
-      (Math.random() - 0.5) * 12,
-      (Math.random() - 0.5) * 8,
-      (Math.random() - 0.5) * 6
-    );
-    mesh.userData = {
-      vel: new THREE.Vector3((Math.random() - 0.5) * 0.01, (Math.random() - 0.5) * 0.01, (Math.random() - 0.5) * 0.005),
-      phase: Math.random() * Math.PI * 2
-    };
-    particles.push(mesh);
-    nodeGroup.add(mesh);
-  }
-  pScene.add(nodeGroup);
-
-  // Connection lines
-  const connections = new THREE.Group();
-  const lineGeo = new THREE.BufferGeometry();
-  const linePos = new Float32Array(300 * 6);
-  lineGeo.setAttribute('position', new THREE.BufferAttribute(linePos, 3));
-  const lineMaterial = new THREE.LineBasicMaterial({ color: 0x4ADE80, transparent: true, opacity: 0.12 });
-  const lines = new THREE.LineSegments(lineGeo, lineMaterial);
-  connections.add(lines);
-  pScene.add(connections);
-
-  pCamera.position.z = 12;
-  pScene.add(new THREE.AmbientLight(0xffffff, 0.5));
-
-  let pTime = 0;
-  function animateParticles() {
-    requestAnimationFrame(animateParticles);
-    pTime += 0.01;
-
-    particles.forEach(p => {
-      p.position.add(p.userData.vel);
-      p.position.y += Math.sin(pTime + p.userData.phase) * 0.003;
-      if (Math.abs(p.position.x) > 6) p.userData.vel.x *= -1;
-      if (Math.abs(p.position.y) > 4) p.userData.vel.y *= -1;
-      if (Math.abs(p.position.z) > 3) p.userData.vel.z *= -1;
-      const dist = p.position.distanceTo(new THREE.Vector3(0, 0, 0));
-      p.material.opacity = 0.4 + (1 - Math.min(dist / 8, 1)) * 0.6;
-    });
-
-    // Update connections
-    let idx = 0;
-    const maxLines = 100;
-    for (let i = 0; i < particles.length && idx < maxLines; i++) {
-      for (let j = i + 1; j < particles.length && idx < maxLines; j++) {
-        const dist = particles[i].position.distanceTo(particles[j].position);
-        if (dist < 2.5) {
-          linePos[idx * 6] = particles[i].position.x;
-          linePos[idx * 6 + 1] = particles[i].position.y;
-          linePos[idx * 6 + 2] = particles[i].position.z;
-          linePos[idx * 6 + 3] = particles[j].position.x;
-          linePos[idx * 6 + 4] = particles[j].position.y;
-          linePos[idx * 6 + 5] = particles[j].position.z;
-          idx++;
-        }
-      }
-    }
-    for (let i = idx * 6; i < linePos.length; i++) linePos[i] = 0;
-    lineGeo.attributes.position.needsUpdate = true;
-
-    nodeGroup.rotation.y = pTime * 0.05;
-    pRenderer.render(pScene, pCamera);
-  }
-  animateParticles();
-
-  window.addEventListener('resize', () => {
-    const w = pContainer.clientWidth;
-    const h = pContainer.clientHeight;
-    pCamera.aspect = w / h;
-    pCamera.updateProjectionMatrix();
-    pRenderer.setSize(w, h);
-  });
-});
-</script>
+<script src="../shared/case.js"></script>
 </body>
 </html>

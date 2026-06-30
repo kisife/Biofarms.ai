@@ -6,51 +6,14 @@
 <title>Carbon Market Strategy & MRV | biofarms.ai</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../shared/common.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="../shared/shaders.js"></script>
-<style>
-  .client-banner { background: linear-gradient(135deg, var(--forest), var(--forest-dark)); padding: 2rem 0; color: #fff; }
-  .client-banner h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem; }
-  .client-banner p { opacity: 0.8; font-size: 0.875rem; }
-  .challenge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-  .challenge-text { font-size: 1.125rem; color: var(--slate); line-height: 1.8; }
-  .challenge-text strong { color: var(--forest); }
-  .viz-full { width: 100%; height: 500px; position: relative; }
-  .viz-full canvas { display: block; width: 100%; height: 100%; }
-  .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
-  .result-card { background: #fff; border-radius: var(--radius); padding: 2rem; border: 1px solid var(--border); text-align: center; }
-  .result-card .result-icon { font-size: 2rem; margin-bottom: 1rem; }
-  .result-card h4 { font-size: 1rem; font-weight: 700; color: var(--forest); margin-bottom: 0.5rem; }
-  .result-card p { font-size: 0.875rem; color: var(--slate); }
-  .academic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-  .academic-card { background: #fff; border-radius: var(--radius); padding: 1.5rem; border-left: 4px solid var(--neon); box-shadow: var(--shadow); }
-  .academic-card .cite-doi { font-size: 0.75rem; color: var(--forest); font-weight: 600; margin-top: 0.5rem; display: block; }
-  .academic-card .cite-doi:hover { text-decoration: underline; }
-  .timeseries-viz { width: 100%; height: 450px; }
-  .timeline-wrap { margin: 3rem 0; }
-  .method-flow { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-top: 2rem; }
-  .method-step { background: var(--forest); color: #fff; padding: 0.75rem 1.25rem; border-radius: 100px; font-size: 0.875rem; font-weight: 500; }
-  .method-arrow { color: var(--neon); font-size: 1.25rem; font-weight: 700; }
-  .hero-stats-row { display: flex; gap: 2.5rem; margin-top: 2rem; }
-  .hero-stat { text-align: center; }
-  .hero-stat .val { font-size: 2rem; font-weight: 800; color: var(--neon); }
-  .hero-stat .lbl { font-size: 0.75rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.05em; }
-  .dataset-list { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
-  .dataset-tag { background: rgba(27,77,62,0.08); color: var(--forest); padding: 0.375rem 0.75rem; border-radius: 100px; font-size: 0.75rem; font-weight: 600; }
-  .mrv-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
-  .mrv-table th, .mrv-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.875rem; }
-  .mrv-table th { background: var(--light); color: var(--forest); font-weight: 700; }
-  .mrv-table td { color: var(--slate); }
-  .mrv-table tr:hover { background: rgba(74,222,128,0.04); }
-  .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 100px; font-size: 0.75rem; font-weight: 600; }
-  .badge-green { background: rgba(74,222,128,0.15); color: #15803d; }
-  .badge-blue { background: rgba(59,130,246,0.15); color: #1d4ed8; }
-  .badge-amber { background: rgba(245,158,11,0.15); color: #b45309; }
-</style>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="stylesheet" href="../shared/case.css">
+
+
+
+
+
+
 </head>
 <body>
 
@@ -84,7 +47,7 @@
 </nav>
 
 <section class="service-hero">
-  <canvas id="hero-canvas"></canvas>
+  
   <div class="container hero-content">
     <span class="hero-tag">Service</span>
     <h1>Carbon Market Strategy &amp; MRV</h1>
@@ -327,179 +290,7 @@
   </div>
 </footer>
 
-<script>
-// Init shader
-initShaderBackground('hero-canvas', 'gradientMesh');
 
-// GSAP
-if (typeof gsap !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-
-  const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-  heroTl.from('.hero-tag', { opacity: 0, y: 20, duration: 0.6 })
-    .from('h1', { opacity: 0, y: 30, duration: 0.8 }, '-=0.3')
-    .from('.hero-subtitle', { opacity: 0, y: 20, duration: 0.6 }, '-=0.4')
-    .from('.hero-stat', { opacity: 0, y: 20, duration: 0.5, stagger: 0.1 }, '-=0.3');
-
-  gsap.utils.toArray('.reveal').forEach(el => {
-    gsap.fromTo(el, { opacity: 0, y: 40 }, {
-      opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-      scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
-    });
-  });
-
-  document.querySelectorAll('[data-count]').forEach(el => {
-    const target = parseFloat(el.getAttribute('data-count'));
-    const isFloat = el.getAttribute('data-count').includes('.');
-    const obj = { val: 0 };
-    gsap.to(obj, {
-      val: target, duration: 2, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 85%' },
-      onUpdate: function() {
-        if (isFloat) el.textContent = obj.val.toFixed(1);
-        else el.textContent = Math.round(obj.val).toLocaleString();
-      }
-    });
-  });
-}
-
-// D3 Time Series: Carbon Credits Over 30 Years
-(function() {
-  const container = document.getElementById('timeseries-chart');
-  const width = container.clientWidth || 900;
-  const height = 450;
-  const margin = { top: 30, right: 30, bottom: 50, left: 70 };
-  const innerW = width - margin.left - margin.right;
-  const innerH = height - margin.top - margin.bottom;
-
-  const svg = d3.select(container).append('svg').attr('viewBox', `0 0 ${width} ${height}`).attr('preserveAspectRatio', 'xMidYMid meet').style('width', '100%').style('height', '100%');
-  const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
-
-  // Generate plausible 30-year crediting curve: ramp-up, peak, gradual decline
-  const data = [];
-  for (let year = 1; year <= 30; year++) {
-    let credits;
-    if (year <= 5) credits = 150 + (year - 1) * 120; // ramp up
-    else if (year <= 15) credits = 600 + (year - 5) * 40; // peak growth
-    else if (year <= 22) credits = 1000 - (year - 15) * 30; // plateau
-    else credits = 790 - (year - 22) * 20; // gradual decline
-    credits += (Math.random() - 0.5) * 60; // noise
-    data.push({ year: year, credits: Math.max(0, credits) });
-  }
-
-  const x = d3.scaleLinear().domain([1, 30]).range([0, innerW]);
-  const y = d3.scaleLinear().domain([0, d3.max(data, d => d.credits) * 1.1]).range([innerH, 0]);
-
-  // Axes
-  g.append('g').attr('transform', `translate(0,${innerH})`).call(d3.axisBottom(x).tickFormat(d => 'Y' + d).ticks(10));
-  g.append('g').call(d3.axisLeft(y));
-  g.append('text').attr('x', innerW / 2).attr('y', innerH + 40).attr('text-anchor', 'middle').style('font-size', '12px').style('fill', '#64748B').text('Crediting Year');
-  g.append('text').attr('transform', 'rotate(-90)').attr('x', -innerH / 2).attr('y', -50).attr('text-anchor', 'middle').style('font-size', '12px').style('fill', '#64748B').text('Carbon Credits (tCO₂e/year)');
-
-  // Area under curve
-  const area = d3.area().x(d => x(d.year)).y0(innerH).y1(d => y(d.credits)).curve(d3.curveMonotoneX);
-  g.append('path').datum(data).attr('d', area).attr('fill', 'rgba(74,222,128,0.15)');
-
-  // Line
-  const line = d3.line().x(d => x(d.year)).y(d => y(d.credits)).curve(d3.curveMonotoneX);
-  const path = g.append('path').datum(data).attr('fill', 'none').attr('stroke', '#1B4D3E').attr('stroke-width', 2.5).attr('d', line);
-
-  const totalLength = path.node().getTotalLength();
-  path.attr('stroke-dasharray', totalLength + ' ' + totalLength).attr('stroke-dashoffset', totalLength)
-    .transition().duration(2000).ease(d3.easeCubicOut).attr('stroke-dashoffset', 0);
-
-  // Cumulative annotation line
-  const cumulative = data.map((d, i) => ({ year: d.year, total: data.slice(0, i + 1).reduce((s, v) => s + v.credits, 0) / 1000 }));
-  const y2 = d3.scaleLinear().domain([0, d3.max(cumulative, d => d.total) * 1.1]).range([innerH, 0]);
-  const line2 = d3.line().x(d => x(d.year)).y(d => y2(d.total)).curve(d3.curveMonotoneX);
-  g.append('path').datum(cumulative).attr('fill', 'none').attr('stroke', '#4ADE80').attr('stroke-width', 2).attr('stroke-dasharray', '6,4').attr('d', line2);
-
-  // Legend
-  const legend = svg.append('g').attr('transform', `translate(${width - 180}, 30)`);
-  legend.append('line').attr('x1', 0).attr('y1', 0).attr('x2', 20).attr('y2', 0).attr('stroke', '#1B4D3E').attr('stroke-width', 2.5);
-  legend.append('text').attr('x', 26).attr('y', 4).style('font-size', '11px').style('fill', '#333').text('Annual Credits (tCO₂e)');
-  legend.append('line').attr('x1', 0).attr('y1', 18).attr('x2', 20).attr('y2', 18).attr('stroke', '#4ADE80').attr('stroke-width', 2).attr('stroke-dasharray', '6,4');
-  legend.append('text').attr('x', 26).attr('y', 22).style('font-size', '11px').style('fill', '#333').text('Cumulative (Mt CO₂e)');
-})();
-
-// Three.js Globe with Brazilian Amazon focus
-(function() {
-  const container = document.getElementById('globe-viz');
-  if (!container) return;
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-  camera.position.z = 3.5;
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  renderer.setSize(container.clientWidth, container.clientHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  container.appendChild(renderer.domElement);
-
-  const geometry = new THREE.SphereGeometry(1, 64, 64);
-  const material = new THREE.MeshPhongMaterial({ color: 0x1B4D3E, emissive: 0x0F2E25, specular: 0x4ADE80, shininess: 10, transparent: true, opacity: 0.92 });
-  const globe = new THREE.Mesh(geometry, material);
-  scene.add(globe);
-
-  const wireframe = new THREE.WireframeGeometry(geometry);
-  const wireMat = new THREE.LineBasicMaterial({ color: 0x4ADE80, transparent: true, opacity: 0.12 });
-  const wire = new THREE.LineSegments(wireframe, wireMat);
-  globe.add(wire);
-
-  const light = new THREE.DirectionalLight(0xffffff, 1);
-  light.position.set(5, 3, 5);
-  scene.add(light);
-  scene.add(new THREE.AmbientLight(0x404040));
-
-  // Amazon project points (approximate lat/lon around -4° to -8°, -55° to -65°)
-  const points = [
-    { lat: -4.5, lon: -60 }, { lat: -5.2, lon: -61 }, { lat: -6.0, lon: -62 }, { lat: -6.8, lon: -63 },
-    { lat: -7.5, lon: -64 }, { lat: -5.5, lon: -59 }, { lat: -6.5, lon: -60 }, { lat: -4.8, lon: -62 },
-    { lat: -5.8, lon: -63 }, { lat: -7.0, lon: -61 }, { lat: -6.2, lon: -64 }, { lat: -5.0, lon: -63 }
-  ];
-
-  points.forEach(p => {
-    const phi = (90 - p.lat) * Math.PI / 180;
-    const theta = (p.lon + 180) * Math.PI / 180;
-    const r = 1.04;
-    const x = r * Math.sin(phi) * Math.cos(theta);
-    const y = r * Math.cos(phi);
-    const z = r * Math.sin(phi) * Math.sin(theta);
-    const dotGeo = new THREE.SphereGeometry(0.035, 12, 12);
-    const dotMat = new THREE.MeshBasicMaterial({ color: 0x4ADE80 });
-    const dot = new THREE.Mesh(dotGeo, dotMat);
-    dot.position.set(x, y, z);
-    globe.add(dot);
-  });
-
-  // Highlight ring around Amazon
-  const ringGeo = new THREE.RingGeometry(1.01, 1.03, 64);
-  const ringMat = new THREE.MeshBasicMaterial({ color: 0x4ADE80, transparent: true, opacity: 0.3, side: THREE.DoubleSide });
-  const ring = new THREE.Mesh(ringGeo, ringMat);
-  ring.position.set(-0.45, -0.25, 0.85);
-  ring.lookAt(0,0,0);
-  globe.add(ring);
-
-  // Brazil country outline (simplified as wire arc)
-  const brazilGeo = new THREE.RingGeometry(1.005, 1.015, 32, 1, 2.5, 1.2);
-  const brazilMat = new THREE.MeshBasicMaterial({ color: 0x86EFAC, transparent: true, opacity: 0.25, side: THREE.DoubleSide });
-  const brazil = new THREE.Mesh(brazilGeo, brazilMat);
-  brazil.position.set(-0.45, -0.25, 0.85);
-  brazil.lookAt(0,0,0);
-  globe.add(brazil);
-
-  function animate() { requestAnimationFrame(animate); globe.rotation.y += 0.0015; renderer.render(scene, camera); }
-  animate();
-
-  window.addEventListener('resize', () => {
-    camera.aspect = container.clientWidth / container.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(container.clientWidth, container.clientHeight);
-  });
-})();
-
-window.addEventListener('scroll', () => {
-  const nav = document.querySelector('.bio-nav');
-  if (nav) nav.style.boxShadow = window.scrollY > 50 ? '0 2px 10px rgba(0,0,0,0.08)' : 'none';
-});
-</script>
+<script src="../shared/case.js"></script>
 </body>
 </html>

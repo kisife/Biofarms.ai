@@ -6,7 +6,8 @@
 <title>AI Model Evaluation and Benchmarking | Case Study | Biofarms.ai</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../shared/common.css">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="stylesheet" href="../shared/case.css">
 </head>
 <body>
 
@@ -42,7 +43,7 @@
 
 <!-- Hero with WebGL shader -->
 <section class="service-hero">
-  <canvas id="hero-canvas"></canvas>
+  
   <div class="hero-content container">
     <span class="hero-tag">Enterprise AI Benchmarking</span>
     <h1>AI Model Evaluation and Benchmarking</h1>
@@ -219,19 +220,19 @@
     </div>
     <div class="stats-grid">
       <div class="stat-item reveal">
-        <div class="stat-value" id="stat-items">0</div>
+        <div class="stat-value" id="stat-items" data-count="1247">0</div>
         <div class="stat-label">Challenge Items Created</div>
       </div>
       <div class="stat-item reveal">
-        <div class="stat-value" id="stat-domains">0</div>
+        <div class="stat-value" id="stat-domains" data-count="57">0</div>
         <div class="stat-label">Sub-domains Covered</div>
       </div>
       <div class="stat-item reveal">
-        <div class="stat-value" id="stat-agreement">0</div>
+        <div class="stat-value" id="stat-agreement" data-count="94.2" data-suffix="%" data-decimals="1">0</div>
         <div class="stat-label">Inter-rater Agreement %</div>
       </div>
       <div class="stat-item reveal">
-        <div class="stat-value" id="stat-models">0</div>
+        <div class="stat-value" id="stat-models" data-count="6">0</div>
         <div class="stat-label">Model Families Tested</div>
       </div>
     </div>
@@ -303,142 +304,12 @@
   </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="../shared/shaders.js"></script>
-<script>
-// Initialize WebGL shader background
-initShaderBackground('hero-canvas', 'gradientMesh');
-initNavigation();
 
-// GSAP ScrollTrigger animations
-gsap.registerPlugin(ScrollTrigger);
 
-// Reveal animations
-GSAPPatterns.revealScroll();
-GSAPPatterns.staggerCards('.card');
-GSAPPatterns.heroEntrance();
 
-// Stats counter animations
-const statItems = { val: 0 };
-gsap.to(statItems, { val: 1247, duration: 2, ease: 'power2.out', scrollTrigger: { trigger: '#stat-items', start: 'top 80%' },
-  onUpdate: () => { document.getElementById('stat-items').textContent = Math.round(statItems.val).toLocaleString(); }
-});
-const statDomains = { val: 0 };
-gsap.to(statDomains, { val: 57, duration: 1.5, ease: 'power2.out', scrollTrigger: { trigger: '#stat-domains', start: 'top 80%' },
-  onUpdate: () => { document.getElementById('stat-domains').textContent = Math.round(statDomains.val); }
-});
-const statAgreement = { val: 0 };
-gsap.to(statAgreement, { val: 94.2, duration: 2, ease: 'power2.out', scrollTrigger: { trigger: '#stat-agreement', start: 'top 80%' },
-  onUpdate: () => { document.getElementById('stat-agreement').textContent = statAgreement.val.toFixed(1) + '%'; }
-});
-const statModels = { val: 0 };
-gsap.to(statModels, { val: 6, duration: 1.2, ease: 'power2.out', scrollTrigger: { trigger: '#stat-models', start: 'top 80%' },
-  onUpdate: () => { document.getElementById('stat-models').textContent = Math.round(statModels.val); }
-});
 
-// D3 Radar Chart
-const radarData = {
-  axes: ['Climate Knowledge', 'Ecological Reasoning', 'Policy Analysis', 'Statistical Literacy', 'Geographic Knowledge', 'Temporal Reasoning'],
-  datasets: [
-    { label: 'Model A (7B)', values: [62, 55, 48, 70, 45, 58] },
-    { label: 'Model B (70B)', values: [88, 82, 76, 91, 68, 79] },
-    { label: 'Expert Baseline', values: [95, 93, 90, 88, 85, 92] }
-  ]
-};
 
-const radarContainer = document.getElementById('chart-radar');
-if (radarContainer) {
-  const width = 600, height = 500, margin = 80;
-  const radius = Math.min(width, height) / 2 - margin;
-  const svg = d3.select('#chart-radar').append('svg')
-    .attr('viewBox', `0 0 ${width} ${height}`)
-    .attr('preserveAspectRatio', 'xMidYMid meet');
-  const g = svg.append('g').attr('transform', `translate(${width/2},${height/2})`);
-  const axes = radarData.axes;
-  const angleSlice = (Math.PI * 2) / axes.length;
-  const rScale = d3.scaleLinear().range([0, radius]).domain([0, 100]);
 
-  // Grid circles
-  for (let i = 1; i <= 5; i++) {
-    g.append('circle').attr('r', radius * i / 5).attr('fill', 'none').attr('stroke', '#e2e8f0').attr('stroke-dasharray', '4,4');
-  }
-  // Grid labels
-  for (let i = 1; i <= 5; i++) {
-    g.append('text').attr('x', 5).attr('y', -radius * i / 5).text((i * 20) + '%').style('font-size', '10px').style('fill', '#94a3b8');
-  }
-
-  // Axes
-  axes.forEach((axis, i) => {
-    const angle = angleSlice * i - Math.PI / 2;
-    g.append('line').attr('x1', 0).attr('y1', 0).attr('x2', rScale(100) * Math.cos(angle)).attr('y2', rScale(100) * Math.sin(angle)).attr('stroke', '#e2e8f0');
-    g.append('text').attr('x', (rScale(100) + 25) * Math.cos(angle)).attr('y', (rScale(100) + 25) * Math.sin(angle)).attr('text-anchor', 'middle').attr('dy', '0.35em').style('font-size', '12px').style('font-weight', '600').style('fill', '#64748B').text(axis);
-  });
-
-  // Colors
-  const colors = ['#1B4D3E', '#4ADE80', '#64748B'];
-  const fills = ['rgba(27,77,62,0.2)', 'rgba(74,222,128,0.2)', 'rgba(100,116,139,0.2)'];
-
-  // Draw data paths
-  radarData.datasets.forEach((dataset, idx) => {
-    const pathData = dataset.values.map((d, i) => {
-      const angle = angleSlice * i - Math.PI / 2;
-      return [rScale(d) * Math.cos(angle), rScale(d) * Math.sin(angle)];
-    });
-    const lineGen = d3.line().curve(d3.curveLinearClosed);
-    const path = g.append('path').datum(pathData).attr('d', lineGen).attr('fill', fills[idx]).attr('stroke', colors[idx]).attr('stroke-width', 2.5);
-
-    // Animate path
-    const totalLength = path.node().getTotalLength();
-    path.attr('stroke-dasharray', totalLength + ' ' + totalLength).attr('stroke-dashoffset', totalLength)
-      .transition().duration(1500).delay(idx * 300).ease(d3.easeCubicOut).attr('stroke-dashoffset', 0);
-  });
-
-  // Legend
-  const legend = svg.append('g').attr('transform', `translate(20, ${height - 60})`);
-  radarData.datasets.forEach((dataset, idx) => {
-    const l = legend.append('g').attr('transform', `translate(${idx * 180}, 0)`);
-    l.append('circle').attr('r', 6).attr('fill', colors[idx]);
-    l.append('text').attr('x', 14).attr('dy', '0.35em').text(dataset.label).style('font-size', '12px').style('fill', '#334155');
-  });
-}
-
-// Three.js Globe with data points
-const globePoints = [
-  { lat: 51.5, lon: -0.1 }, { lat: 40.7, lon: -74.0 }, { lat: 35.7, lon: 139.7 },
-  { lat: -1.3, lon: 36.8 }, { lat: -23.5, lon: -46.6 }, { lat: 19.4, lon: -99.1 },
-  { lat: 28.6, lon: 77.2 }, { lat: -33.9, lon: 18.4 }, { lat: 55.8, lon: 37.6 },
-  { lat: 1.4, lon: 104.0 }, { lat: -6.2, lon: 106.8 }, { lat: 13.8, lon: 100.5 },
-  { lat: 52.5, lon: 13.4 }, { lat: 41.9, lon: 12.5 }, { lat: 48.9, lon: 2.3 },
-  { lat: 39.9, lon: 116.4 }, { lat: 37.6, lon: 126.9 }, { lat: -37.8, lon: 144.9 },
-  { lat: 6.5, lon: 3.4 }, { lat: -15.8, lon: -47.9 }, { lat: 30.0, lon: 31.2 },
-  { lat: 47.6, lon: -122.3 }, { lat: 43.7, lon: -79.4 }, { lat: 45.5, lon: -73.6 },
-  { lat: 25.2, lon: 55.3 }, { lat: 59.9, lon: 10.7 }, { lat: 60.2, lon: 24.9 },
-  { lat: 64.1, lon: -21.9 }, { lat: 3.1, lon: 101.7 }, { lat: 14.6, lon: 121.0 },
-  { lat: 31.2, lon: 121.5 }, { lat: 22.3, lon: 114.2 }, { lat: 12.9, lon: 100.9 },
-  { lat: 50.8, lon: -0.1 }, { lat: 53.5, lon: -2.2 }, { lat: 48.1, lon: 11.5 },
-  { lat: 45.4, lon: 11.9 }, { lat: 40.4, lon: -3.7 }, { lat: 38.7, lon: -9.1 },
-  { lat: 59.3, lon: 18.1 }, { lat: 55.7, lon: 12.5 }, { lat: 52.2, lon: 21.0 },
-  { lat: 50.1, lon: 14.4 }, { lat: 47.4, lon: 8.5 }, { lat: 41.4, lon: 2.2 },
-  { lat: 51.9, lon: 4.5 }, { lat: 48.2, lon: 16.4 }, { lat: 46.9, lon: 7.4 },
-  { lat: 43.7, lon: 7.3 }, { lat: 40.8, lon: 29.9 }, { lat: 33.9, lon: 35.5 },
-  { lat: 24.7, lon: 46.7 }, { lat: 25.3, lon: 55.2 }, { lat: 23.4, lon: 90.4 },
-  { lat: 19.1, lon: 72.9 }, { lat: 28.6, lon: 77.2 }, { lat: 13.0, lon: 80.3 },
-  { lat: 22.6, lon: 88.4 }, { lat: 12.9, lon: 77.6 }, { lat: 18.5, lon: 73.9 },
-  { lat: 1.3, lon: 103.8 }, { lat: 3.1, lon: 101.7 }, { lat: -6.2, lon: 106.8 },
-  { lat: 14.6, lon: 121.0 }, { lat: 10.8, lon: 106.7 }, { lat: 13.7, lon: 100.5 },
-  { lat: 35.7, lon: 139.7 }, { lat: 37.6, lon: 126.9 }, { lat: 34.7, lon: 135.5 },
-  { lat: 43.1, lon: 141.3 }, { lat: 35.2, lon: 136.9 }, { lat: 33.6, lon: 130.4 },
-  { lat: 36.4, lon: 127.4 }, { lat: 37.5, lon: 127.0 }, { lat: 35.9, lon: 128.6 },
-  { lat: -33.9, lon: 151.2 }, { lat: -37.8, lon: 144.9 }, { lat: -31.9, lon: 115.9 },
-  { lat: -41.3, lon: 174.8 }, { lat: -36.8, lon: 174.7 }, { lat: -43.5, lon: 172.6 },
-  { lat: 55.0, lon: -3.4 }, { lat: 51.5, lon: -0.1 }, { lat: 53.4, lon: -3.0 },
-  { lat: 56.0, lon: -3.2 }, { lat: 57.1, lon: -2.1 }, { lat: 54.6, lon: -5.9 }
-];
-
-ThreeScenes.globe('three-container', globePoints);
-</script>
+<script src="../shared/case.js"></script>
 </body>
 </html>

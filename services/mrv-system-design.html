@@ -6,7 +6,8 @@
 <title>MRV System Design with AI Integration | Case Study | Biofarms.ai</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../shared/common.css">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="stylesheet" href="../shared/case.css">
 </head>
 <body>
 
@@ -42,7 +43,7 @@
 
 <!-- Hero with WebGL shader -->
 <section class="service-hero">
-  <canvas id="hero-canvas"></canvas>
+  
   <div class="hero-content container">
     <span class="hero-tag">REDD+ & Carbon Accounting</span>
     <h1>MRV System Design with AI Integration</h1>
@@ -232,19 +233,19 @@
     </div>
     <div class="stats-grid">
       <div class="stat-item reveal">
-        <div class="stat-value" id="stat-hectares">0</div>
+        <div class="stat-value" id="stat-hectares" data-count="45000">0</div>
         <div class="stat-label">Hectares Under MRV</div>
       </div>
       <div class="stat-item reveal">
-        <div class="stat-value" id="stat-uncertainty">0</div>
+        <div class="stat-value" id="stat-uncertainty" data-count="12" data-suffix="%" data-prefix="±">0</div>
         <div class="stat-label">Uncertainty Achieved</div>
       </div>
       <div class="stat-item reveal">
-        <div class="stat-value" id="stat-credits">0</div>
+        <div class="stat-value" id="stat-credits" data-count="2.3" data-suffix="M" data-decimals="1">0</div>
         <div class="stat-label">Mt CO₂e Potential Credits</div>
       </div>
       <div class="stat-item reveal">
-        <div class="stat-value" id="stat-cycle">0</div>
+        <div class="stat-value" id="stat-cycle" data-count="3">0</div>
         <div class="stat-label">Year Monitoring Cycle</div>
       </div>
     </div>
@@ -322,194 +323,12 @@
   </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="../shared/shaders.js"></script>
-<script>
-// Initialize WebGL shader background
-initShaderBackground('hero-canvas', 'gradientMesh');
-initNavigation();
 
-// GSAP ScrollTrigger animations
-gsap.registerPlugin(ScrollTrigger);
-GSAPPatterns.revealScroll();
-GSAPPatterns.staggerCards('.card');
-GSAPPatterns.heroEntrance();
 
-// Stats counter animations
-const statHectares = { val: 0 };
-gsap.to(statHectares, { val: 45000, duration: 2, ease: 'power2.out', scrollTrigger: { trigger: '#stat-hectares', start: 'top 80%' },
-  onUpdate: () => { document.getElementById('stat-hectares').textContent = Math.round(statHectares.val).toLocaleString(); }
-});
-const statUncertainty = { val: 0 };
-gsap.to(statUncertainty, { val: 12, duration: 1.5, ease: 'power2.out', scrollTrigger: { trigger: '#stat-uncertainty', start: 'top 80%' },
-  onUpdate: () => { document.getElementById('stat-uncertainty').textContent = '±' + Math.round(statUncertainty.val) + '%'; }
-});
-const statCredits = { val: 0 };
-gsap.to(statCredits, { val: 2.3, duration: 1.5, ease: 'power2.out', scrollTrigger: { trigger: '#stat-credits', start: 'top 80%' },
-  onUpdate: () => { document.getElementById('stat-credits').textContent = statCredits.val.toFixed(1) + 'M'; }
-});
-const statCycle = { val: 0 };
-gsap.to(statCycle, { val: 3, duration: 1.2, ease: 'power2.out', scrollTrigger: { trigger: '#stat-cycle', start: 'top 80%' },
-  onUpdate: () => { document.getElementById('stat-cycle').textContent = Math.round(statCycle.val); }
-});
 
-// D3 Time Series with Confidence Intervals - Forest Carbon Stock
-const carbonData = [
-  { year: 2010, mean: 145, lower: 128, upper: 162 },
-  { year: 2011, mean: 143, lower: 126, upper: 160 },
-  { year: 2012, mean: 141, lower: 124, upper: 158 },
-  { year: 2013, mean: 140, lower: 123, upper: 157 },
-  { year: 2014, mean: 138, lower: 121, upper: 155 },
-  { year: 2015, mean: 137, lower: 120, upper: 154 },
-  { year: 2016, mean: 135, lower: 118, upper: 152 },
-  { year: 2017, mean: 134, lower: 117, upper: 151 },
-  { year: 2018, mean: 132, lower: 115, upper: 149 },
-  { year: 2019, mean: 130, lower: 113, upper: 147 },
-  { year: 2020, mean: 128, lower: 111, upper: 145 },
-  { year: 2021, mean: 126, lower: 109, upper: 143 },
-  { year: 2022, mean: 124, lower: 107, upper: 141 },
-  { year: 2023, mean: 122, lower: 105, upper: 139 }
-];
 
-const carbonContainer = document.getElementById('chart-carbon');
-if (carbonContainer) {
-  const width = 900, height = 400, margin = { top: 20, right: 40, bottom: 40, left: 60 };
-  const innerW = width - margin.left - margin.right;
-  const innerH = height - margin.top - margin.bottom;
-  const svg = d3.select('#chart-carbon').append('svg').attr('viewBox', `0 0 ${width} ${height}`).attr('preserveAspectRatio', 'xMidYMid meet');
-  const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 
-  const x = d3.scaleLinear().domain([2010, 2023]).range([0, innerW]);
-  const y = d3.scaleLinear().domain([80, 180]).range([innerH, 0]);
 
-  // Axes
-  g.append('g').attr('transform', `translate(0,${innerH})`).call(d3.axisBottom(x).tickFormat(d3.format('d')));
-  g.append('g').call(d3.axisLeft(y));
-  g.append('text').attr('x', -innerH/2).attr('y', -40).attr('transform', 'rotate(-90)').attr('text-anchor', 'middle').style('font-size', '12px').style('fill', '#64748B').text('AGB (t C/ha)');
-
-  // Confidence interval area
-  const areaGen = d3.area()
-    .x(d => x(d.year))
-    .y0(d => y(d.lower))
-    .y1(d => y(d.upper))
-    .curve(d3.curveMonotoneX);
-
-  g.append('path').datum(carbonData).attr('d', areaGen).attr('fill', 'rgba(74,222,128,0.15)').attr('stroke', 'none');
-
-  // Mean line
-  const lineGen = d3.line().x(d => x(d.year)).y(d => y(d.mean)).curve(d3.curveMonotoneX);
-  const meanPath = g.append('path').datum(carbonData).attr('d', lineGen).attr('fill', 'none').attr('stroke', '#1B4D3E').attr('stroke-width', 2.5);
-  const totalLength = meanPath.node().getTotalLength();
-  meanPath.attr('stroke-dasharray', totalLength + ' ' + totalLength).attr('stroke-dashoffset', totalLength)
-    .transition().duration(2000).ease(d3.easeCubicOut).attr('stroke-dashoffset', 0);
-
-  // Trend line (linear regression)
-  const n = carbonData.length;
-  const sumX = carbonData.reduce((s, d) => s + d.year, 0);
-  const sumY = carbonData.reduce((s, d) => s + d.mean, 0);
-  const sumXY = carbonData.reduce((s, d) => s + d.year * d.mean, 0);
-  const sumXX = carbonData.reduce((s, d) => s + d.year * d.year, 0);
-  const slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
-  const intercept = (sumY - slope * sumX) / n;
-  const trendData = [{ year: 2010, mean: slope * 2010 + intercept }, { year: 2023, mean: slope * 2023 + intercept }];
-
-  const trendLine = d3.line().x(d => x(d.year)).y(d => y(d.mean));
-  g.append('path').datum(trendData).attr('d', trendLine).attr('fill', 'none').attr('stroke', '#ef4444').attr('stroke-width', 1.5).attr('stroke-dasharray', '6,4').attr('opacity', 0.7);
-
-  // Legend
-  const legend = svg.append('g').attr('transform', `translate(${width - 200}, 25)`);
-  legend.append('rect').attr('width', 14).attr('height', 14).attr('rx', 3).attr('fill', 'rgba(74,222,128,0.3)');
-  legend.append('text').attr('x', 22).attr('dy', '0.8em').text('95% CI').style('font-size', '11px').style('fill', '#334155');
-  const l2 = legend.append('g').attr('transform', 'translate(0, 22)');
-  l2.append('line').attr('x1', 0).attr('x2', 20).attr('y1', 7).attr('y2', 7).attr('stroke', '#1B4D3E').attr('stroke-width', 2.5);
-  l2.append('text').attr('x', 26).attr('dy', '0.8em').text('Mean AGB').style('font-size', '11px').style('fill', '#334155');
-  const l3 = legend.append('g').attr('transform', 'translate(0, 44)');
-  l3.append('line').attr('x1', 0).attr('x2', 20).attr('y1', 7).attr('y2', 7).attr('stroke', '#ef4444').attr('stroke-width', 1.5).attr('stroke-dasharray', '4,4');
-  l3.append('text').attr('x', 26).attr('dy', '0.8em').text('Linear trend').style('font-size', '11px').style('fill', '#334155');
-}
-
-// Three.js Forest Canopy Point Cloud
-const canopyContainer = document.getElementById('three-container');
-if (canopyContainer && typeof THREE !== 'undefined') {
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x0F2E25);
-  const camera = new THREE.PerspectiveCamera(60, canopyContainer.clientWidth / canopyContainer.clientHeight, 0.1, 100);
-  camera.position.set(0, 5, 12);
-  camera.lookAt(0, 0, 0);
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(canopyContainer.clientWidth, canopyContainer.clientHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  canopyContainer.appendChild(renderer.domElement);
-
-  const particleCount = 6000;
-  const particles = new THREE.BufferGeometry();
-  const positions = new Float32Array(particleCount * 3);
-  const colors = new Float32Array(particleCount * 3);
-  const sizes = new Float32Array(particleCount);
-
-  for (let i = 0; i < particleCount; i++) {
-    const i3 = i * 3;
-    const x = (Math.random() - 0.5) * 24;
-    const z = (Math.random() - 0.5) * 24;
-    const dist = Math.sqrt(x * x + z * z);
-    // Higher density in center, lower at edges (forest stand structure)
-    const heightFactor = Math.max(0, 1 - dist / 15);
-    const y = Math.random() * 6 * heightFactor + Math.random() * 1.5;
-
-    positions[i3] = x;
-    positions[i3 + 1] = y;
-    positions[i3 + 2] = z;
-
-    // Green canopy colors with variation
-    colors[i3] = 0.1 + Math.random() * 0.15;
-    colors[i3 + 1] = 0.4 + Math.random() * 0.35;
-    colors[i3 + 2] = 0.15 + Math.random() * 0.15;
-
-    sizes[i] = 0.08 + Math.random() * 0.12;
-  }
-
-  particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-  particles.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-
-  const pMaterial = new THREE.PointsMaterial({ size: 0.12, vertexColors: true, transparent: true, opacity: 0.75, sizeAttenuation: true });
-  const pointCloud = new THREE.Points(particles, pMaterial);
-  scene.add(pointCloud);
-
-  // Ground plane
-  const groundGeo = new THREE.PlaneGeometry(40, 40);
-  const groundMat = new THREE.MeshBasicMaterial({ color: 0x1B4D3E, transparent: true, opacity: 0.3 });
-  const ground = new THREE.Mesh(groundGeo, groundMat);
-  ground.rotation.x = -Math.PI / 2;
-  ground.position.y = -0.5;
-  scene.add(ground);
-
-  scene.add(new THREE.AmbientLight(0x404040));
-  const dirLight = new THREE.DirectionalLight(0x4ADE80, 0.6);
-  dirLight.position.set(5, 10, 5);
-  scene.add(dirLight);
-
-  let time = 0;
-  function animate() {
-    requestAnimationFrame(animate);
-    time += 0.005;
-    pointCloud.rotation.y = time * 0.08;
-    camera.position.y = 5 + Math.sin(time * 0.5) * 0.8;
-    camera.position.x = Math.sin(time * 0.2) * 3;
-    camera.lookAt(0, 2, 0);
-    renderer.render(scene, camera);
-  }
-  animate();
-
-  window.addEventListener('resize', () => {
-    camera.aspect = canopyContainer.clientWidth / canopyContainer.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(canopyContainer.clientWidth, canopyContainer.clientHeight);
-  });
-}
-</script>
+<script src="../shared/case.js"></script>
 </body>
 </html>

@@ -6,48 +6,14 @@
 <title>Nature-Based Solutions (NbS) Scoping | biofarms.ai</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../shared/common.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="../shared/shaders.js"></script>
-<style>
-  .client-banner { background: linear-gradient(135deg, var(--forest), var(--forest-dark)); padding: 2rem 0; color: #fff; }
-  .client-banner h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem; }
-  .client-banner p { opacity: 0.8; font-size: 0.875rem; }
-  .challenge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-  .challenge-text { font-size: 1.125rem; color: var(--slate); line-height: 1.8; }
-  .challenge-text strong { color: var(--forest); }
-  .viz-full { width: 100%; height: 500px; position: relative; }
-  .viz-full canvas { display: block; width: 100%; height: 100%; }
-  .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
-  .result-card { background: #fff; border-radius: var(--radius); padding: 2rem; border: 1px solid var(--border); text-align: center; }
-  .result-card .result-icon { font-size: 2rem; margin-bottom: 1rem; }
-  .result-card h4 { font-size: 1rem; font-weight: 700; color: var(--forest); margin-bottom: 0.5rem; }
-  .result-card p { font-size: 0.875rem; color: var(--slate); }
-  .academic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-  .academic-card { background: #fff; border-radius: var(--radius); padding: 1.5rem; border-left: 4px solid var(--neon); box-shadow: var(--shadow); }
-  .academic-card .cite-doi { font-size: 0.75rem; color: var(--forest); font-weight: 600; margin-top: 0.5rem; display: block; }
-  .academic-card .cite-doi:hover { text-decoration: underline; }
-  .radar-viz { width: 100%; height: 450px; }
-  .timeline-wrap { margin: 3rem 0; }
-  .method-flow { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-top: 2rem; }
-  .method-step { background: var(--forest); color: #fff; padding: 0.75rem 1.25rem; border-radius: 100px; font-size: 0.875rem; font-weight: 500; }
-  .method-arrow { color: var(--neon); font-size: 1.25rem; font-weight: 700; }
-  .hero-stats-row { display: flex; gap: 2.5rem; margin-top: 2rem; }
-  .hero-stat { text-align: center; }
-  .hero-stat .val { font-size: 2rem; font-weight: 800; color: var(--neon); }
-  .hero-stat .lbl { font-size: 0.75rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.05em; }
-  .dataset-list { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
-  .dataset-tag { background: rgba(27,77,62,0.08); color: var(--forest); padding: 0.375rem 0.75rem; border-radius: 100px; font-size: 0.75rem; font-weight: 600; }
-  .eco-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem; }
-  .eco-item { background: #fff; border-radius: var(--radius); padding: 1.25rem; text-align: center; border: 1px solid var(--border); }
-  .eco-item .eco-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
-  .eco-item h5 { font-size: 0.875rem; font-weight: 700; color: var(--forest); }
-  .eco-item p { font-size: 0.75rem; color: var(--slate); margin-top: 0.25rem; }
-  @media (max-width: 768px) { .eco-grid { grid-template-columns: repeat(2, 1fr); } }
-</style>
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="stylesheet" href="../shared/case.css">
+
+
+
+
+
+
 </head>
 <body>
 
@@ -81,7 +47,7 @@
 </nav>
 
 <section class="service-hero">
-  <canvas id="hero-canvas"></canvas>
+  
   <div class="container hero-content">
     <span class="hero-tag">Service</span>
     <h1>Nature-Based Solutions (NbS) Scoping</h1>
@@ -314,178 +280,7 @@
   </div>
 </footer>
 
-<script>
-// Init shader
-initShaderBackground('hero-canvas', 'particleField');
 
-// GSAP
-if (typeof gsap !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-
-  const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-  heroTl.from('.hero-tag', { opacity: 0, y: 20, duration: 0.6 })
-    .from('h1', { opacity: 0, y: 30, duration: 0.8 }, '-=0.3')
-    .from('.hero-subtitle', { opacity: 0, y: 20, duration: 0.6 }, '-=0.4')
-    .from('.hero-stat', { opacity: 0, y: 20, duration: 0.5, stagger: 0.1 }, '-=0.3');
-
-  gsap.utils.toArray('.reveal').forEach(el => {
-    gsap.fromTo(el, { opacity: 0, y: 40 }, {
-      opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-      scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
-    });
-  });
-
-  document.querySelectorAll('[data-count]').forEach(el => {
-    const target = parseFloat(el.getAttribute('data-count'));
-    const isFloat = el.getAttribute('data-count').includes('.');
-    const obj = { val: 0 };
-    gsap.to(obj, {
-      val: target, duration: 2, ease: 'power2.out',
-      scrollTrigger: { trigger: el, start: 'top 85%' },
-      onUpdate: function() {
-        if (isFloat) el.textContent = obj.val.toFixed(1);
-        else el.textContent = Math.round(obj.val).toLocaleString();
-      }
-    });
-  });
-}
-
-// D3 Radar Chart
-(function() {
-  const container = document.getElementById('radar-chart');
-  const width = container.clientWidth || 600;
-  const height = 450;
-  const margin = 60;
-  const radius = Math.min(width, height) / 2 - margin;
-  const svg = d3.select(container).append('svg').attr('viewBox', `0 0 ${width} ${height}`).attr('preserveAspectRatio', 'xMidYMid meet').style('width', '100%').style('height', '100%');
-  const g = svg.append('g').attr('transform', `translate(${width/2},${height/2})`);
-
-  const axes = ['Carbon Sequestration', 'Biodiversity', 'Water Quality', 'Livelihoods', 'Cost-Effectiveness'];
-  const angleSlice = (Math.PI * 2) / axes.length;
-  const rScale = d3.scaleLinear().range([0, radius]).domain([0, 100]);
-
-  // Grid circles
-  for (let i = 1; i <= 5; i++) {
-    g.append('circle').attr('r', radius * i / 5).attr('fill', 'none').attr('stroke', '#e2e8f0').attr('stroke-dasharray', '4,4');
-  }
-
-  // Axes
-  axes.forEach((axis, i) => {
-    const angle = angleSlice * i - Math.PI / 2;
-    g.append('line').attr('x1', 0).attr('y1', 0).attr('x2', rScale(100) * Math.cos(angle)).attr('y2', rScale(100) * Math.sin(angle)).attr('stroke', '#e2e8f0');
-    g.append('text').attr('x', (rScale(100) + 20) * Math.cos(angle)).attr('y', (rScale(100) + 20) * Math.sin(angle)).attr('text-anchor', 'middle').attr('dy', '0.35em').style('font-size', '12px').style('fill', '#64748B').style('font-weight', '600').text(axis);
-  });
-
-  // Data: two scenarios
-  const data = [
-    { name: 'Current Portfolio', values: [72, 65, 58, 45, 60] },
-    { name: 'Optimized NbS', values: [88, 82, 78, 70, 75] }
-  ];
-  const colors = ['#1B4D3E', '#4ADE80'];
-  const fills = ['rgba(27,77,62,0.2)', 'rgba(74,222,128,0.2)'];
-
-  const line = d3.lineRadial().angle((d, i) => i * angleSlice - Math.PI / 2).radius(d => rScale(d)).curve(d3.curveLinearClosed);
-
-  data.forEach((dataset, idx) => {
-    const path = g.append('path').datum(dataset.values).attr('d', line).attr('fill', fills[idx]).attr('stroke', colors[idx]).attr('stroke-width', 2.5);
-    // Animate
-    const len = path.node().getTotalLength();
-    path.attr('stroke-dasharray', len + ' ' + len).attr('stroke-dashoffset', len)
-      .transition().duration(1500).delay(idx * 300).ease(d3.easeCubicOut).attr('stroke-dashoffset', 0);
-    // Points
-    dataset.values.forEach((v, i) => {
-      const angle = i * angleSlice - Math.PI / 2;
-      const x = rScale(v) * Math.cos(angle); const y = rScale(v) * Math.sin(angle);
-      g.append('circle').attr('cx', x).attr('cy', y).attr('r', 4).attr('fill', colors[idx]).attr('opacity', 0).transition().delay(idx * 300 + 800).duration(400).attr('opacity', 1);
-    });
-  });
-
-  // Legend
-  const legend = svg.append('g').attr('transform', `translate(${width - 140}, 30)`);
-  data.forEach((d, i) => {
-    const row = legend.append('g').attr('transform', `translate(0, ${i * 22})`);
-    row.append('rect').attr('width', 12).attr('height', 12).attr('rx', 2).attr('fill', colors[i]);
-    row.append('text').attr('x', 18).attr('y', 10).style('font-size', '12px').style('fill', '#333').text(d.name);
-  });
-})();
-
-// Three.js Globe with NbS opportunity zones
-(function() {
-  const container = document.getElementById('globe-viz');
-  if (!container) return;
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-  camera.position.z = 3.5;
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-  renderer.setSize(container.clientWidth, container.clientHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  container.appendChild(renderer.domElement);
-
-  const geometry = new THREE.SphereGeometry(1, 64, 64);
-  const material = new THREE.MeshPhongMaterial({ color: 0x1B4D3E, emissive: 0x0F2E25, specular: 0x4ADE80, shininess: 10, transparent: true, opacity: 0.92 });
-  const globe = new THREE.Mesh(geometry, material);
-  scene.add(globe);
-
-  const wireframe = new THREE.WireframeGeometry(geometry);
-  const wireMat = new THREE.LineBasicMaterial({ color: 0x4ADE80, transparent: true, opacity: 0.12 });
-  const wire = new THREE.LineSegments(wireframe, wireMat);
-  globe.add(wire);
-
-  const light = new THREE.DirectionalLight(0xffffff, 1);
-  light.position.set(5, 3, 5);
-  scene.add(light);
-  scene.add(new THREE.AmbientLight(0x404040));
-
-  // NbS opportunity zones: Southeast Asia and East Africa
-  const zones = [
-    // SE Asia (Indonesia, Malaysia, Philippines)
-    { lat: -2, lon: 110 }, { lat: 3, lon: 103 }, { lat: 12, lon: 122 }, { lat: -5, lon: 120 }, { lat: 0, lon: 115 },
-    // East Africa (Kenya, Tanzania, Uganda, Ethiopia)
-    { lat: 1, lon: 36 }, { lat: -6, lon: 37 }, { lat: 2, lon: 32 }, { lat: 9, lon: 40 }, { lat: -1, lon: 34 },
-  ];
-
-  zones.forEach(z => {
-    const phi = (90 - z.lat) * Math.PI / 180;
-    const theta = (z.lon + 180) * Math.PI / 180;
-    const r = 1.04;
-    const x = r * Math.sin(phi) * Math.cos(theta);
-    const y = r * Math.cos(phi);
-    const zr = r * Math.sin(phi) * Math.sin(theta);
-    const dotGeo = new THREE.SphereGeometry(0.04, 12, 12);
-    const dotMat = new THREE.MeshBasicMaterial({ color: 0x4ADE80 });
-    const dot = new THREE.Mesh(dotGeo, dotMat);
-    dot.position.set(x, y, zr);
-    globe.add(dot);
-  });
-
-  // Pulse rings at zones
-  const ringGeo = new THREE.RingGeometry(1.02, 1.04, 64);
-  const ringMat = new THREE.MeshBasicMaterial({ color: 0x4ADE80, transparent: true, opacity: 0.2, side: THREE.DoubleSide });
-  const ring = new THREE.Mesh(ringGeo, ringMat);
-  ring.lookAt(0,0,0);
-  globe.add(ring);
-
-  function animate() {
-    requestAnimationFrame(animate);
-    globe.rotation.y += 0.0015;
-    const time = Date.now() * 0.001;
-    ring.scale.setScalar(1 + Math.sin(time * 2) * 0.05);
-    ring.material.opacity = 0.2 + Math.sin(time * 2) * 0.1;
-    renderer.render(scene, camera);
-  }
-  animate();
-
-  window.addEventListener('resize', () => {
-    camera.aspect = container.clientWidth / container.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(container.clientWidth, container.clientHeight);
-  });
-})();
-
-window.addEventListener('scroll', () => {
-  const nav = document.querySelector('.bio-nav');
-  if (nav) nav.style.boxShadow = window.scrollY > 50 ? '0 2px 10px rgba(0,0,0,0.08)' : 'none';
-});
-</script>
+<script src="../shared/case.js"></script>
 </body>
 </html>

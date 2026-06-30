@@ -6,7 +6,8 @@
 <title>Prompt Engineering and AI Workflow Design | Case Study | Biofarms.ai</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../shared/common.css">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="stylesheet" href="../shared/case.css">
 </head>
 <body>
 
@@ -42,7 +43,7 @@
 
 <!-- Hero with WebGL shader -->
 <section class="service-hero">
-  <canvas id="hero-canvas"></canvas>
+  
   <div class="hero-content container">
     <span class="hero-tag">AI Workflow Design</span>
     <h1>Prompt Engineering and AI Workflow Design</h1>
@@ -222,19 +223,19 @@
     </div>
     <div class="stats-grid">
       <div class="stat-item reveal">
-        <div class="stat-value" id="stat-workflows">0</div>
+        <div class="stat-value" id="stat-workflows" data-count="34">0</div>
         <div class="stat-label">Custom Workflows Designed</div>
       </div>
       <div class="stat-item reveal">
-        <div class="stat-value" id="stat-reduction">0</div>
+        <div class="stat-value" id="stat-reduction" data-count="67" data-suffix="%">0</div>
         <div class="stat-label">Time Reduction %</div>
       </div>
       <div class="stat-item reveal">
-        <div class="stat-value" id="stat-staff">0</div>
+        <div class="stat-value" id="stat-staff" data-count="12">0</div>
         <div class="stat-label">Team Members Trained</div>
       </div>
       <div class="stat-item reveal">
-        <div class="stat-value" id="stat-langs">0</div>
+        <div class="stat-value" id="stat-langs" data-count="8">0</div>
         <div class="stat-label">Languages Supported</div>
       </div>
     </div>
@@ -306,157 +307,12 @@
   </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="../shared/shaders.js"></script>
-<script>
-// Initialize WebGL shader background
-initShaderBackground('hero-canvas', 'particleField');
-initNavigation();
 
-// GSAP ScrollTrigger animations
-gsap.registerPlugin(ScrollTrigger);
-GSAPPatterns.revealScroll();
-GSAPPatterns.staggerCards('.card');
-GSAPPatterns.heroEntrance();
 
-// Stats counter animations
-const statWorkflows = { val: 0 };
-gsap.to(statWorkflows, { val: 34, duration: 1.5, ease: 'power2.out', scrollTrigger: { trigger: '#stat-workflows', start: 'top 80%' },
-  onUpdate: () => { document.getElementById('stat-workflows').textContent = Math.round(statWorkflows.val); }
-});
-const statReduction = { val: 0 };
-gsap.to(statReduction, { val: 67, duration: 2, ease: 'power2.out', scrollTrigger: { trigger: '#stat-reduction', start: 'top 80%' },
-  onUpdate: () => { document.getElementById('stat-reduction').textContent = Math.round(statReduction.val) + '%'; }
-});
-const statStaff = { val: 0 };
-gsap.to(statStaff, { val: 12, duration: 1.2, ease: 'power2.out', scrollTrigger: { trigger: '#stat-staff', start: 'top 80%' },
-  onUpdate: () => { document.getElementById('stat-staff').textContent = Math.round(statStaff.val); }
-});
-const statLangs = { val: 0 };
-gsap.to(statLangs, { val: 8, duration: 1.2, ease: 'power2.out', scrollTrigger: { trigger: '#stat-langs', start: 'top 80%' },
-  onUpdate: () => { document.getElementById('stat-langs').textContent = Math.round(statLangs.val); }
-});
 
-// D3 Bar Chart - Before vs After AI
-const barData = [
-  { label: 'Report Drafting', before: 12, after: 4 },
-  { label: 'Data Analysis', before: 8, after: 3 },
-  { label: 'Translation', before: 6, after: 1.5 },
-  { label: 'Policy Brief', before: 10, after: 3.5 },
-  { label: 'Grant Writing', before: 15, after: 5 }
-];
 
-const barContainer = document.getElementById('chart-bars');
-if (barContainer) {
-  const width = 800, height = 400, margin = { top: 20, right: 30, bottom: 60, left: 60 };
-  const innerW = width - margin.left - margin.right;
-  const innerH = height - margin.top - margin.bottom;
-  const svg = d3.select('#chart-bars').append('svg').attr('viewBox', `0 0 ${width} ${height}`).attr('preserveAspectRatio', 'xMidYMid meet');
-  const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
 
-  const x0 = d3.scaleBand().domain(barData.map(d => d.label)).range([0, innerW]).padding(0.25);
-  const x1 = d3.scaleBand().domain(['before', 'after']).range([0, x0.bandwidth()]).padding(0.05);
-  const y = d3.scaleLinear().domain([0, 16]).range([innerH, 0]);
 
-  g.append('g').attr('transform', `translate(0,${innerH})`).call(d3.axisBottom(x0)).selectAll('text').style('font-size', '11px').style('fill', '#64748B');
-  g.append('g').call(d3.axisLeft(y));
-  g.append('text').attr('x', -innerH/2).attr('y', -40).attr('transform', 'rotate(-90)').attr('text-anchor', 'middle').style('font-size', '12px').style('fill', '#64748B').text('Hours per Task');
-
-  const colors = { before: '#64748B', after: '#4ADE80' };
-  const labels = { before: 'Before AI', after: 'After AI' };
-
-  ['before', 'after'].forEach((key, idx) => {
-    g.selectAll('.bar-' + key).data(barData).enter().append('rect')
-      .attr('x', d => x0(d.label) + x1(key))
-      .attr('width', x1.bandwidth())
-      .attr('y', innerH)
-      .attr('height', 0)
-      .attr('fill', colors[key])
-      .attr('rx', 3)
-      .transition().duration(800).delay((d, i) => i * 150 + idx * 100)
-      .attr('y', d => y(d[key]))
-      .attr('height', d => innerH - y(d[key]));
-  });
-
-  // Legend
-  const legend = svg.append('g').attr('transform', `translate(${width - 150}, 20)`);
-  ['before', 'after'].forEach((key, idx) => {
-    const l = legend.append('g').attr('transform', `translate(0, ${idx * 22})`);
-    l.append('rect').attr('width', 14).attr('height', 14).attr('rx', 3).attr('fill', colors[key]);
-    l.append('text').attr('x', 22).attr('dy', '0.8em').text(labels[key]).style('font-size', '12px').style('fill', '#334155');
-  });
-}
-
-// Three.js Particle Network Visualization
-const netContainer = document.getElementById('three-container');
-if (netContainer && typeof THREE !== 'undefined') {
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x0F2E25);
-  const camera = new THREE.PerspectiveCamera(60, netContainer.clientWidth / netContainer.clientHeight, 0.1, 100);
-  camera.position.set(0, 0, 18);
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(netContainer.clientWidth, netContainer.clientHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  netContainer.appendChild(renderer.domElement);
-
-  const nodeCount = 40;
-  const nodes = [];
-  const nodePositions = [];
-
-  for (let i = 0; i < nodeCount; i++) {
-    const x = (Math.random() - 0.5) * 20;
-    const y = (Math.random() - 0.5) * 12;
-    const z = (Math.random() - 0.5) * 8;
-    nodePositions.push(new THREE.Vector3(x, y, z));
-
-    const geo = new THREE.SphereGeometry(0.15, 8, 8);
-    const mat = new THREE.MeshBasicMaterial({ color: 0x4ADE80 });
-    const mesh = new THREE.Mesh(geo, mat);
-    mesh.position.set(x, y, z);
-    scene.add(mesh);
-    nodes.push(mesh);
-  }
-
-  // Connections
-  const lineMat = new THREE.LineBasicMaterial({ color: 0x4ADE80, transparent: true, opacity: 0.15 });
-  for (let i = 0; i < nodeCount; i++) {
-    for (let j = i + 1; j < nodeCount; j++) {
-      const dist = nodePositions[i].distanceTo(nodePositions[j]);
-      if (dist < 6) {
-        const lineGeo = new THREE.BufferGeometry().setFromPoints([nodePositions[i], nodePositions[j]]);
-        const line = new THREE.Line(lineGeo, lineMat);
-        scene.add(line);
-      }
-    }
-  }
-
-  scene.add(new THREE.AmbientLight(0x404040));
-  const dirLight = new THREE.DirectionalLight(0x4ADE80, 0.5);
-  dirLight.position.set(5, 10, 5);
-  scene.add(dirLight);
-
-  let time = 0;
-  function animate() {
-    requestAnimationFrame(animate);
-    time += 0.005;
-    nodes.forEach((node, i) => {
-      node.position.x = nodePositions[i].x + Math.sin(time + i * 0.5) * 0.3;
-      node.position.y = nodePositions[i].y + Math.cos(time + i * 0.3) * 0.3;
-    });
-    scene.rotation.y = time * 0.1;
-    renderer.render(scene, camera);
-  }
-  animate();
-
-  window.addEventListener('resize', () => {
-    camera.aspect = netContainer.clientWidth / netContainer.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(netContainer.clientWidth, netContainer.clientHeight);
-  });
-}
-</script>
+<script src="../shared/case.js"></script>
 </body>
 </html>

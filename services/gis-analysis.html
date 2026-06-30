@@ -7,29 +7,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../shared/common.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="../shared/shaders.js"></script>
-  <style>
-    .hero { background: var(--bg-dark); }
-    .hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-    .hero-content { position: relative; z-index: 10; }
-    .challenge-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(74,222,128,0.1); border-radius: 16px; padding: 32px; }
-    .challenge-card h3 { color: var(--neon); font-size: 1.1rem; margin-bottom: 12px; }
-    .challenge-card p { font-size: 0.95rem; }
-    .result-metric { text-align: center; padding: 32px 16px; }
-    .result-metric .value { font-size: 2.5rem; font-weight: 800; color: var(--neon); }
-    .result-metric .label { font-size: 0.8rem; color: var(--slate); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 8px; }
-    .cite-card { padding: 24px; background: rgba(255,255,255,0.02); border-radius: 12px; border: 1px solid rgba(74,222,128,0.08); margin-bottom: 16px; transition: border-color 0.3s ease; }
-    .cite-card:hover { border-color: rgba(74,222,128,0.25); }
-    .cite-card p { font-size: 0.92rem; color: #A1A1AA; font-style: italic; margin-bottom: 8px; line-height: 1.6; }
-    .cite-card a { font-size: 0.8rem; color: var(--neon); text-decoration: none; font-family: 'SF Mono', monospace; }
-    .cite-card a:hover { text-decoration: underline; }
-  </style>
+  <link rel="icon" type="image/png" href="../favicon.png">
+<link rel="stylesheet" href="../shared/case.css">
+  
+  
+  
+  
+  
+  
+  
 </head>
 <body>
   <nav class="bio-nav" id="siteNav">
@@ -63,7 +49,7 @@
 
   <!-- Hero Section -->
   <section class="hero">
-    <canvas id="hero-shader" class="hero-canvas"></canvas>
+    
     <div class="hero-content">
       <span class="label">Spatial Intelligence</span>
       <h1 class="hero-title">GIS &<br><span class="text-gradient">Spatial Analysis</span></h1>
@@ -321,37 +307,7 @@
   </div>
 </footer>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Hero shader
-      ShaderBackgrounds.init('hero-shader', ShaderBackgrounds.gisShader);
-
-      // GSAP Animations
-      GSAPPatterns.heroEntrance();
-      GSAPPatterns.fadeUp('.section-header, .challenge-card, .card, .method-step, .cite-card, .timeline-item');
-      GSAPPatterns.stagger('.method-steps', '.method-step');
-      GSAPPatterns.stagger('.stats-grid', '.stat-card');
-      GSAPPatterns.stagger('.grid-3', '.card');
-
-      // Stat counters
-      GSAPPatterns.counter('.stat-value');
-
-      // D3 Stacked Bar Chart
-      const priorityData = [
-        { region: 'Cameroon', Biodiversity: 0.85, Threat: 0.72, Feasibility: 0.68 },
-        { region: 'Gabon', Biodiversity: 0.78, Threat: 0.45, Feasibility: 0.82 },
-        { region: 'Ivory Coast', Biodiversity: 0.65, Threat: 0.88, Feasibility: 0.55 },
-        { region: 'Ghana', Biodiversity: 0.58, Threat: 0.75, Feasibility: 0.62 },
-        { region: 'Nigeria', Biodiversity: 0.70, Threat: 0.90, Feasibility: 0.48 },
-        { region: 'Senegal', Biodiversity: 0.42, Threat: 0.60, Feasibility: 0.70 }
-      ];
-      D3Charts.stackedBar('priority-chart', priorityData, {
-        yLabel: 'Priority Score (0-1)'
-      });
-
-      // Three.js Elevation Model
-      ThreeScenes.elevationModel('three-canvas');
-    });
-  </script>
+  
+<script src="../shared/case.js"></script>
 </body>
 </html>
