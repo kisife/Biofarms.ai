@@ -32,17 +32,34 @@
   </style>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="container">
-      <a href="../index.html" class="navbar-logo">biofarms<span>.ai</span></a>
-      <ul class="navbar-nav">
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="satellite-monitoring.html">Satellite</a></li>
-        <li><a href="drone-survey.html">Drone</a></li>
-        <li><a href="gis-analysis.html">GIS</a></li>
-      </ul>
+  <nav class="bio-nav" id="siteNav">
+  <div class="container">
+    <a href="../index.html" class="logo"><img src="../logo.svg" alt=""> biofarms<span class="logo-dot">.ai</span></a>
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="../about.html">About</a>
+      <a href="../services.html">Services</a>
+      <a href="../videos.html">Stories</a>
+      <a href="../case-studies.html">Case Studies</a>
+      <a href="../publications.html">Publications</a>
+      <a href="../pricing.html">Pricing</a>
+      <a href="../faq.html">FAQ</a>
+      <a href="../contact.html" class="btn btn-primary">Get in Touch</a>
     </div>
-  </nav>
+    <button class="bio-nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.bio-mobile-nav').classList.toggle('active')"><span></span><span></span><span></span></button>
+  </div>
+  <div class="bio-mobile-nav">
+    <a href="../index.html">Home</a>
+    <a href="../about.html">About</a>
+    <a href="../services.html">Services</a>
+    <a href="../videos.html">Stories</a>
+    <a href="../case-studies.html">Case Studies</a>
+    <a href="../publications.html">Publications</a>
+    <a href="../pricing.html">Pricing</a>
+    <a href="../faq.html">FAQ</a>
+    <a href="../contact.html">Contact</a>
+  </div>
+</nav>
 
   <!-- Hero Section -->
   <section class="hero">
@@ -270,38 +287,39 @@
   </section>
 
   <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <div class="footer-brand">biofarms<span>.ai</span></div>
-          <p class="footer-desc">Precision environmental monitoring for sustainable land use and nature-based solutions.</p>
-        </div>
-        <div class="footer-col">
-          <h4>Services</h4>
-          <a href="satellite-monitoring.html">Satellite Monitoring</a>
-          <a href="drone-survey.html">Drone Survey</a>
-          <a href="gis-analysis.html">GIS Analysis</a>
-        </div>
-        <div class="footer-col">
-          <h4>Resources</h4>
-          <a href="#">Case Studies</a>
-          <a href="#">Publications</a>
-          <a href="#">API Docs</a>
-        </div>
-        <div class="footer-col">
-          <h4>Contact</h4>
-          <a href="mailto:hello@biofarms.ai">hello@biofarms.ai</a>
-          <a href="#">LinkedIn</a>
-          <a href="#">Twitter</a>
-        </div>
+  <footer class="bio-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="../index.html" class="logo" style="display:inline-flex;align-items:center;gap:0.5rem;color:#fff;font-weight:800;font-size:1.25rem;text-decoration:none;margin-bottom:1rem;"><img src="../logo.svg" alt=""> biofarms<span style="color:var(--neon);">.ai</span></a>
+        <p style="color:rgba(255,255,255,0.65);font-size:0.875rem;max-width:320px;line-height:1.7;">Field-verified environmental intelligence at the intersection of ground-truth ecology and frontier AI. Bad Oeynhausen, NRW, Germany — global remote.</p>
       </div>
-      <div class="footer-bottom">
-        <p>© 2024 biofarms.ai. All rights reserved.</p>
-        <p>Built with precision, for nature.</p>
+      <div>
+        <h4>Services</h4>
+        <a href="../services.html">All Services</a><br>
+        <a href="ai-model-evaluation.html">AI Model Evaluation</a><br>
+        <a href="satellite-monitoring.html">Remote Sensing</a><br>
+        <a href="eu-compliance.html">EU Compliance</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="../about.html">About</a><br>
+        <a href="../case-studies.html">Case Studies</a><br>
+        <a href="../publications.html">Publications</a><br>
+        <a href="../pricing.html">Pricing</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <a href="https://www.linkedin.com/in/kisifefomotarjude" target="_blank" rel="noopener">LinkedIn</a><br>
+        <a href="../contact.html">Contact</a><br>
+        <a href="mailto:info@biofarms.ai">info@biofarms.ai</a>
       </div>
     </div>
-  </footer>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Biofarms.ai &middot; Kisife Fomotar Jude &middot; Bad Oeynhausen, Germany</p>
+    </div>
+  </div>
+</footer>
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {

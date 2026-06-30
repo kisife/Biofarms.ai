@@ -212,3 +212,62 @@ body {
 .hero-cta { display:inline-block; padding:0.75rem 1.5rem; background:var(--neon); color:var(--forest-dark); font-weight:600; border-radius:8px; text-decoration:none; transition:var(--transition); margin-top:1.5rem; }
 .hero-cta:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(74,222,128,0.3); }
 .mt-4 { margin-top:1rem; }
+
+/* ===================================================================
+   UNIFIED UPGRADE — palette aligned to the main biofarms.ai site,
+   component polish, unified nav/mobile menu, scroll-reveal animation.
+   (Appended last so it overrides the defaults above.)
+   =================================================================== */
+:root{
+  --forest:#0a3a2a;
+  --forest-dark:#06231a;
+  --forest-light:#1a6b4d;
+  --neon:#34d399;
+  --neon-soft:#6ee7b7;
+  --satellite:#0ea5e9;
+  --light:#f8fafc;
+  --slate:#64748b;
+  --dark:#0f172a;
+  --border:rgba(10,58,42,0.10);
+  --shadow:0 4px 24px rgba(10,58,42,0.07);
+  --shadow-lg:0 18px 50px rgba(10,58,42,0.14);
+}
+
+/* Navigation — logo mark, gradient CTA, mobile menu */
+.bio-nav{background:rgba(248,250,252,0.85);backdrop-filter:blur(20px) saturate(180%);}
+.bio-nav .logo{gap:0.55rem;}
+.bio-nav .logo img{width:34px;height:34px;border-radius:8px;display:block;}
+.bio-nav .nav-links{gap:1.6rem;}
+.bio-nav .nav-links a{font-weight:500;font-size:0.9rem;}
+.bio-nav .btn-primary{background:linear-gradient(135deg,var(--forest),var(--forest-light));color:#fff;box-shadow:0 4px 14px rgba(10,58,42,0.25);}
+.bio-nav .btn-primary:hover{transform:translateY(-1px);background:linear-gradient(135deg,var(--forest-light),var(--forest));}
+.bio-nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:0.4rem;}
+.bio-nav-toggle span{display:block;width:24px;height:2px;background:var(--forest);margin:5px 0;border-radius:2px;transition:var(--transition);}
+.bio-mobile-nav{display:none;flex-direction:column;padding:1rem 2rem 1.5rem;background:rgba(255,255,255,0.98);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.bio-mobile-nav.active{display:flex;}
+.bio-mobile-nav a{text-decoration:none;color:var(--dark);font-weight:500;font-size:1.05rem;padding:0.7rem 0;border-bottom:1px solid var(--border);}
+@media(max-width:880px){
+  .bio-nav .nav-links{display:none;}
+  .bio-nav-toggle{display:block;}
+}
+
+/* Component polish */
+.card{border-radius:var(--radius-lg);}
+.card:hover{border-color:var(--neon);box-shadow:var(--shadow-lg);transform:translateY(-6px);}
+.stat-item,.stat-card{background:linear-gradient(180deg,#ffffff,#f6faf8);}
+.stat-item .stat-value,.stat-card .stat-value{background:linear-gradient(135deg,var(--forest),var(--neon));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.section-header h2{letter-spacing:-0.01em;}
+.service-hero h1,.hero h1{letter-spacing:-0.02em;}
+.method-step-number{background:linear-gradient(135deg,var(--forest),var(--forest-light));color:var(--neon);}
+
+/* Footer */
+.bio-footer{background:linear-gradient(135deg,#0b1f17,var(--dark));}
+.bio-footer .logo img{width:30px;height:30px;border-radius:7px;}
+.bio-footer .footer-bottom{color:rgba(255,255,255,0.45);}
+
+/* ===== Scroll-reveal animation system ===== */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1);will-change:opacity,transform;}
+.reveal.visible{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1!important;transform:none!important;transition:none!important;}
+}

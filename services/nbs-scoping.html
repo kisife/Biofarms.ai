@@ -51,16 +51,32 @@
 </head>
 <body>
 
-<nav class="bio-nav">
+<nav class="bio-nav" id="siteNav">
   <div class="container">
-    <a href="/" class="logo">biofarms<span class="logo-dot">.ai</span></a>
+    <a href="../index.html" class="logo"><img src="../logo.svg" alt=""> biofarms<span class="logo-dot">.ai</span></a>
     <div class="nav-links">
-      <a href="/services.html">Services</a>
-      <a href="#methodology">Methodology</a>
-      <a href="#visualization">Data</a>
-      <a href="#citations">Research</a>
-      <a href="/contact.html" class="btn btn-primary">Contact</a>
+      <a href="../index.html">Home</a>
+      <a href="../about.html">About</a>
+      <a href="../services.html">Services</a>
+      <a href="../videos.html">Stories</a>
+      <a href="../case-studies.html">Case Studies</a>
+      <a href="../publications.html">Publications</a>
+      <a href="../pricing.html">Pricing</a>
+      <a href="../faq.html">FAQ</a>
+      <a href="../contact.html" class="btn btn-primary">Get in Touch</a>
     </div>
+    <button class="bio-nav-toggle" aria-label="Toggle menu" onclick="document.querySelector('.bio-mobile-nav').classList.toggle('active')"><span></span><span></span><span></span></button>
+  </div>
+  <div class="bio-mobile-nav">
+    <a href="../index.html">Home</a>
+    <a href="../about.html">About</a>
+    <a href="../services.html">Services</a>
+    <a href="../videos.html">Stories</a>
+    <a href="../case-studies.html">Case Studies</a>
+    <a href="../publications.html">Publications</a>
+    <a href="../pricing.html">Pricing</a>
+    <a href="../faq.html">FAQ</a>
+    <a href="../contact.html">Contact</a>
   </div>
 </nav>
 
@@ -268,14 +284,33 @@
   <div class="container">
     <div class="footer-grid">
       <div>
-        <h4>biofarms.ai</h4>
-        <p style="color:rgba(255,255,255,0.7);font-size:0.875rem;margin-top:0.5rem;">Data-driven forest intelligence for nature-based solutions and climate finance.</p>
+        <a href="../index.html" class="logo" style="display:inline-flex;align-items:center;gap:0.5rem;color:#fff;font-weight:800;font-size:1.25rem;text-decoration:none;margin-bottom:1rem;"><img src="../logo.svg" alt=""> biofarms<span style="color:var(--neon);">.ai</span></a>
+        <p style="color:rgba(255,255,255,0.65);font-size:0.875rem;max-width:320px;line-height:1.7;">Field-verified environmental intelligence at the intersection of ground-truth ecology and frontier AI. Bad Oeynhausen, NRW, Germany — global remote.</p>
       </div>
-      <div><h4>Services</h4><a href="forest-governance.html">Forest Governance</a><a href="eu-compliance.html">EU Compliance</a><a href="nbs-scoping.html">NbS Scoping</a><a href="carbon-market-strategy.html">Carbon Strategy</a></div>
-      <div><h4>Company</h4><a href="/about.html">About</a><a href="/publications.html">Research</a><a href="/contact.html">Careers</a></div>
-      <div><h4>Legal</h4><a href="/contact.html">Privacy</a><a href="/contact.html">Terms</a></div>
+      <div>
+        <h4>Services</h4>
+        <a href="../services.html">All Services</a><br>
+        <a href="ai-model-evaluation.html">AI Model Evaluation</a><br>
+        <a href="satellite-monitoring.html">Remote Sensing</a><br>
+        <a href="eu-compliance.html">EU Compliance</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="../about.html">About</a><br>
+        <a href="../case-studies.html">Case Studies</a><br>
+        <a href="../publications.html">Publications</a><br>
+        <a href="../pricing.html">Pricing</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <a href="https://www.linkedin.com/in/kisifefomotarjude" target="_blank" rel="noopener">LinkedIn</a><br>
+        <a href="../contact.html">Contact</a><br>
+        <a href="mailto:info@biofarms.ai">info@biofarms.ai</a>
+      </div>
     </div>
-    <div class="footer-bottom">© 2024 biofarms.ai. All rights reserved.</div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Biofarms.ai &middot; Kisife Fomotar Jude &middot; Bad Oeynhausen, Germany</p>
+    </div>
   </div>
 </footer>
 

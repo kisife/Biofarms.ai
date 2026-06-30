@@ -703,3 +703,48 @@ ThreeScenes.elevationModel = function(containerId) {
   });
   return { scene, camera, renderer };
 };
+
+/* ===================================================================
+   Unified scroll-reveal + hero entrance animation (biofarms.ai)
+   Self-contained; animates section headers, cards, stats, timeline,
+   methodology, citations on scroll with stagger, plus a hero entrance.
+   =================================================================== */
+(function () {
+  function ready(fn){ document.readyState!=='loading' ? fn() : document.addEventListener('DOMContentLoaded', fn); }
+  ready(function () {
+    try {
+      var blocks = '.section-header,.card,.stat-item,.stat-card,.viz-container,.method-block,.method-step,.timeline-item,.challenge-card,.citation-box';
+      document.querySelectorAll(blocks).forEach(function (el) { el.classList.add('reveal'); });
+
+      // Stagger children inside grid/list groups
+      var groups = ['.card-grid', '.stats-grid', '.grid-2', '.grid-3', '.method-steps', '.timeline'];
+      document.querySelectorAll(groups.join(',')).forEach(function (g) {
+        Array.prototype.forEach.call(g.children, function (child, i) {
+          if (child.classList) child.classList.add('reveal');
+          child.style.transitionDelay = (i * 0.08) + 's';
+        });
+      });
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+      // Hero entrance (covers both .service-hero and .hero families)
+      var heroEls = document.querySelectorAll(
+        '.service-hero .hero-tag, .service-hero h1, .service-hero .hero-subtitle, .service-hero .hero-stats,' +
+        '.hero .hero-tag, .hero h1, .hero .hero-subtitle, .hero .hero-cta'
+      );
+      heroEls.forEach(function (el, i) {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(22px)';
+        el.style.transition = 'opacity .8s cubic-bezier(.4,0,.2,1) ' + (0.1 + i * 0.12) + 's, transform .8s cubic-bezier(.4,0,.2,1) ' + (0.1 + i * 0.12) + 's';
+      });
+      requestAnimationFrame(function () { requestAnimationFrame(function () {
+        heroEls.forEach(function (el) { el.style.opacity = '1'; el.style.transform = 'none'; });
+      }); });
+    } catch (e) { /* fail-safe: never block page */ }
+  });
+})();
