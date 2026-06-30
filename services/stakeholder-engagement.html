@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stakeholder Engagement & Facilitation | biofarms.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/common.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="../shared/shaders.js"></script>
+  <style>
+    .page-engage .d3-axis text { fill: #64748B; font-family: Inter, sans-serif; font-size: 11px; }
+    .page-engage .d3-axis path, .page-engage .d3-axis line { stroke: rgba(255,255,255,0.1); }
+    .page-engage .stakeholder-node { cursor: pointer; transition: all 0.3s; }
+    .page-engage .stakeholder-label { fill: #F5F7F6; font-size: 11px; font-family: Inter, sans-serif; font-weight: 500; pointer-events: none; }
+    .page-engage .quadrant-label { fill: rgba(245,247,246,0.15); font-size: 18px; font-family: Inter, sans-serif; font-weight: 700; text-anchor: middle; pointer-events: none; }
+    .page-engage .quadrant-bg { fill: rgba(255,255,255,0.02); }
+    .page-engage .grid-line { stroke: rgba(255,255,255,0.05); stroke-dasharray: 4,4; }
+    .client-banner { background: linear-gradient(135deg, rgba(27,77,62,0.6) 0%, rgba(15,46,37,0.8) 100%); border: 1px solid rgba(74,222,128,0.15); border-radius: 16px; padding: 32px 40px; display: flex; align-items: center; gap: 24px; }
+    .client-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #4ADE80, #1B4D3E); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; color: #0F2E25; flex-shrink: 0; }
+  </style>
+</head>
+<body class="page-engage">
+
+<nav class="site-nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">biofarms<span>.ai</span></a>
+    <ul class="nav-links">
+      <li><a href="research-design.html">Research</a></li>
+      <li><a href="ai-sustainability-training.html">Training</a></li>
+      <li><a href="stakeholder-engagement.html">Engagement</a></li>
+      <li><a href="environmental-impact-assessment.html">Assessment</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+  <canvas class="hero-shader-bg" id="shaderCanvas"></canvas>
+  <div class="hero-content">
+    <div class="section-label gsap-reveal">Services</div>
+    <h1 class="hero-title gsap-reveal">Stakeholder Engagement<br>& Facilitation</h1>
+    <p class="hero-subtitle gsap-reveal">Participatory governance frameworks for multi-stakeholder REDD+ and conservation initiatives</p>
+    <a href="#overview" class="btn btn-primary gsap-reveal">Explore Approach</a>
+  </div>
+</section>
+
+<section class="section section-dark" id="overview">
+  <div class="container">
+    <div class="gsap-reveal">
+      <span class="section-label">Client</span>
+      <h2>Anonymous Multi-Stakeholder REDD+ Initiative</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="client-banner gsap-reveal" style="margin-top: 40px;">
+      <div class="client-avatar">R+</div>
+      <div class="client-info">
+        <h4>Multi-Stakeholder REDD+ Implementation Project</h4>
+        <p>Tropical forest conservation programme requiring structured engagement of 34+ stakeholders across government, indigenous communities, NGOs, and private sector actors for benefit-sharing agreement negotiations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-forest" id="challenge">
+  <div class="container">
+    <div class="two-column">
+      <div class="gsap-reveal">
+        <span class="section-label">Challenge</span>
+        <h2>Navigating Complex Stakeholder Landscapes</h2>
+        <div class="section-divider"></div>
+        <p>REDD+ initiatives face inherent governance complexity: divergent interests, power asymmetries, cultural and linguistic barriers, and historical distrust between communities and state actors. The project required a structured facilitation approach grounded in peer-reviewed stakeholder analysis methods.</p>
+        <ul class="challenge-list" style="margin-top: 32px;">
+          <li>High power asymmetries between indigenous groups and government</li>
+          <li>Divergent priorities on benefit-sharing mechanisms</li>
+          <li>Multi-lingual facilitation requirements (3 languages)</li>
+          <li>Historical conflicts over land tenure and forest access</li>
+          <li>Need for legally binding, consensus-based agreements</li>
+        </ul>
+      </div>
+      <div class="gsap-reveal">
+        <div class="viz-container" id="threeGlobe"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-dark" id="methodology">
+  <div class="container">
+    <div class="gsap-reveal">
+      <span class="section-label">Methodology</span>
+      <h2>Our Engagement Framework</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div style="max-width: 800px; margin-top: 60px;">
+      <div class="methodology-step gsap-reveal">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <h4>Stakeholder Mapping</h4>
+          <p>Reed et al. (2009) typology-based stakeholder identification, producing a comprehensive inventory of 34 actors across 6 categories: government, indigenous communities, NGOs, private sector, research institutions, and donors.</p>
+        </div>
+      </div>
+      <div class="methodology-step gsap-reveal">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <h4>Power/Interest Analysis</h4>
+          <p>Systematic mapping of each stakeholder's power (influence over decisions) and interest (stake in outcomes) using structured interviews and document analysis, producing a 2x2 matrix for prioritization.</p>
+        </div>
+      </div>
+      <div class="methodology-step gsap-reveal">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <h4>Engagement Strategy</h4>
+          <p>Tailored engagement approach for each quadrant: high-power/high-interest stakeholders as key players; low-power/high-interest as keep informed; high-power/low-interest as keep satisfied.</p>
+        </div>
+      </div>
+      <div class="methodology-step gsap-reveal">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <h4>Facilitation Workshops</h4>
+          <p>Stringer-style adaptive management workshops: 6 structured negotiation rounds with bilingual facilitation, ground rules, and interest-based bargaining rather than positional bargaining.</p>
+        </div>
+      </div>
+      <div class="methodology-step gsap-reveal">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <h4>Conflict Resolution</h4>
+          <p>Mediation sessions using principled negotiation (Fisher & Ury) and community-based conflict resolution mechanisms, with separate bilateral consultations for sensitive issues.</p>
+        </div>
+      </div>
+      <div class="methodology-step gsap-reveal">
+        <div class="step-number">06</div>
+        <div class="step-content">
+          <h4>Agreement Documentation</h4>
+          <p>Legally reviewed benefit-sharing agreements, community consent protocols, and monitoring frameworks for compliance and adaptive management.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-forest" id="data-viz">
+  <div class="container">
+    <div class="gsap-reveal">
+      <span class="section-label">Data Visualization</span>
+      <h2>Stakeholder Power vs. Interest Matrix</h2>
+      <div class="section-divider"></div>
+      <p style="max-width: 700px;">Network diagram showing 34 mapped stakeholders positioned by power (influence) and interest (stake), with node size indicating engagement priority and color indicating actor category.</p>
+    </div>
+    <div class="d3-chart-container gsap-reveal" style="margin-top: 48px;" id="stakeholderMatrix"></div>
+  </div>
+</section>
+
+<section class="section section-dark" id="timeline">
+  <div class="container">
+    <div class="gsap-reveal">
+      <span class="section-label">Project Timeline</span>
+      <h2>Engagement Phases</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="timeline" style="margin-top: 60px; max-width: 700px;">
+      <div class="timeline-item gsap-reveal">
+        <div class="timeline-date">Month 1</div>
+        <div class="timeline-title">Stakeholder Mapping & Scoping</div>
+        <div class="timeline-desc">Initial stakeholder identification using Reed typology, preliminary power/interest assessment, and relationship mapping through key informant interviews.</div>
+      </div>
+      <div class="timeline-item gsap-reveal">
+        <div class="timeline-date">Month 2</div>
+        <div class="timeline-title">Deep-dive Analysis & Strategy</div>
+        <div class="timeline-desc">Structured interviews with all 34 stakeholders, power/interest matrix validation, and tailored engagement strategy design for each quadrant.</div>
+      </div>
+      <div class="timeline-item gsap-reveal">
+        <div class="timeline-date">Month 3–4</div>
+        <div class="timeline-title">Workshops 1–3: Information Sharing & Interest Articulation</div>
+        <div class="timeline-desc">Three multi-stakeholder workshops establishing shared knowledge base, articulating individual and collective interests, and building trust through structured dialogue.</div>
+      </div>
+      <div class="timeline-item gsap-reveal">
+        <div class="timeline-date">Month 5–6</div>
+        <div class="timeline-title">Workshops 4–6: Negotiation & Agreement Drafting</div>
+        <div class="timeline-desc">Interest-based bargaining sessions, option generation, and iterative agreement drafting with bilingual legal review.</div>
+      </div>
+      <div class="timeline-item gsap-reveal">
+        <div class="timeline-date">Month 7</div>
+        <div class="timeline-title">Final Agreements & Institutionalization</div>
+        <div class="timeline-desc">Formal signing of 12 agreements, establishment of monitoring committees, and capacity building for ongoing adaptive governance.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-forest" id="results">
+  <div class="container">
+    <div class="gsap-reveal">
+      <span class="section-label">Results</span>
+      <h2>Engagement Outcomes</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-item gsap-reveal">
+        <div class="stat-number" data-target="34">0</div>
+        <div class="stat-label">Stakeholders Engaged</div>
+      </div>
+      <div class="stat-item gsap-reveal">
+        <div class="stat-number" data-target="6">0</div>
+        <div class="stat-label">Negotiation Rounds</div>
+      </div>
+      <div class="stat-item gsap-reveal">
+        <div class="stat-number" data-target="12">0</div>
+        <div class="stat-label">Agreements Reached</div>
+      </div>
+      <div class="stat-item gsap-reveal">
+        <div class="stat-number" data-target="3">0</div>
+        <div class="stat-label">Languages Facilitated</div>
+      </div>
+    </div>
+    <div class="result-highlight gsap-reveal" style="margin-top: 60px;">
+      <h3>Key Finding</h3>
+      <p>The structured engagement approach achieved 12 signed agreements from 34 initially divergent stakeholders across 6 negotiation rounds. The power/interest matrix proved effective for prioritizing engagement resources: 89% of "key player" stakeholders (high power/high interest) became signatories to at least one binding agreement. Post-engagement survey indicated 78% of participants felt their interests were adequately represented, up from 34% at baseline.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-dark" id="academic">
+  <div class="container">
+    <div class="gsap-reveal">
+      <span class="section-label">Academic Foundation</span>
+      <h2>Peer-Reviewed Citations</h2>
+      <div class="section-divider"></div>
+    </div>
+    <ul class="citations-list" style="margin-top: 48px;">
+      <li class="gsap-reveal">
+        <strong>Reed, M.S., et al. (2009).</strong> "Who's in and why? A typology of stakeholder analysis methods for natural resource management." <em>Journal of Environmental Management</em>, 90(5), 1933–1949. <span class="doi">DOI: 10.1016/j.jenvman.2009.01.001</span>
+      </li>
+      <li class="gsap-reveal">
+        <strong>Stringer, L.C., et al. (2006).</strong> "Unpacking 'participation' in the adaptive management of social–ecological systems: a critical review." <em>Ecology and Society</em>, 11(2), 39. <span class="doi">DOI: 10.5751/ES-01896-110239</span>
+      </li>
+      <li class="gsap-reveal">
+        <strong>Faysse, N. (2006).</strong> "Difficulties in implementation of participatory natural resource management." <em>Natural Resources Forum</em>, 30(2), 130–140. <span class="doi">DOI: 10.1111/j.1477-8947.2006.00110.x</span>
+      </li>
+      <li class="gsap-reveal">
+        <strong>Colfer, C.J.P. (2005).</strong> <em>The Complex Forest: Communities, Uncertainty, and Adaptive Collaborative Management</em>. Resources for the Future / Center for International Forestry Research (CIFOR). ISBN: 978-1-933115-26-4
+      </li>
+    </ul>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">biofarms<span>.ai</span></div>
+        <p style="color: #64748B; font-size: 0.9rem; max-width: 300px;">AI-powered research and sustainability solutions for environmental science, forestry, and conservation.</p>
+      </div>
+      <div class="footer-links">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="research-design.html">Research Design</a></li>
+          <li><a href="ai-sustainability-training.html">AI Training</a></li>
+          <li><a href="stakeholder-engagement.html">Stakeholder Engagement</a></li>
+          <li><a href="environmental-impact-assessment.html">Impact Assessment</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h5>Resources</h5>
+        <ul>
+          <li><a href="#">Publications</a></li>
+          <li><a href="#">Methodologies</a></li>
+          <li><a href="#">Datasets</a></li>
+          <li><a href="#">Code Repository</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:hello@biofarms.ai">hello@biofarms.ai</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>biofarms.ai &mdash; Research-driven. Data-informed. Sustainability-focused.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.BiofarmsShaders) {
+    window.BiofarmsShaders.init('#shaderCanvas', 'terrain');
+  }
+
+  const nav = document.getElementById('siteNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.from('.hero .gsap-reveal', { y: 60, opacity: 0, duration: 1.2, stagger: 0.2, ease: 'power3.out', delay: 0.3 });
+  gsap.utils.toArray('.section .gsap-reveal').forEach(el => {
+    gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }, y: 40, opacity: 0, duration: 0.8, ease: 'power3.out' });
+  });
+
+  const statNumbers = document.querySelectorAll('#statsGrid .stat-number');
+  statNumbers.forEach(num => {
+    const target = parseInt(num.dataset.target);
+    gsap.to(num, {
+      scrollTrigger: { trigger: num, start: 'top 85%' },
+      innerText: target, duration: 2.5, snap: { innerText: 1 }, ease: 'power2.out',
+      onUpdate: function() {
+        const val = Math.round(this.targets()[0].innerText);
+        num.innerText = val;
+      }
+    });
+  });
+
+  // ==================== D3.js Stakeholder Network / Power-Interest Matrix ====================
+  const stakeholderData = [
+    { name: 'Ministry of Environment', power: 92, interest: 85, category: 'Government', size: 18 },
+    { name: 'Indigenous Council A', power: 75, interest: 95, category: 'Community', size: 16 },
+    { name: 'Indigenous Council B', power: 68, interest: 90, category: 'Community', size: 15 },
+    { name: 'WWF', power: 55, interest: 80, category: 'NGO', size: 12 },
+    { name: 'Conservation Intl', power: 50, interest: 75, category: 'NGO', size: 12 },
+    { name: 'Forest Enterprise', power: 85, interest: 45, category: 'Private', size: 14 },
+    { name: 'Agri-Cooperative', power: 45, interest: 70, category: 'Private', size: 11 },
+    { name: 'University Research', power: 35, interest: 60, category: 'Research', size: 10 },
+    { name: 'GCF/World Bank', power: 95, interest: 70, category: 'Donor', size: 16 },
+    { name: 'Local Govt', power: 60, interest: 65, category: 'Government', size: 12 },
+    { name: 'Forest Community C', power: 40, interest: 85, category: 'Community', size: 11 },
+    { name: 'Forest Community D', power: 35, interest: 80, category: 'Community', size: 10 },
+    { name: 'Eco-tourism Group', power: 30, interest: 55, category: 'Private', size: 9 },
+    { name: 'Youth Council', power: 25, interest: 65, category: 'Community', size: 8 },
+    { name: 'Women's Cooperative', power: 30, interest: 70, category: 'Community', size: 9 },
+    { name: 'National Park Service', power: 80, interest: 90, category: 'Government', size: 15 },
+    { name: 'Carbon Certifier', power: 55, interest: 50, category: 'Private', size: 11 },
+    { name: 'Media Outlet', power: 40, interest: 35, category: 'Other', size: 8 },
+    { name: 'Legal Aid NGO', power: 30, interest: 75, category: 'NGO', size: 9 },
+    { name: 'Health Centre', power: 20, interest: 40, category: 'Community', size: 7 },
+    { name: 'Church Leaders', power: 45, interest: 50, category: 'Community', size: 10 },
+    { name: 'Trade Union', power: 50, interest: 60, category: 'Other', size: 10 },
+    { name: 'Regional Governor', power: 88, interest: 55, category: 'Government', size: 15 },
+    { name: 'SME Association', power: 35, interest: 45, category: 'Private', size: 9 },
+    { name: 'Climate Alliance', power: 40, interest: 70, category: 'NGO', size: 10 },
+    { name: 'Land Rights NGO', power: 45, interest: 85, category: 'NGO', size: 11 },
+    { name: 'Timber Company', power: 78, interest: 30, category: 'Private', size: 13 },
+    { name: 'Mining Interest', power: 70, interest: 25, category: 'Private', size: 12 },
+    { name: 'Fisheries Assoc', power: 30, interest: 50, category: 'Community', size: 9 },
+    { name: 'Water Authority', power: 65, interest: 60, category: 'Government', size: 12 },
+    { name: 'Forest Police', power: 72, interest: 40, category: 'Government', size: 11 },
+    { name: 'Education Board', power: 25, interest: 30, category: 'Government', size: 8 },
+    { name: 'Religious Council', power: 50, interest: 45, category: 'Community', size: 10 },
+    { name: 'Export Co-op', power: 60, interest: 35, category: 'Private', size: 11 }
+  ];
+
+  const catColors = {
+    'Government': '#4ADE80',
+    'Community': '#60A5FA',
+    'NGO': '#FBBF24',
+    'Private': '#F87171',
+    'Research': '#A78BFA',
+    'Donor': '#34D399',
+    'Other': '#94A3B8'
+  };
+
+  const matrixContainer = document.getElementById('stakeholderMatrix');
+  const mw = matrixContainer.clientWidth - 48;
+  const mh = 500;
+  const mm = { top: 40, right: 180, bottom: 60, left: 60 };
+  const miw = mw - mm.left - mm.right;
+  const mih = mh - mm.top - mm.bottom;
+
+  const mSvg = d3.select('#stakeholderMatrix').append('svg').attr('width', mw).attr('height', mh);
+  const mG = mSvg.append('g').attr('transform', `translate(${mm.left},${mm.top})`);
+
+  const xScale = d3.scaleLinear().domain([0, 100]).range([0, miw]);
+  const yScale = d3.scaleLinear().domain([0, 100]).range([mih, 0]);
+  const rScale = d3.scaleSqrt().domain([0, 20]).range([0, 18]);
+
+  // Quadrant backgrounds
+  mG.append('rect').attr('x', 0).attr('y', 0).attr('width', miw / 2).attr('height', mih / 2).attr('class', 'quadrant-bg');
+  mG.append('rect').attr('x', miw / 2).attr('y', 0).attr('width', miw / 2).attr('height', mih / 2).attr('class', 'quadrant-bg');
+  mG.append('rect').attr('x', 0).attr('y', mih / 2).attr('width', miw / 2).attr('height', mih / 2).attr('class', 'quadrant-bg');
+  mG.append('rect').attr('x', miw / 2).attr('y', mih / 2).attr('width', miw / 2).attr('height', mih / 2).attr('class', 'quadrant-bg');
+
+  // Center lines
+  mG.append('line').attr('x1', miw / 2).attr('x2', miw / 2).attr('y1', 0).attr('y2', mih).attr('class', 'grid-line');
+  mG.append('line').attr('x1', 0).attr('x2', miw).attr('y1', mih / 2).attr('y2', mih / 2).attr('class', 'grid-line');
+
+  // Quadrant labels
+  mG.append('text').attr('x', miw * 0.75).attr('y', mih * 0.25).attr('class', 'quadrant-label').text('KEY PLAYERS');
+  mG.append('text').attr('x', miw * 0.25).attr('y', mih * 0.25).attr('class', 'quadrant-label').text('KEEP INFORMED');
+  mG.append('text').attr('x', miw * 0.75).attr('y', mih * 0.75).attr('class', 'quadrant-label').text('KEEP SATISFIED');
+  mG.append('text').attr('x', miw * 0.25).attr('y', mih * 0.75).attr('class', 'quadrant-label').text('MINIMAL EFFORT');
+
+  // Axes
+  mG.append('g').attr('class', 'd3-axis').attr('transform', `translate(0,${mih})`).call(d3.axisBottom(xScale).ticks(5));
+  mG.append('g').attr('class', 'd3-axis').call(d3.axisLeft(yScale).ticks(5));
+  mG.append('text').attr('x', miw / 2).attr('y', mih + 48).attr('text-anchor', 'middle').attr('fill', '#64748B').attr('font-size', '13px').attr('font-family', 'Inter, sans-serif').text('Interest (Stake in Outcomes)');
+  mG.append('text').attr('transform', 'rotate(-90)').attr('x', -mih / 2).attr('y', -45).attr('text-anchor', 'middle').attr('fill', '#64748B').attr('font-size', '13px').attr('font-family', 'Inter, sans-serif').text('Power (Influence over Decisions)');
+
+  // Nodes
+  const nodes = mG.selectAll('.stakeholder-node').data(stakeholderData).enter().append('circle')
+    .attr('class', 'stakeholder-node').attr('cx', d => xScale(d.interest)).attr('cy', d => yScale(d.power))
+    .attr('r', 0).attr('fill', d => catColors[d.category]).attr('opacity', 0.75).attr('stroke', '#fff').attr('stroke-width', 1)
+    .on('mouseover', function(event, d) { d3.select(this).attr('opacity', 1).attr('stroke-width', 2); })
+    .on('mouseout', function(event, d) { d3.select(this).attr('opacity', 0.75).attr('stroke-width', 1); });
+
+  // Labels for key nodes
+  const keyNodes = stakeholderData.filter(d => d.power > 60 || d.interest > 70);
+  mG.selectAll('.stakeholder-label').data(keyNodes).enter().append('text')
+    .attr('class', 'stakeholder-label').attr('x', d => xScale(d.interest) + rScale(d.size) + 4).attr('y', d => yScale(d.power) + 4)
+    .text(d => d.name).attr('opacity', 0);
+
+  // Animate on scroll
+  ScrollTrigger.create({
+    trigger: '#stakeholderMatrix', start: 'top 80%',
+    onEnter: () => {
+      nodes.transition().duration(1000).delay((d, i) => i * 30).attr('r', d => rScale(d.size));
+      mG.selectAll('.stakeholder-label').transition().delay(1000).duration(600).attr('opacity', 1);
+    }
+  });
+
+  // Category legend
+  const legend = mSvg.append('g').attr('transform', `translate(${mw - 170}, 40)`);
+  Object.entries(catColors).forEach(([cat, col], i) => {
+    legend.append('circle').attr('cx', 6).attr('cy', i * 22 + 6).attr('r', 6).attr('fill', col);
+    legend.append('text').attr('x', 20).attr('y', i * 22 + 11).attr('fill', '#64748B').attr('font-size', '11px').attr('font-family', 'Inter, sans-serif').text(cat);
+  });
+
+  // ==================== Three.js Globe with Stakeholder Connections ====================
+  const gContainer = document.getElementById('threeGlobe');
+  const gScene = new THREE.Scene();
+  const gCamera = new THREE.PerspectiveCamera(45, gContainer.clientWidth / gContainer.clientHeight, 0.1, 1000);
+  const gRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  gRenderer.setSize(gContainer.clientWidth, gContainer.clientHeight);
+  gRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  gContainer.appendChild(gRenderer.domElement);
+
+  const gGlobe = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 64, 64),
+    new THREE.MeshPhongMaterial({ color: 0x1B4D3E, emissive: 0x0F2E25, emissiveIntensity: 0.3, specular: 0x4ADE80, shininess: 15, transparent: true, opacity: 0.9 })
+  );
+  gScene.add(gGlobe);
+  gScene.add(new THREE.Mesh(new THREE.SphereGeometry(5.08, 32, 32), new THREE.MeshBasicMaterial({ color: 0x4ADE80, wireframe: true, transparent: true, opacity: 0.06 })));
+  gScene.add(new THREE.Mesh(new THREE.SphereGeometry(5.3, 64, 64), new THREE.MeshBasicMaterial({ color: 0x4ADE80, transparent: true, opacity: 0.04, side: THREE.BackSide })));
+
+  const stakeholderLocs = [
+    { lat: 48.8, lon: 2.3, name: 'Paris' }, { lat: 51.5, lon: -0.1, name: 'London' },
+    { lat: 52.5, lon: 13.4, name: 'Berlin' }, { lat: 41.9, lon: 12.5, name: 'Rome' },
+    { lat: 40.4, lon: -3.7, name: 'Madrid' }, { lat: 59.9, lon: 10.7, name: 'Oslo' },
+    { lat: 55.7, lon: 37.6, name: 'Moscow' }, { lat: 39.9, lon: 116.4, name: 'Beijing' },
+    { lat: 35.7, lon: 139.7, name: 'Tokyo' }, { lat: 1.3, lon: 103.8, name: 'Singapore' },
+    { lat: -1.3, lon: 36.8, name: 'Nairobi' }, { lat: -33.9, lon: 18.4, name: 'Cape Town' },
+    { lat: -23.5, lon: -46.6, name: 'Sao Paulo' }, { lat: 38.9, lon: -77.0, name: 'DC' },
+    { lat: 19.4, lon: -99.1, name: 'Mexico City' }, { lat: -33.9, lon: 151.2, name: 'Sydney' }
+  ];
+
+  function latLonToVec(lat, lon, r) {
+    const phi = (90 - lat) * (Math.PI / 180);
+    const theta = (lon + 180) * (Math.PI / 180);
+    return new THREE.Vector3(-r * Math.sin(phi) * Math.cos(theta), r * Math.cos(phi), r * Math.sin(phi) * Math.sin(theta));
+  }
+
+  const gMarkers = new THREE.Group();
+  const linePositions = [];
+  stakeholderLocs.forEach((loc, i) => {
+    const pos = latLonToVec(loc.lat, loc.lon, 5.08);
+    gMarkers.add(new THREE.Mesh(new THREE.SphereGeometry(0.07, 16, 16), new THREE.MeshBasicMaterial({ color: 0x4ADE80 })));
+    gMarkers.children[gMarkers.children.length - 1].position.copy(pos);
+    // Connect to a few nearby nodes
+    for (let j = i + 1; j < stakeholderLocs.length && j < i + 4; j++) {
+      const pos2 = latLonToVec(stakeholderLocs[j].lat, stakeholderLocs[j].lon, 5.08);
+      const mid = pos.clone().add(pos2).multiplyScalar(0.5).normalize().multiplyScalar(5.3 + Math.random() * 0.5);
+      const curve = new THREE.QuadraticBezierCurve3(pos, mid, pos2);
+      const points = curve.getPoints(20);
+      const lg = new THREE.BufferGeometry().setFromPoints(points);
+      linePositions.push(new THREE.Line(lg, new THREE.LineBasicMaterial({ color: 0x4ADE80, transparent: true, opacity: 0.08 })));
+    }
+  });
+  linePositions.forEach(l => gScene.add(l));
+  gScene.add(gMarkers);
+
+  gScene.add(new THREE.AmbientLight(0x404040, 1.5));
+  const gDir = new THREE.DirectionalLight(0xF5F7F6, 1.2); gDir.position.set(5, 3, 5); gScene.add(gDir);
+  gCamera.position.z = 14;
+
+  let gt = 0;
+  function animateG() {
+    requestAnimationFrame(animateG);
+    gt += 0.005;
+    gGlobe.rotation.y = gt * 0.3;
+    gMarkers.rotation.y = gt * 0.3;
+    gRenderer.render(gScene, gCamera);
+  }
+  animateG();
+
+  window.addEventListener('resize', () => {
+    const w = gContainer.clientWidth;
+    const h = gContainer.clientHeight;
+    gCamera.aspect = w / h;
+    gCamera.updateProjectionMatrix();
+    gRenderer.setSize(w, h);
+  });
+});
+</script>
+</body>
+</html>

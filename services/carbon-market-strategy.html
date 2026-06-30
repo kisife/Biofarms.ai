@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carbon Market Strategy & MRV | biofarms.ai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/common.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="../shared/shaders.js"></script>
+<style>
+  .client-banner { background: linear-gradient(135deg, var(--forest), var(--forest-dark)); padding: 2rem 0; color: #fff; }
+  .client-banner h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem; }
+  .client-banner p { opacity: 0.8; font-size: 0.875rem; }
+  .challenge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .challenge-text { font-size: 1.125rem; color: var(--slate); line-height: 1.8; }
+  .challenge-text strong { color: var(--forest); }
+  .viz-full { width: 100%; height: 500px; position: relative; }
+  .viz-full canvas { display: block; width: 100%; height: 100%; }
+  .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+  .result-card { background: #fff; border-radius: var(--radius); padding: 2rem; border: 1px solid var(--border); text-align: center; }
+  .result-card .result-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .result-card h4 { font-size: 1rem; font-weight: 700; color: var(--forest); margin-bottom: 0.5rem; }
+  .result-card p { font-size: 0.875rem; color: var(--slate); }
+  .academic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .academic-card { background: #fff; border-radius: var(--radius); padding: 1.5rem; border-left: 4px solid var(--neon); box-shadow: var(--shadow); }
+  .academic-card .cite-doi { font-size: 0.75rem; color: var(--forest); font-weight: 600; margin-top: 0.5rem; display: block; }
+  .academic-card .cite-doi:hover { text-decoration: underline; }
+  .timeseries-viz { width: 100%; height: 450px; }
+  .timeline-wrap { margin: 3rem 0; }
+  .method-flow { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-top: 2rem; }
+  .method-step { background: var(--forest); color: #fff; padding: 0.75rem 1.25rem; border-radius: 100px; font-size: 0.875rem; font-weight: 500; }
+  .method-arrow { color: var(--neon); font-size: 1.25rem; font-weight: 700; }
+  .hero-stats-row { display: flex; gap: 2.5rem; margin-top: 2rem; }
+  .hero-stat { text-align: center; }
+  .hero-stat .val { font-size: 2rem; font-weight: 800; color: var(--neon); }
+  .hero-stat .lbl { font-size: 0.75rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.05em; }
+  .dataset-list { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
+  .dataset-tag { background: rgba(27,77,62,0.08); color: var(--forest); padding: 0.375rem 0.75rem; border-radius: 100px; font-size: 0.75rem; font-weight: 600; }
+  .mrv-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+  .mrv-table th, .mrv-table td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid var(--border); font-size: 0.875rem; }
+  .mrv-table th { background: var(--light); color: var(--forest); font-weight: 700; }
+  .mrv-table td { color: var(--slate); }
+  .mrv-table tr:hover { background: rgba(74,222,128,0.04); }
+  .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 100px; font-size: 0.75rem; font-weight: 600; }
+  .badge-green { background: rgba(74,222,128,0.15); color: #15803d; }
+  .badge-blue { background: rgba(59,130,246,0.15); color: #1d4ed8; }
+  .badge-amber { background: rgba(245,158,11,0.15); color: #b45309; }
+</style>
+</head>
+<body>
+
+<nav class="bio-nav">
+  <div class="container">
+    <a href="/" class="logo">biofarms<span class="logo-dot">.ai</span></a>
+    <div class="nav-links">
+      <a href="/services.html">Services</a>
+      <a href="#methodology">Methodology</a>
+      <a href="#visualization">Data</a>
+      <a href="#citations">Research</a>
+      <a href="/contact.html" class="btn btn-primary">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<section class="service-hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="container hero-content">
+    <span class="hero-tag">Service</span>
+    <h1>Carbon Market Strategy &amp; MRV</h1>
+    <p class="hero-subtitle">Designing high-integrity REDD+ projects aligned with ICVCM Core Carbon Principles, from baseline scenario to verified issuance.</p>
+    <div class="hero-stats-row hero-stats">
+      <div class="hero-stat"><div class="val" data-count="45000">0</div><div class="lbl">Hectares Project Area</div></div>
+      <div class="hero-stat"><div class="val" data-count="12.5">0</div><div class="lbl">Mt CO₂e Over 30 Years</div></div>
+      <div class="hero-stat"><div class="val" data-count="3.2">0</div><div class="lbl">% Leakage Estimate</div></div>
+      <div class="hero-stat"><div class="val" data-text="ICVCM">ICVCM</div><div class="lbl">CCP-Aligned</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="client-banner">
+  <div class="container">
+    <h2>Client: Anonymous Brazilian Amazon REDD+ Developer</h2>
+    <p>Private project developer seeking Verra VCS and Gold Standard certification | 2022–2025</p>
+  </div>
+</section>
+
+<section class="section" id="challenge">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Challenge</span>
+      <h2>Integrity in the Voluntary Carbon Market</h2>
+      <p>The voluntary carbon market faces a credibility crisis. Studies have documented systematic over-crediting, weak baseline scenarios, and inadequate leakage accounting. Our client needed a project design that would withstand scrutiny.</p>
+    </div>
+    <div class="challenge-grid reveal">
+      <div class="challenge-text">
+        <p>Our client sought to develop a <strong>45,000-hectare REDD+ project</strong> in the Brazilian Amazon with a target of 12.5 Mt CO₂e over 30 years. The project needed to align with Verra VCS methodology VM0047, Gold Standard requirements, and the new <strong>ICVCM Core Carbon Principles</strong><a class="citation" href="#ref-icvcm">[4]</a>.</p>
+        <p style="margin-top:1rem">We applied Angelsen et al.'s (2017) results-based payment framework<a class="citation" href="#ref-angelsen">[1]</a> and addressed the over-crediting critiques raised by West et al. (2020)<a class="citation" href="#ref-west">[2]</a> and Badgley et al. (2021)<a class="citation" href="#ref-badgley">[3]</a> by designing a conservative baseline with robust uncertainty quantification.</p>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:1rem">
+          <div class="card-icon">⚠️</div>
+          <h3>Market Integrity Risks</h3>
+          <p>West et al. (2020) found that forest-based carbon offsets may not deliver promised climate benefits without stronger MRV. Badgley et al. (2021) documented systematic over-crediting in California's forest offset program.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🛡️</div>
+          <h3>Our Response</h3>
+          <p>Conservative baseline (10th percentile reference region), 3.2% leakage buffer, 20% uncertainty deduction, and full ICVCM CCP alignment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background: #fff;" id="methodology">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Methodology</span>
+      <h2>A Seven-Phase MRV Architecture</h2>
+      <p>From baseline scenario to verified carbon credit issuance, every phase is designed for transparency, conservativeness, and auditability.</p>
+    </div>
+    <div class="method-flow reveal">
+      <span class="method-step">1. Baseline Scenario</span>
+      <span class="method-arrow">→</span>
+      <span class="method-step">2. Project Scenario</span>
+      <span class="method-arrow">→</span>
+      <span class="method-step">3. Leakage Assessment</span>
+      <span class="method-arrow">→</span>
+      <span class="method-step">4. Uncertainty Quantification</span>
+      <span class="method-arrow">→</span>
+      <span class="method-step">5. Validation</span>
+      <span class="method-arrow">→</span>
+      <span class="method-step">6. Verification</span>
+      <span class="method-arrow">→</span>
+      <span class="method-step">7. Issuance</span>
+    </div>
+    <div class="card-grid" style="margin-top:3rem">
+      <div class="card reveal">
+        <div class="card-icon">📊</div>
+        <h3>Baseline Scenario</h3>
+        <p>Historical deforestation trend (2008–2022) projected forward using reference region data at the 10th percentile to ensure conservativeness.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🌳</div>
+        <h3>Project Scenario</h3>
+        <p>Activity data from forest patrols, community monitoring, and remote sensing-based disturbance detection.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🔀</div>
+        <h3>Leakage Assessment</h3>
+        <p>Market leakage (1.8%) and activity-shifting leakage (1.4%) quantified and deducted from net credits.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">📐</div>
+        <h3>Uncertainty Quantification</h3>
+        <p>Combined uncertainty propagated through Monte Carlo simulation; 20% deduction applied to net GHG benefits.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">✅</div>
+        <h3>Validation</h3>
+        <p>Project design document validated by a VVB accredited under the VCS Program and Gold Standard.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🔍</div>
+        <h3>Verification &amp; Issuance</h3>
+        <p>Annual monitoring reports verified by a VVB; credits issued only after successful verification.</p>
+      </div>
+    </div>
+    <div class="dataset-list reveal">
+      <span class="dataset-tag">Verra VCS VM0047</span>
+      <span class="dataset-tag">Gold Standard</span>
+      <span class="dataset-tag">UNFCCC REDD+ Framework</span>
+      <span class="dataset-tag">IPCC AR6 Emission Factors</span>
+    </div>
+    <table class="mrv-table reveal">
+      <thead><tr><th>Parameter</th><th>Value</th><th>Standard</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td>Project Area</td><td>45,000 ha</td><td>VCS VM0047</td><td><span class="badge badge-green">Validated</span></td></tr>
+        <tr><td>Total GHG Removals</td><td>12.5 Mt CO₂e (30 years)</td><td>VCS VM0047</td><td><span class="badge badge-green">Validated</span></td></tr>
+        <tr><td>Leakage Deduction</td><td>3.2%</td><td>VCS Tool 14</td><td><span class="badge badge-green">Validated</span></td></tr>
+        <tr><td>Uncertainty Deduction</td><td>20%</td><td>IPCC 2006 GL</td><td><span class="badge badge-green">Validated</span></td></tr>
+        <tr><td>ICVCM CCP Alignment</td><td>All 10 principles</td><td>ICVCM CCP</td><td><span class="badge badge-blue">Aligned</span></td></tr>
+        <tr><td>First Verification</td><td>2025 (scheduled)</td><td>VCS Program</td><td><span class="badge badge-amber">Pending</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="visualization">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Data & Visualization</span>
+      <h2>Projected Carbon Credits & Amazon Basin</h2>
+    </div>
+    <div class="viz-container reveal">
+      <h3>Projected Carbon Credits (tCO₂e/year) Over 30-Year Crediting Period</h3>
+      <div id="timeseries-chart" class="timeseries-viz"></div>
+    </div>
+    <div class="viz-container reveal" style="margin-top:2rem">
+      <h3>Brazilian Amazon: Project Area Highlight</h3>
+      <div id="globe-viz" class="viz-full"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background: #fff;" id="results">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Results</span>
+      <h2>High-Integrity Project Design</h2>
+    </div>
+    <div class="stats-grid reveal">
+      <div class="stat-item"><div class="stat-value" data-count="45000">0</div><div class="stat-label">Hectares Project Area</div></div>
+      <div class="stat-item"><div class="stat-value" data-count="12.5">0</div><div class="stat-label">Mt CO₂e Over 30 Years</div></div>
+      <div class="stat-item"><div class="stat-value" data-count="3.2">0</div><div class="stat-label">% Leakage Estimate</div></div>
+      <div class="stat-item"><div class="stat-value" style="font-size:1.5rem">ICVCM</div><div class="stat-label">CCP-Aligned</div></div>
+    </div>
+    <div class="result-grid reveal">
+      <div class="result-card">
+        <div class="result-icon">🌳</div>
+        <h4>Conservative Baseline</h4>
+        <p>10th percentile reference region approach ensures crediting is conservative relative to BAU deforestation.</p>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">🔍</div>
+        <h4>Robust MRV</h4>
+        <p>Integrated remote sensing (Sentinel-2, Landsat) + community patrol + AI disturbance detection.</p>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">🏅</div>
+        <h4>Market Integrity</h4>
+        <p>Full ICVCM Core Carbon Principles alignment positions project for premium pricing in the CCP market.</p>
+      </div>
+    </div>
+    <div class="timeline-wrap reveal">
+      <h3 style="font-size:1.25rem;font-weight:700;color:var(--forest);margin-bottom:2rem;">Project Timeline</h3>
+      <div class="timeline">
+        <div class="timeline-item"><h5>Q2 2022</h5><p>Baseline scenario development and reference region analysis.</p></div>
+        <div class="timeline-item"><h5>Q4 2022</h5><p>Project scenario design; leakage and uncertainty quantification.</p></div>
+        <div class="timeline-item"><h5>Q2 2023</h5><p>Project Design Document (PDD) submitted to Verra VCS.</p></div>
+        <div class="timeline-item"><h5>Q4 2023</h5><p>Validation completed by an accredited VVB; project registered.</p></div>
+        <div class="timeline-item"><h5>Q1 2025</h5><p>First monitoring period completed; verification scheduled.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="citations">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Academic Foundation</span>
+      <h2>Peer-Reviewed Carbon Market Evidence</h2>
+    </div>
+    <div class="academic-grid reveal">
+      <div class="academic-card" id="ref-angelsen">
+        <strong>Angelsen, A. et al. (2017)</strong> Results-based payments for REDD+. In: <em>Transforming REDD+: Lessons and new directions</em>. CIFOR, Bogor, Indonesia.
+        <a class="cite-doi" href="https://doi.org/10.17528/cifor/00738" target="_blank">DOI: 10.17528/cifor/00738</a>
+      </div>
+      <div class="academic-card" id="ref-west">
+        <strong>West, T.A.P. et al. (2020)</strong> Action needed to make carbon offsets from forest conservation work for climate change mitigation. <em>Science</em>, 369(6509), 1426–1427.
+        <a class="cite-doi" href="https://doi.org/10.1126/science.abb7899" target="_blank">DOI: 10.1126/science.abb7899</a>
+      </div>
+      <div class="academic-card" id="ref-badgley">
+        <strong>Badgley, G. et al. (2021)</strong> Systematic over-crediting of carbon offsets in California's forest carbon program. <em>Global Change Biology</em>, 28(3), 1433–1445.
+        <a class="cite-doi" href="https://doi.org/10.1111/gcb.15927" target="_blank">DOI: 10.1111/gcb.15927</a>
+      </div>
+      <div class="academic-card" id="ref-icvcm">
+        <strong>Integrity Council for the Voluntary Carbon Market (2023)</strong> Core Carbon Principles and Assessment Framework. <em>ICVCM</em>, London, UK.
+        <a class="cite-doi" href="https://icvcm.org/core-carbon-principles/" target="_blank">https://icvcm.org/core-carbon-principles/</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="bio-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>biofarms.ai</h4>
+        <p style="color:rgba(255,255,255,0.7);font-size:0.875rem;margin-top:0.5rem;">Data-driven forest intelligence for nature-based solutions and climate finance.</p>
+      </div>
+      <div><h4>Services</h4><a href="forest-governance.html">Forest Governance</a><a href="eu-compliance.html">EU Compliance</a><a href="nbs-scoping.html">NbS Scoping</a><a href="carbon-market-strategy.html">Carbon Strategy</a></div>
+      <div><h4>Company</h4><a href="/about.html">About</a><a href="/publications.html">Research</a><a href="/contact.html">Careers</a></div>
+      <div><h4>Legal</h4><a href="/contact.html">Privacy</a><a href="/contact.html">Terms</a></div>
+    </div>
+    <div class="footer-bottom">© 2024 biofarms.ai. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+// Init shader
+initShaderBackground('hero-canvas', 'gradientMesh');
+
+// GSAP
+if (typeof gsap !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+
+  const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  heroTl.from('.hero-tag', { opacity: 0, y: 20, duration: 0.6 })
+    .from('h1', { opacity: 0, y: 30, duration: 0.8 }, '-=0.3')
+    .from('.hero-subtitle', { opacity: 0, y: 20, duration: 0.6 }, '-=0.4')
+    .from('.hero-stat', { opacity: 0, y: 20, duration: 0.5, stagger: 0.1 }, '-=0.3');
+
+  gsap.utils.toArray('.reveal').forEach(el => {
+    gsap.fromTo(el, { opacity: 0, y: 40 }, {
+      opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+    });
+  });
+
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = parseFloat(el.getAttribute('data-count'));
+    const isFloat = el.getAttribute('data-count').includes('.');
+    const obj = { val: 0 };
+    gsap.to(obj, {
+      val: target, duration: 2, ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 85%' },
+      onUpdate: function() {
+        if (isFloat) el.textContent = obj.val.toFixed(1);
+        else el.textContent = Math.round(obj.val).toLocaleString();
+      }
+    });
+  });
+}
+
+// D3 Time Series: Carbon Credits Over 30 Years
+(function() {
+  const container = document.getElementById('timeseries-chart');
+  const width = container.clientWidth || 900;
+  const height = 450;
+  const margin = { top: 30, right: 30, bottom: 50, left: 70 };
+  const innerW = width - margin.left - margin.right;
+  const innerH = height - margin.top - margin.bottom;
+
+  const svg = d3.select(container).append('svg').attr('viewBox', `0 0 ${width} ${height}`).attr('preserveAspectRatio', 'xMidYMid meet').style('width', '100%').style('height', '100%');
+  const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+
+  // Generate plausible 30-year crediting curve: ramp-up, peak, gradual decline
+  const data = [];
+  for (let year = 1; year <= 30; year++) {
+    let credits;
+    if (year <= 5) credits = 150 + (year - 1) * 120; // ramp up
+    else if (year <= 15) credits = 600 + (year - 5) * 40; // peak growth
+    else if (year <= 22) credits = 1000 - (year - 15) * 30; // plateau
+    else credits = 790 - (year - 22) * 20; // gradual decline
+    credits += (Math.random() - 0.5) * 60; // noise
+    data.push({ year: year, credits: Math.max(0, credits) });
+  }
+
+  const x = d3.scaleLinear().domain([1, 30]).range([0, innerW]);
+  const y = d3.scaleLinear().domain([0, d3.max(data, d => d.credits) * 1.1]).range([innerH, 0]);
+
+  // Axes
+  g.append('g').attr('transform', `translate(0,${innerH})`).call(d3.axisBottom(x).tickFormat(d => 'Y' + d).ticks(10));
+  g.append('g').call(d3.axisLeft(y));
+  g.append('text').attr('x', innerW / 2).attr('y', innerH + 40).attr('text-anchor', 'middle').style('font-size', '12px').style('fill', '#64748B').text('Crediting Year');
+  g.append('text').attr('transform', 'rotate(-90)').attr('x', -innerH / 2).attr('y', -50).attr('text-anchor', 'middle').style('font-size', '12px').style('fill', '#64748B').text('Carbon Credits (tCO₂e/year)');
+
+  // Area under curve
+  const area = d3.area().x(d => x(d.year)).y0(innerH).y1(d => y(d.credits)).curve(d3.curveMonotoneX);
+  g.append('path').datum(data).attr('d', area).attr('fill', 'rgba(74,222,128,0.15)');
+
+  // Line
+  const line = d3.line().x(d => x(d.year)).y(d => y(d.credits)).curve(d3.curveMonotoneX);
+  const path = g.append('path').datum(data).attr('fill', 'none').attr('stroke', '#1B4D3E').attr('stroke-width', 2.5).attr('d', line);
+
+  const totalLength = path.node().getTotalLength();
+  path.attr('stroke-dasharray', totalLength + ' ' + totalLength).attr('stroke-dashoffset', totalLength)
+    .transition().duration(2000).ease(d3.easeCubicOut).attr('stroke-dashoffset', 0);
+
+  // Cumulative annotation line
+  const cumulative = data.map((d, i) => ({ year: d.year, total: data.slice(0, i + 1).reduce((s, v) => s + v.credits, 0) / 1000 }));
+  const y2 = d3.scaleLinear().domain([0, d3.max(cumulative, d => d.total) * 1.1]).range([innerH, 0]);
+  const line2 = d3.line().x(d => x(d.year)).y(d => y2(d.total)).curve(d3.curveMonotoneX);
+  g.append('path').datum(cumulative).attr('fill', 'none').attr('stroke', '#4ADE80').attr('stroke-width', 2).attr('stroke-dasharray', '6,4').attr('d', line2);
+
+  // Legend
+  const legend = svg.append('g').attr('transform', `translate(${width - 180}, 30)`);
+  legend.append('line').attr('x1', 0).attr('y1', 0).attr('x2', 20).attr('y2', 0).attr('stroke', '#1B4D3E').attr('stroke-width', 2.5);
+  legend.append('text').attr('x', 26).attr('y', 4).style('font-size', '11px').style('fill', '#333').text('Annual Credits (tCO₂e)');
+  legend.append('line').attr('x1', 0).attr('y1', 18).attr('x2', 20).attr('y2', 18).attr('stroke', '#4ADE80').attr('stroke-width', 2).attr('stroke-dasharray', '6,4');
+  legend.append('text').attr('x', 26).attr('y', 22).style('font-size', '11px').style('fill', '#333').text('Cumulative (Mt CO₂e)');
+})();
+
+// Three.js Globe with Brazilian Amazon focus
+(function() {
+  const container = document.getElementById('globe-viz');
+  if (!container) return;
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+  camera.position.z = 3.5;
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  container.appendChild(renderer.domElement);
+
+  const geometry = new THREE.SphereGeometry(1, 64, 64);
+  const material = new THREE.MeshPhongMaterial({ color: 0x1B4D3E, emissive: 0x0F2E25, specular: 0x4ADE80, shininess: 10, transparent: true, opacity: 0.92 });
+  const globe = new THREE.Mesh(geometry, material);
+  scene.add(globe);
+
+  const wireframe = new THREE.WireframeGeometry(geometry);
+  const wireMat = new THREE.LineBasicMaterial({ color: 0x4ADE80, transparent: true, opacity: 0.12 });
+  const wire = new THREE.LineSegments(wireframe, wireMat);
+  globe.add(wire);
+
+  const light = new THREE.DirectionalLight(0xffffff, 1);
+  light.position.set(5, 3, 5);
+  scene.add(light);
+  scene.add(new THREE.AmbientLight(0x404040));
+
+  // Amazon project points (approximate lat/lon around -4° to -8°, -55° to -65°)
+  const points = [
+    { lat: -4.5, lon: -60 }, { lat: -5.2, lon: -61 }, { lat: -6.0, lon: -62 }, { lat: -6.8, lon: -63 },
+    { lat: -7.5, lon: -64 }, { lat: -5.5, lon: -59 }, { lat: -6.5, lon: -60 }, { lat: -4.8, lon: -62 },
+    { lat: -5.8, lon: -63 }, { lat: -7.0, lon: -61 }, { lat: -6.2, lon: -64 }, { lat: -5.0, lon: -63 }
+  ];
+
+  points.forEach(p => {
+    const phi = (90 - p.lat) * Math.PI / 180;
+    const theta = (p.lon + 180) * Math.PI / 180;
+    const r = 1.04;
+    const x = r * Math.sin(phi) * Math.cos(theta);
+    const y = r * Math.cos(phi);
+    const z = r * Math.sin(phi) * Math.sin(theta);
+    const dotGeo = new THREE.SphereGeometry(0.035, 12, 12);
+    const dotMat = new THREE.MeshBasicMaterial({ color: 0x4ADE80 });
+    const dot = new THREE.Mesh(dotGeo, dotMat);
+    dot.position.set(x, y, z);
+    globe.add(dot);
+  });
+
+  // Highlight ring around Amazon
+  const ringGeo = new THREE.RingGeometry(1.01, 1.03, 64);
+  const ringMat = new THREE.MeshBasicMaterial({ color: 0x4ADE80, transparent: true, opacity: 0.3, side: THREE.DoubleSide });
+  const ring = new THREE.Mesh(ringGeo, ringMat);
+  ring.position.set(-0.45, -0.25, 0.85);
+  ring.lookAt(0,0,0);
+  globe.add(ring);
+
+  // Brazil country outline (simplified as wire arc)
+  const brazilGeo = new THREE.RingGeometry(1.005, 1.015, 32, 1, 2.5, 1.2);
+  const brazilMat = new THREE.MeshBasicMaterial({ color: 0x86EFAC, transparent: true, opacity: 0.25, side: THREE.DoubleSide });
+  const brazil = new THREE.Mesh(brazilGeo, brazilMat);
+  brazil.position.set(-0.45, -0.25, 0.85);
+  brazil.lookAt(0,0,0);
+  globe.add(brazil);
+
+  function animate() { requestAnimationFrame(animate); globe.rotation.y += 0.0015; renderer.render(scene, camera); }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+  });
+})();
+
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('.bio-nav');
+  if (nav) nav.style.boxShadow = window.scrollY > 50 ? '0 2px 10px rgba(0,0,0,0.08)' : 'none';
+});
+</script>
+</body>
+</html>

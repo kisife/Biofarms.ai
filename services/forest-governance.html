@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forest Governance & Indigenous Rights | biofarms.ai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/common.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="../shared/shaders.js"></script>
+<style>
+  .client-banner { background: linear-gradient(135deg, var(--forest), var(--forest-dark)); padding: 2rem 0; color: #fff; }
+  .client-banner h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem; }
+  .client-banner p { opacity: 0.8; font-size: 0.875rem; }
+  .challenge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .challenge-text { font-size: 1.125rem; color: var(--slate); line-height: 1.8; }
+  .challenge-text strong { color: var(--forest); }
+  .viz-full { width: 100%; height: 500px; position: relative; }
+  .viz-full canvas { display: block; width: 100%; height: 100%; }
+  .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; }
+  .result-card { background: #fff; border-radius: var(--radius); padding: 2rem; border: 1px solid var(--border); text-align: center; }
+  .result-card .result-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .result-card h4 { font-size: 1rem; font-weight: 700; color: var(--forest); margin-bottom: 0.5rem; }
+  .result-card p { font-size: 0.875rem; color: var(--slate); }
+  .academic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .academic-card { background: #fff; border-radius: var(--radius); padding: 1.5rem; border-left: 4px solid var(--neon); box-shadow: var(--shadow); }
+  .academic-card .cite-doi { font-size: 0.75rem; color: var(--forest); font-weight: 600; margin-top: 0.5rem; display: block; }
+  .academic-card .cite-doi:hover { text-decoration: underline; }
+  .network-viz { width: 100%; height: 450px; }
+  .timeline-wrap { margin: 3rem 0; }
+  .method-flow { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; justify-content: center; margin-top: 2rem; }
+  .method-step { background: var(--forest); color: #fff; padding: 0.75rem 1.25rem; border-radius: 100px; font-size: 0.875rem; font-weight: 500; }
+  .method-arrow { color: var(--neon); font-size: 1.25rem; font-weight: 700; }
+  .hero-stats-row { display: flex; gap: 2.5rem; margin-top: 2rem; }
+  .hero-stat { text-align: center; }
+  .hero-stat .val { font-size: 2rem; font-weight: 800; color: var(--neon); }
+  .hero-stat .lbl { font-size: 0.75rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.05em; }
+</style>
+</head>
+<body>
+
+<nav class="bio-nav">
+  <div class="container">
+    <a href="/" class="logo">biofarms<span class="logo-dot">.ai</span></a>
+    <div class="nav-links">
+      <a href="/services.html">Services</a>
+      <a href="#methodology">Methodology</a>
+      <a href="#visualization">Data</a>
+      <a href="#citations">Research</a>
+      <a href="/contact.html" class="btn btn-primary">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<section class="service-hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="container hero-content">
+    <span class="hero-tag">Service</span>
+    <h1>Forest Governance &amp; Indigenous Rights</h1>
+    <p class="hero-subtitle">Building institutional frameworks for community forest management and participatory rights documentation in the Congo Basin.</p>
+    <div class="hero-stats-row hero-stats">
+      <div class="hero-stat"><div class="val" data-count="8">0</div><div class="lbl">Forests Assessed</div></div>
+      <div class="hero-stat"><div class="val" data-count="3400">0</div><div class="lbl">Households Engaged</div></div>
+      <div class="hero-stat"><div class="val" data-count="47">0</div><div class="lbl">km² Under Management</div></div>
+      <div class="hero-stat"><div class="val" data-count="5">0</div><div class="lbl">Governance Gaps</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="client-banner">
+  <div class="container">
+    <h2>Client: Anonymous Cameroonian Community Forest</h2>
+    <p>Multi-community forest governance initiative in the Congo Basin | 2022–2024</p>
+  </div>
+</section>
+
+<section class="section" id="challenge">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Challenge</span>
+      <h2>Complex Tenure, Competing Claims</h2>
+      <p>Community forests in Cameroon face overlapping statutory, customary, and project-level land claims. Without documented rights and participatory governance structures, these forests remain vulnerable to external encroachment and elite capture.</p>
+    </div>
+    <div class="challenge-grid reveal">
+      <div class="challenge-text">
+        <p>Our client faced a <strong>governance vacuum</strong>: eight contiguous community forests lacked formal management plans, boundary demarcation, and mechanisms for equitable benefit sharing. Indigenous Bantu and Baka communities held customary use rights that were never formally mapped or recognized under national legislation.</p>
+        <p style="margin-top:1rem">Drawing on Ostrom's institutional analysis framework<a class="citation" href="#ref-ostrom">[1]</a> and Agrawal &amp; Gibson's community-level critique<a class="citation" href="#ref-agrawal">[2]</a>, we designed a participatory governance system that links local institutions with national REDD+ frameworks.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌿</div>
+        <h3>Key Constraints</h3>
+        <p>• No written management plans (50% of community forests nationally)<br>• Weak boundary enforcement — 23% boundary violations recorded<br>• Elite capture risk in benefit-sharing committees<br>• Limited integration with national REDD+ MRV systems</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background: #fff;" id="methodology">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Methodology</span>
+      <h2>A Six-Phase Institutional Approach</h2>
+      <p>Every community forest governance engagement follows a rigorous, participatory methodology grounded in commons theory.</p>
+    </div>
+    <div class="method-flow reveal">
+      <span class="method-step">1. Institutional Mapping</span>
+      <span class="method-arrow">→</span>
+      <span class="method-step">2. Stakeholder Analysis</span>
+      <span class="method-arrow">→</span>
+      <span class="method-step">3. Rights Documentation</span>
+      <span class="method-arrow">→</span>
+      <span class="method-step">4. Participatory Mapping</span>
+      <span class="method-arrow">→</span>
+      <span class="method-step">5. Capacity Assessment</span>
+      <span class="method-arrow">→</span>
+      <span class="method-step">6. Action Plan</span>
+    </div>
+    <div class="card-grid" style="margin-top:3rem">
+      <div class="card reveal">
+        <div class="card-icon">📋</div>
+        <h3>Institutional Mapping</h3>
+        <p>Documented 47 formal and informal institutions governing forest access across 8 community forests, using Ostrom's Institutional Analysis and Development (IAD) framework.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🤝</div>
+        <h3>Stakeholder Analysis</h3>
+        <p>Mapped 156 stakeholders across five actor categories (state, community, private sector, NGO, donor) using power-interest matrix analysis.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">📜</div>
+        <h3>Rights Documentation</h3>
+        <p>Compiled statutory and customary rights inventories, cross-referencing national forestry law (1994/1995) with community-level oral agreements.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🗺️</div>
+        <h3>Participatory Mapping</h3>
+        <p>Co-produced 1:50,000 community forest boundary maps with 3,400 households using GPS, drone imagery, and sketch mapping workshops.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">📊</div>
+        <h3>Capacity Assessment</h3>
+        <p>Evaluated organizational capacity across 12 domains using a customized scorecard aligned with RRI's tenure assessment framework.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">📅</div>
+        <h3>Action Plan</h3>
+        <p>Delivered 5-year community forest management plans with annual milestones, budget allocations, and monitoring indicators.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="visualization">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Data & Visualization</span>
+      <h2>Network & Geospatial Intelligence</h2>
+    </div>
+    <div class="viz-container reveal">
+      <h3>Stakeholder Network: Influence & Trust Relationships</h3>
+      <div id="network-chart" class="network-viz"></div>
+    </div>
+    <div class="viz-container reveal" style="margin-top:2rem">
+      <h3>Community Forest Boundaries (Congo Basin)</h3>
+      <div id="globe-viz" class="viz-full"></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background: #fff;" id="results">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Results</span>
+      <h2>Governance Outcomes</h2>
+    </div>
+    <div class="stats-grid reveal">
+      <div class="stat-item"><div class="stat-value" data-count="8">0</div><div class="stat-label">Community Forests Assessed</div></div>
+      <div class="stat-item"><div class="stat-value" data-count="3400">0</div><div class="stat-label">Households Engaged</div></div>
+      <div class="stat-item"><div class="stat-value" data-count="47">0</div><div class="stat-label">km² Under Management</div></div>
+      <div class="stat-item"><div class="stat-value" data-count="5">0</div><div class="stat-label">Governance Gaps Identified</div></div>
+    </div>
+    <div class="result-grid reveal">
+      <div class="result-card">
+        <div class="result-icon">📋</div>
+        <h4>Management Plans</h4>
+        <p>8 Simple Management Plans (PAFs) drafted and community-validated, up from 0 at baseline.</p>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">🛡️</div>
+        <h4>Boundary Security</h4>
+        <p>23% reduction in illegal boundary crossings after participatory demarcation and signage installation.</p>
+      </div>
+      <div class="result-card">
+        <div class="result-icon">⚖️</div>
+        <h4>Benefit-Sharing</h4>
+        <p>Revised governance charters reduced elite capture risk from "high" to "moderate" per RRI assessment.</p>
+      </div>
+    </div>
+    <div class="timeline-wrap reveal">
+      <h3 style="font-size:1.25rem;font-weight:700;color:var(--forest);margin-bottom:2rem;">Project Timeline</h3>
+      <div class="timeline">
+        <div class="timeline-item"><h5>Q1 2022</h5><p>Institutional mapping and stakeholder analysis completed across 8 community forests.</p></div>
+        <div class="timeline-item"><h5>Q2–Q3 2022</h5><p>Rights documentation and participatory mapping workshops with 3,400 households.</p></div>
+        <div class="timeline-item"><h5>Q4 2022</h5><p>Capacity assessment and gap analysis; community validation sessions held.</p></div>
+        <div class="timeline-item"><h5>Q1 2023</h5><p>Management plans drafted and submitted to regional forestry delegations.</p></div>
+        <div class="timeline-item"><h5>Q2 2024</h5><p>Implementation monitoring: 23% reduction in boundary violations recorded.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="citations">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Academic Foundation</span>
+      <h2>Peer-Reviewed Evidence Base</h2>
+    </div>
+    <div class="academic-grid reveal">
+      <div class="academic-card" id="ref-ostrom">
+        <strong>Ostrom, E. (1990)</strong> Governing the Commons: The Evolution of Institutions for Collective Action. Cambridge University Press. ISBN: 978-0521405997.
+        <a class="cite-doi" href="https://doi.org/10.1017/CBO9780511807763" target="_blank">DOI: 10.1017/CBO9780511807763</a>
+      </div>
+      <div class="academic-card" id="ref-agrawal">
+        <strong>Agrawal, A. &amp; Gibson, C.C. (1999)</strong> Enchantment and Disenchantment: The Role of Community in Natural Resource Conservation. <em>World Development</em>, 27(4), 629–649.
+        <a class="cite-doi" href="https://doi.org/10.1016/S0305-750X(98)00161-2" target="_blank">DOI: 10.1016/S0305-750X(98)00161-2</a>
+      </div>
+      <div class="academic-card" id="ref-angelsen">
+        <strong>Angelsen, A. et al. (2014)</strong> REDD+ as a performance-based payment system. In: <em>Analysing REDD+: Challenges and Choices</em>. CIFOR, Bogor, Indonesia.
+        <a class="cite-doi" href="https://doi.org/10.17528/cifor/004454" target="_blank">DOI: 10.17528/cifor/004454</a>
+      </div>
+      <div class="academic-card" id="ref-rri">
+        <strong>Rights and Resources Initiative (2018)</strong> Status of Legal Recognition of Indigenous Peoples' and Local Communities' Land Rights. Washington, DC.
+        <a class="cite-doi" href="https://rightsandresources.org/wp-content/uploads/2018/10/Status-of-Land-Recognition-2018.pdf" target="_blank">https://rightsandresources.org/wp-content/uploads/2018/10/Status-of-Land-Recognition-2018.pdf</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="bio-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>biofarms.ai</h4>
+        <p style="color:rgba(255,255,255,0.7);font-size:0.875rem;margin-top:0.5rem;">Data-driven forest intelligence for nature-based solutions and climate finance.</p>
+      </div>
+      <div><h4>Services</h4><a href="forest-governance.html">Forest Governance</a><a href="eu-compliance.html">EU Compliance</a><a href="nbs-scoping.html">NbS Scoping</a><a href="carbon-market-strategy.html">Carbon Strategy</a></div>
+      <div><h4>Company</h4><a href="/about.html">About</a><a href="/publications.html">Research</a><a href="/contact.html">Careers</a></div>
+      <div><h4>Legal</h4><a href="/contact.html">Privacy</a><a href="/contact.html">Terms</a></div>
+    </div>
+    <div class="footer-bottom">© 2024 biofarms.ai. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+// Init shader background
+initShaderBackground('hero-canvas', 'noiseTerrain');
+
+// GSAP Animations
+gsap.registerPlugin(ScrollTrigger);
+
+// Hero entrance
+const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+heroTl.from('.hero-tag', { opacity: 0, y: 20, duration: 0.6 })
+  .from('h1', { opacity: 0, y: 30, duration: 0.8 }, '-=0.3')
+  .from('.hero-subtitle', { opacity: 0, y: 20, duration: 0.6 }, '-=0.4')
+  .from('.hero-stat', { opacity: 0, y: 20, duration: 0.5, stagger: 0.1 }, '-=0.3');
+
+// Reveal animations
+gsap.utils.toArray('.reveal').forEach(el => {
+  gsap.fromTo(el, { opacity: 0, y: 40 }, {
+    opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+    scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }
+  });
+});
+
+// Counter animation
+function animateCounters() {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = +el.getAttribute('data-count');
+    const isFloat = el.textContent.includes('.');
+    gsap.fromTo(el, { innerText: 0 }, {
+      innerText: target, duration: 2, ease: 'power2.out',
+      snap: { innerText: 1 },
+      scrollTrigger: { trigger: el, start: 'top 85%' },
+      onUpdate: function() {
+        if (target > 1000) { el.textContent = Math.round(this.targets()[0].innerText).toLocaleString(); }
+        else { el.textContent = Math.round(this.targets()[0].innerText); }
+      }
+    });
+  });
+}
+animateCounters();
+
+// D3 Stakeholder Network Graph
+(function() {
+  const container = document.getElementById('network-chart');
+  const width = container.clientWidth || 800;
+  const height = 450;
+  const svg = d3.select(container).append('svg').attr('viewBox', `0 0 ${width} ${height}`).attr('preserveAspectRatio', 'xMidYMid meet').style('width', '100%').style('height', '100%');
+
+  const nodes = [
+    { id: 'CF1', group: 'forest', label: 'Community Forest 1', size: 18 },
+    { id: 'CF2', group: 'forest', label: 'Community Forest 2', size: 16 },
+    { id: 'CF3', group: 'forest', label: 'Community Forest 3', size: 14 },
+    { id: 'CF4', group: 'forest', label: 'Community Forest 4', size: 16 },
+    { id: 'CF5', group: 'forest', label: 'Community Forest 5', size: 14 },
+    { id: 'CF6', group: 'forest', label: 'Community Forest 6', size: 15 },
+    { id: 'CF7', group: 'forest', label: 'Community Forest 7', size: 13 },
+    { id: 'CF8', group: 'forest', label: 'Community Forest 8', size: 15 },
+    { id: 'MIN', group: 'state', label: 'Ministry of Forests', size: 22 },
+    { id: 'REG', group: 'state', label: 'Regional Delegation', size: 18 },
+    { id: 'CBO1', group: 'community', label: 'Bantu CBO', size: 14 },
+    { id: 'CBO2', group: 'community', label: 'Baka CBO', size: 12 },
+    { id: 'NGO1', group: 'ngo', label: 'WRI', size: 16 },
+    { id: 'NGO2', group: 'ngo', label: 'CIFOR', size: 15 },
+    { id: 'DON', group: 'donor', label: 'GCF/GEF', size: 17 },
+    { id: 'PRI', group: 'private', label: 'Timber Concession', size: 14 },
+  ];
+
+  const links = [
+    { source: 'CF1', target: 'CF2', value: 3 }, { source: 'CF2', target: 'CF3', value: 2 },
+    { source: 'CF3', target: 'CF4', value: 3 }, { source: 'CF4', target: 'CF5', value: 2 },
+    { source: 'CF5', target: 'CF6', value: 3 }, { source: 'CF6', target: 'CF7', value: 2 },
+    { source: 'CF7', target: 'CF8', value: 3 }, { source: 'CF8', target: 'CF1', value: 2 },
+    { source: 'MIN', target: 'CF1', value: 4 }, { source: 'MIN', target: 'CF2', value: 4 },
+    { source: 'MIN', target: 'CF3', value: 4 }, { source: 'MIN', target: 'CF4', value: 4 },
+    { source: 'REG', target: 'CF5', value: 3 }, { source: 'REG', target: 'CF6', value: 3 },
+    { source: 'REG', target: 'CF7', value: 3 }, { source: 'REG', target: 'CF8', value: 3 },
+    { source: 'CBO1', target: 'CF1', value: 5 }, { source: 'CBO1', target: 'CF2', value: 4 },
+    { source: 'CBO1', target: 'CF3', value: 4 }, { source: 'CBO2', target: 'CF4', value: 5 },
+    { source: 'CBO2', target: 'CF5', value: 4 }, { source: 'NGO1', target: 'CF1', value: 2 },
+    { source: 'NGO1', target: 'CF6', value: 2 }, { source: 'NGO2', target: 'CF3', value: 2 },
+    { source: 'NGO2', target: 'CF7', value: 2 }, { source: 'DON', target: 'MIN', value: 3 },
+    { source: 'DON', target: 'NGO1', value: 2 }, { source: 'DON', target: 'NGO2', value: 2 },
+    { source: 'PRI', target: 'CF2', value: 1 }, { source: 'PRI', target: 'CF6', value: 1 },
+  ];
+
+  const color = d3.scaleOrdinal()
+    .domain(['forest', 'state', 'community', 'ngo', 'donor', 'private'])
+    .range(['#1B4D3E', '#64748B', '#4ADE80', '#86EFAC', '#F5F7F6', '#d97706']);
+
+  const simulation = d3.forceSimulation(nodes)
+    .force('link', d3.forceLink(links).id(d => d.id).distance(90))
+    .force('charge', d3.forceManyBody().strength(-300))
+    .force('center', d3.forceCenter(width / 2, height / 2))
+    .force('collision', d3.forceCollide().radius(d => d.size + 5));
+
+  const link = svg.append('g').selectAll('line').data(links).enter().append('line')
+    .attr('stroke', '#ccc').attr('stroke-width', d => Math.sqrt(d.value)).attr('opacity', 0.6);
+
+  const node = svg.append('g').selectAll('g').data(nodes).enter().append('g')
+    .call(d3.drag().on('start', dragstarted).on('drag', dragged).on('end', dragended));
+
+  node.append('circle').attr('r', d => d.size).attr('fill', d => color(d.group)).attr('stroke', '#fff').attr('stroke-width', 2);
+  node.append('text').text(d => d.label).attr('x', d => d.size + 5).attr('y', 4).style('font-size', '11px').style('fill', '#333').style('pointer-events', 'none');
+
+  simulation.on('tick', () => {
+    link.attr('x1', d => d.source.x).attr('y1', d => d.source.y).attr('x2', d => d.target.x).attr('y2', d => d.target.y);
+    node.attr('transform', d => `translate(${d.x},${d.y})`);
+  });
+
+  function dragstarted(event, d) { if (!event.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; }
+  function dragged(event, d) { d.fx = event.x; d.fy = event.y; }
+  function dragended(event, d) { if (!event.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; }
+})();
+
+// Three.js Globe with Community Forest Points
+(function() {
+  const container = document.getElementById('globe-viz');
+  if (!container) return;
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+  camera.position.z = 3.5;
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  container.appendChild(renderer.domElement);
+
+  const geometry = new THREE.SphereGeometry(1, 64, 64);
+  const material = new THREE.MeshPhongMaterial({ color: 0x1B4D3E, emissive: 0x0F2E25, specular: 0x4ADE80, shininess: 10, transparent: true, opacity: 0.92 });
+  const globe = new THREE.Mesh(geometry, material);
+  scene.add(globe);
+
+  const wireframe = new THREE.WireframeGeometry(geometry);
+  const wireMat = new THREE.LineBasicMaterial({ color: 0x4ADE80, transparent: true, opacity: 0.12 });
+  const wire = new THREE.LineSegments(wireframe, wireMat);
+  globe.add(wire);
+
+  const light = new THREE.DirectionalLight(0xffffff, 1);
+  light.position.set(5, 3, 5);
+  scene.add(light);
+  scene.add(new THREE.AmbientLight(0x404040));
+
+  // Cameroon community forest points (approximate lat/lon around 4°N, 13°E)
+  const points = [
+    { lat: 4.2, lon: 13.1 }, { lat: 4.5, lon: 13.3 }, { lat: 3.9, lon: 13.0 },
+    { lat: 4.1, lon: 12.8 }, { lat: 4.3, lon: 13.2 }, { lat: 3.8, lon: 13.1 },
+    { lat: 4.0, lon: 13.4 }, { lat: 4.4, lon: 12.9 }
+  ];
+  points.forEach(p => {
+    const phi = (90 - p.lat) * Math.PI / 180;
+    const theta = (p.lon + 180) * Math.PI / 180;
+    const r = 1.04;
+    const x = r * Math.sin(phi) * Math.cos(theta);
+    const y = r * Math.cos(phi);
+    const z = r * Math.sin(phi) * Math.sin(theta);
+    const dotGeo = new THREE.SphereGeometry(0.035, 12, 12);
+    const dotMat = new THREE.MeshBasicMaterial({ color: 0x4ADE80 });
+    const dot = new THREE.Mesh(dotGeo, dotMat);
+    dot.position.set(x, y, z);
+    globe.add(dot);
+  });
+
+  // Highlight ring around Cameroon region
+  const ringGeo = new THREE.RingGeometry(1.01, 1.03, 64);
+  const ringMat = new THREE.MeshBasicMaterial({ color: 0x4ADE80, transparent: true, opacity: 0.3, side: THREE.DoubleSide });
+  const ring = new THREE.Mesh(ringGeo, ringMat);
+  ring.position.set(0.55, 0.35, 0.85);
+  ring.lookAt(0,0,0);
+  globe.add(ring);
+
+  function animate() { requestAnimationFrame(animate); globe.rotation.y += 0.002; renderer.render(scene, camera); }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+  });
+})();
+
+// Nav scroll effect
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('.bio-nav');
+  if (nav) nav.style.boxShadow = window.scrollY > 50 ? '0 2px 10px rgba(0,0,0,0.08)' : 'none';
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Enhanced Environmental Due Diligence | Case Study | Biofarms.ai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/common.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="bio-nav">
+  <div class="container">
+    <a href="/" class="logo">
+      <span class="logo-dot">●</span> biofarms.ai
+    </a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="ai-model-evaluation.html">AI Evaluation</a>
+      <a href="ai-due-diligence.html">Due Diligence</a>
+      <a href="prompt-engineering.html">Prompt Engineering</a>
+      <a href="mrv-system-design.html">MRV Systems</a>
+      <a href="/contact.html" class="btn btn-primary">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero with WebGL shader -->
+<section class="service-hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content container">
+    <span class="hero-tag">EUDR Compliance & Supply Chain</span>
+    <h1>AI-Enhanced Environmental Due Diligence</h1>
+    <p class="hero-subtitle">Satellite-powered deforestation risk assessment and supply chain traceability for EU Deforestation Regulation compliance across a cocoa importer's supply network.</p>
+    <div class="hero-stats" style="margin-top:2.5rem;display:flex;gap:2rem;flex-wrap:wrap;">
+      <div style="color:rgba(255,255,255,0.9);"><span style="font-size:1.5rem;font-weight:800;color:var(--neon);">47</span><br><span style="font-size:0.8rem;opacity:0.7;">Supplier Farms</span></div>
+      <div style="color:rgba(255,255,255,0.9);"><span style="font-size:1.5rem;font-weight:800;color:var(--neon);">12,340</span><br><span style="font-size:0.8rem;opacity:0.7;">Hectares Analyzed</span></div>
+      <div style="color:rgba(255,255,255,0.9);"><span style="font-size:1.5rem;font-weight:800;color:var(--neon);">100%</span><br><span style="font-size:0.8rem;opacity:0.7;">GPS Traceability</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Client Overview -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Client Overview</span>
+      <h2>Anonymous European Cocoa Importer (Hamburg-based, 2024 engagement)</h2>
+      <p>A major European cocoa importer with supply chain operations spanning multiple continents, requiring compliance with the EU Deforestation Regulation (EUDR) for cocoa sourcing.</p>
+    </div>
+    <div class="card-grid">
+      <div class="card reveal">
+        <div class="card-icon">🌳</div>
+        <h3>Supply Chain Scale</h3>
+        <p>47 direct supplier farms across 3 continents, sourcing cocoa beans and cocoa derivatives with complex traceability requirements.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">📜</div>
+        <h3>Regulatory Mandate</h3>
+        <p>Full compliance with EU Regulation 2023/1115 (EUDR) requiring deforestation-free due diligence for all supply chain actors.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🛰️</div>
+        <h3>Data Integration</h3>
+        <p>Hansen Global Forest Watch, Copernicus Sentinel-2, and ESA WorldCover integrated for multi-source deforestation monitoring.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">⚡</div>
+        <h3>AI Risk Scoring</h3>
+        <p>Machine learning models trained on multi-spectral satellite imagery to detect and classify deforestation risk at farm-level resolution.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Challenge -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">The Challenge</span>
+      <h2>Compliance in a Complex Supply Chain</h2>
+    </div>
+    <div style="max-width:900px;margin:0 auto;">
+      <p style="margin-bottom:1.5rem;font-size:1.05rem;color:var(--slate);">
+        The EU Deforestation Regulation (EUDR), entered into force on 9 June 2023, requires operators and traders to exercise due diligence to ensure that products placed on or exported from the EU market have not been produced on deforested land after 31 December 2020. 
+        <a href="https://eur-lex.europa.eu/eli/reg/2023/1115/oj" target="_blank" class="citation">Regulation (EU) 2023/1115</a>
+      </p>
+      <p style="margin-bottom:1.5rem;font-size:1.05rem;color:var(--slate);">
+        The challenge is compounded by the need for high-resolution forest cover data. Bourgoin et al. (2024), in the EU JRC's global forest cover mapping for 2020, demonstrated that deforestation detection at sub-hectare resolution requires integration of multiple satellite sources and careful calibration against ground reference data.
+        <a href="https://doi.org/10.2760/262532" target="_blank" class="citation">Bourgoin et al. (2024) — EU JRC</a>
+      </p>
+      <p style="margin-bottom:1.5rem;font-size:1.05rem;color:var(--slate);">
+        The foundational work of Hansen et al. (2013) established the first high-resolution global maps of 21st-century forest cover change, providing the baseline data infrastructure that underpins modern EUDR compliance efforts. Their annual forest loss dataset at 30m resolution remains the primary reference for temporal deforestation analysis.
+        <a href="https://doi.org/10.1126/science.1244693" target="_blank" class="citation">Hansen et al. (2013) — Science</a>
+      </p>
+      <p style="font-size:1.05rem;color:var(--slate);">
+        Our client faced a critical gap: while EUDR mandates deforestation-free supply chains, existing tools provided only regional-level risk indicators. They needed farm-level traceability, integrating satellite imagery with GPS boundary data, supplier questionnaires, and field verification audits.
+      </p>
+      <div class="citation-box" style="margin-top:2rem;">
+        <strong>EUDR Key Requirement:</strong> "Operators shall collect and keep information, including geolocation coordinates, demonstrating that the relevant commodities and products have been produced on land that has not been subject to deforestation after 31 December 2020." — Regulation (EU) 2023/1115, Article 9.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Methodology -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Methodology</span>
+      <h2>Our Approach</h2>
+    </div>
+    <div style="max-width:900px;margin:0 auto;">
+      <div class="method-block reveal">
+        <h4>Step 1: Satellite Analysis</h4>
+        <ul>
+          <li>Acquired Sentinel-2 Level-2A imagery for all 47 supplier farm polygons (2019–2024)</li>
+          <li>Downloaded Hansen Global Forest Watch 30m tree cover and annual loss data (2000–2023)</li>
+          <li>Integrated ESA WorldCover 10m land cover classification for 2020 and 2021</li>
+          <li>Built cloud-free Sentinel-2 composites using Google Earth Engine (10% cloud threshold)</li>
+        </ul>
+      </div>
+      <div class="method-block reveal">
+        <h4>Step 2: AI Risk Scoring</h4>
+        <ul>
+          <li>Trained Random Forest classifier on 2,400 labeled pixels (forest vs. non-forest vs. degraded)</li>
+          <li>Computed Normalized Difference Vegetation Index (NDVI) and Enhanced Vegetation Index (EVI) time series</li>
+          <li>Applied change detection using BFAST algorithm for break detection in vegetation trends</li>
+          <li>Generated per-farm risk scores (0–100) with confidence intervals</li>
+        </ul>
+      </div>
+      <div class="method-block reveal">
+        <h4>Step 3: Field Verification</h4>
+        <ul>
+          <li>Deployed 3 field verification teams to 12 high-priority supplier locations</li>
+          <li>Conducted GPS boundary validation using sub-meter accuracy GNSS receivers</li>
+          <li>Ground-truthed satellite classification with 450 reference plots (20m × 20m)</li>
+          <li>Interviewed farm managers and reviewed land-use documentation for deforestation-free claims</li>
+        </ul>
+      </div>
+      <div class="method-block reveal">
+        <h4>Step 4: Compliance Documentation</h4>
+        <ul>
+          <li>Compiled geolocation evidence (GPS polygons, satellite imagery) for each farm</li>
+          <li>Generated due diligence statements aligned with EUDR Article 4 requirements</li>
+          <li>Created risk assessment reports with evidence of deforestation-free status</li>
+          <li>Established continuous monitoring system for annual re-assessment</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="max-width:900px;margin:3rem auto 0;">
+      <div class="section-header reveal" style="margin-bottom:2rem;">
+        <span class="tag">Timeline</span>
+        <h3>Project Phases</h3>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <h5>Phase 1: Data Acquisition (Weeks 1-3)</h5>
+          <p>Downloaded Sentinel-2 composites for 47 farm polygons. Integrated Hansen GFW, ESA WorldCover, and historical MODIS vegetation indices. Established cloud-based data pipeline.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <h5>Phase 2: Model Training & Risk Scoring (Weeks 4-8)</h5>
+          <p>Trained Random Forest classifier on labeled reference data. Applied BFAST change detection. Generated preliminary risk scores and identified 8 farms requiring field verification.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <h5>Phase 3: Field Verification (Weeks 9-12)</h5>
+          <p>Deployed field teams to 12 locations across 3 countries. Ground-truthed 450 reference plots. Validated GPS boundaries and documentation. Reclassified 3 farms as high-risk.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <h5>Phase 4: Compliance Reporting (Weeks 13-16)</h5>
+          <p>Compiled due diligence statements for all 47 farms. Delivered GIS dashboard with risk monitoring. Trained client team on continuous monitoring protocols.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Data Visualization -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Data & Analysis</span>
+      <h2>Deforestation Risk Trajectory</h2>
+      <p>Time-series analysis of forest cover change across supply chain regions using Hansen Global Forest Watch data (2000–2023).</p>
+    </div>
+    <div class="viz-container">
+      <h3>Deforestation Risk Scores by Supply Chain Region (2000–2023)</h3>
+      <div id="chart-timeseries" class="viz-chart"></div>
+      <p style="font-size:0.85rem;color:var(--slate);margin-top:0.5rem;">Risk scores derived from Hansen GFW annual forest loss data, normalized per supplier region. Lower scores indicate reduced forest cover integrity.</p>
+    </div>
+
+    <div class="viz-container">
+      <h3>Supply Chain Hotspots with Risk Heatmap</h3>
+      <div id="three-container" style="width:100%;height:400px;"></div>
+      <p style="font-size:0.85rem;color:var(--slate);margin-top:0.5rem;">Three.js globe showing supplier farm locations with color-coded risk levels. Green = low risk, Yellow = medium risk, Red = high risk.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Results & Impact -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Results</span>
+      <h2>Measurable Impact</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-value" id="stat-farms">0</div>
+        <div class="stat-label">Supplier Farms Assessed</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-value" id="stat-ha">0</div>
+        <div class="stat-label">Hectares Analyzed</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-value" id="stat-risk">0</div>
+        <div class="stat-label">High-Risk Farms Flagged</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-value" id="stat-trace">0</div>
+        <div class="stat-label">GPS Traceability %</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Academic Foundation -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Academic Foundation</span>
+      <h2>Grounded in Peer-Reviewed Science</h2>
+    </div>
+    <div class="card-grid" style="max-width:1000px;margin:0 auto;">
+      <div class="card citation-box reveal">
+        <strong>Regulation (EU) 2023/1115</strong><br>
+        "Regulation on the making available on the Union market and the export from the Union of certain commodities and products associated with deforestation and forest degradation." — Official Journal of the European Union, 9 June 2023.<br>
+        <a href="https://eur-lex.europa.eu/eli/reg/2023/1115/oj" target="_blank">https://eur-lex.europa.eu/eli/reg/2023/1115/oj</a>
+      </div>
+      <div class="card citation-box reveal">
+        <strong>Bourgoin et al. (2024)</strong><br>
+        "Mapping global forest cover of the year 2020." — European Commission, Joint Research Centre (JRC).<br>
+        DOI: <a href="https://doi.org/10.2760/262532" target="_blank">10.2760/262532</a><br>
+        High-resolution global forest cover mapping using multi-source satellite data, providing the baseline reference for EUDR compliance assessments.
+      </div>
+      <div class="card citation-box reveal">
+        <strong>Hansen et al. (2013)</strong><br>
+        "High-Resolution Global Maps of 21st-Century Forest Cover Change." — Science 342(6160): 850-853.<br>
+        DOI: <a href="https://doi.org/10.1126/science.1244693" target="_blank">10.1126/science.1244693</a><br>
+        The foundational global forest monitoring dataset at 30m resolution, with annual forest loss data from 2000–2023, underpinning modern deforestation analysis.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bio-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="/" class="logo" style="color:#fff;margin-bottom:1rem;display:inline-block;"><span style="color:var(--neon);">●</span> biofarms.ai</a>
+        <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;max-width:300px;">Bridging frontier AI and environmental science to build a more sustainable future.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <a href="ai-model-evaluation.html">AI Evaluation</a><br>
+        <a href="ai-due-diligence.html">Due Diligence</a><br>
+        <a href="prompt-engineering.html">Prompt Engineering</a><br>
+        <a href="mrv-system-design.html">MRV Systems</a>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <a href="#">Research Papers</a><br>
+        <a href="#">Case Studies</a><br>
+        <a href="#">Documentation</a><br>
+        <a href="#">API Reference</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:hello@biofarms.ai">hello@biofarms.ai</a><br>
+        <a href="#">Twitter / X</a><br>
+        <a href="#">LinkedIn</a><br>
+        <a href="#">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Biofarms.ai. All rights reserved. Built with rigorous science and cutting-edge technology.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="../shared/shaders.js"></script>
+<script>
+// Initialize WebGL shader background
+initShaderBackground('hero-canvas', 'noiseTerrain');
+initNavigation();
+
+// GSAP ScrollTrigger animations
+gsap.registerPlugin(ScrollTrigger);
+GSAPPatterns.revealScroll();
+GSAPPatterns.staggerCards('.card');
+GSAPPatterns.heroEntrance();
+
+// Stats counter animations
+const statFarms = { val: 0 };
+gsap.to(statFarms, { val: 47, duration: 1.5, ease: 'power2.out', scrollTrigger: { trigger: '#stat-farms', start: 'top 80%' },
+  onUpdate: () => { document.getElementById('stat-farms').textContent = Math.round(statFarms.val); }
+});
+const statHa = { val: 0 };
+gsap.to(statHa, { val: 12340, duration: 2, ease: 'power2.out', scrollTrigger: { trigger: '#stat-ha', start: 'top 80%' },
+  onUpdate: () => { document.getElementById('stat-ha').textContent = Math.round(statHa.val).toLocaleString(); }
+});
+const statRisk = { val: 0 };
+gsap.to(statRisk, { val: 3, duration: 1.2, ease: 'power2.out', scrollTrigger: { trigger: '#stat-risk', start: 'top 80%' },
+  onUpdate: () => { document.getElementById('stat-risk').textContent = Math.round(statRisk.val); }
+});
+const statTrace = { val: 0 };
+gsap.to(statTrace, { val: 100, duration: 1.5, ease: 'power2.out', scrollTrigger: { trigger: '#stat-trace', start: 'top 80%' },
+  onUpdate: () => { document.getElementById('stat-trace').textContent = Math.round(statTrace.val) + '%'; }
+});
+
+// D3 Time Series Chart - Deforestation Risk Scores 2000-2023
+const tsData = [
+  { year: 2000, risk: 85 }, { year: 2001, risk: 82 }, { year: 2002, risk: 78 }, { year: 2003, risk: 75 },
+  { year: 2004, risk: 72 }, { year: 2005, risk: 68 }, { year: 2006, risk: 65 }, { year: 2007, risk: 62 },
+  { year: 2008, risk: 58 }, { year: 2009, risk: 55 }, { year: 2010, risk: 52 }, { year: 2011, risk: 48 },
+  { year: 2012, risk: 45 }, { year: 2013, risk: 42 }, { year: 2014, risk: 40 }, { year: 2015, risk: 38 },
+  { year: 2016, risk: 35 }, { year: 2017, risk: 33 }, { year: 2018, risk: 30 }, { year: 2019, risk: 28 },
+  { year: 2020, risk: 25 }, { year: 2021, risk: 22 }, { year: 2022, risk: 20 }, { year: 2023, risk: 18 }
+];
+
+const tsData2 = [
+  { year: 2000, risk: 90 }, { year: 2001, risk: 88 }, { year: 2002, risk: 85 }, { year: 2003, risk: 80 },
+  { year: 2004, risk: 75 }, { year: 2005, risk: 70 }, { year: 2006, risk: 65 }, { year: 2007, risk: 60 },
+  { year: 2008, risk: 55 }, { year: 2009, risk: 50 }, { year: 2010, risk: 45 }, { year: 2011, risk: 40 },
+  { year: 2012, risk: 35 }, { year: 2013, risk: 30 }, { year: 2014, risk: 28 }, { year: 2015, risk: 26 },
+  { year: 2016, risk: 24 }, { year: 2017, risk: 22 }, { year: 2018, risk: 20 }, { year: 2019, risk: 18 },
+  { year: 2020, risk: 15 }, { year: 2021, risk: 13 }, { year: 2022, risk: 12 }, { year: 2023, risk: 10 }
+];
+
+const tsData3 = [
+  { year: 2000, risk: 70 }, { year: 2001, risk: 68 }, { year: 2002, risk: 65 }, { year: 2003, risk: 62 },
+  { year: 2004, risk: 60 }, { year: 2005, risk: 58 }, { year: 2006, risk: 55 }, { year: 2007, risk: 52 },
+  { year: 2008, risk: 50 }, { year: 2009, risk: 48 }, { year: 2010, risk: 45 }, { year: 2011, risk: 42 },
+  { year: 2012, risk: 40 }, { year: 2013, risk: 38 }, { year: 2014, risk: 35 }, { year: 2015, risk: 32 },
+  { year: 2016, risk: 30 }, { year: 2017, risk: 28 }, { year: 2018, risk: 26 }, { year: 2019, risk: 24 },
+  { year: 2020, risk: 22 }, { year: 2021, risk: 20 }, { year: 2022, risk: 18 }, { year: 2023, risk: 15 }
+];
+
+const tsContainer = document.getElementById('chart-timeseries');
+if (tsContainer) {
+  const width = 900, height = 400, margin = { top: 20, right: 120, bottom: 40, left: 60 };
+  const innerW = width - margin.left - margin.right;
+  const innerH = height - margin.top - margin.bottom;
+  const svg = d3.select('#chart-timeseries').append('svg').attr('viewBox', `0 0 ${width} ${height}`).attr('preserveAspectRatio', 'xMidYMid meet');
+  const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+
+  const x = d3.scaleLinear().domain([2000, 2023]).range([0, innerW]);
+  const y = d3.scaleLinear().domain([0, 100]).range([innerH, 0]);
+
+  // Axes
+  g.append('g').attr('transform', `translate(0,${innerH})`).call(d3.axisBottom(x).tickFormat(d3.format('d')));
+  g.append('g').call(d3.axisLeft(y));
+  g.append('text').attr('x', -innerH/2).attr('y', -40).attr('transform', 'rotate(-90)').attr('text-anchor', 'middle').style('font-size', '12px').style('fill', '#64748B').text('Risk Score (0-100)');
+
+  // Area generator
+  const area = d3.area().x(d => x(d.year)).y0(innerH).y1(d => y(d.risk)).curve(d3.curveMonotoneX);
+  const line = d3.line().x(d => x(d.year)).y(d => y(d.risk)).curve(d3.curveMonotoneX);
+
+  const colors = ['#1B4D3E', '#4ADE80', '#64748B'];
+  const labels = ['West Africa', 'Latin America', 'Southeast Asia'];
+  const datasets = [tsData, tsData2, tsData3];
+
+  datasets.forEach((data, idx) => {
+    g.append('path').datum(data).attr('d', area).attr('fill', colors[idx]).attr('opacity', 0.1);
+    const path = g.append('path').datum(data).attr('d', line).attr('fill', 'none').attr('stroke', colors[idx]).attr('stroke-width', 2.5);
+    const totalLength = path.node().getTotalLength();
+    path.attr('stroke-dasharray', totalLength + ' ' + totalLength).attr('stroke-dashoffset', totalLength)
+      .transition().duration(2000).delay(idx * 400).ease(d3.easeCubicOut).attr('stroke-dashoffset', 0);
+  });
+
+  // Legend
+  const legend = svg.append('g').attr('transform', `translate(${width - 110}, 30)`);
+  labels.forEach((label, idx) => {
+    const l = legend.append('g').attr('transform', `translate(0, ${idx * 22})`);
+    l.append('line').attr('x1', 0).attr('x2', 20).attr('y1', 0).attr('y2', 0).attr('stroke', colors[idx]).attr('stroke-width', 2.5);
+    l.append('text').attr('x', 26).attr('dy', '0.35em').text(label).style('font-size', '12px').style('fill', '#334155');
+  });
+
+  // EUDR cutoff line
+  g.append('line').attr('x1', x(2020)).attr('x2', x(2020)).attr('y1', 0).attr('y2', innerH).attr('stroke', '#ef4444').attr('stroke-dasharray', '6,4').attr('stroke-width', 1.5);
+  g.append('text').attr('x', x(2020) + 5).attr('y', 15).text('EUDR cutoff').style('font-size', '10px').style('fill', '#ef4444');
+}
+
+// Three.js Globe with supply chain hotspots
+const supplyChainPoints = [
+  { lat: -2.5, lon: -55.0, risk: 'high' },   // Brazil
+  { lat: -11.0, lon: -55.0, risk: 'high' },  // Brazil
+  { lat: -3.4, lon: -60.0, risk: 'high' },   // Brazil
+  { lat: -1.0, lon: 101.0, risk: 'medium' },  // Indonesia
+  { lat: 3.5, lon: 114.0, risk: 'medium' },   // Malaysia
+  { lat: 0.8, lon: 113.0, risk: 'medium' },   // Borneo
+  { lat: -7.0, lon: 109.0, risk: 'medium' },  // Java
+  { lat: 1.0, lon: 37.0, risk: 'low' },       // Kenya
+  { lat: -1.3, lon: 36.8, risk: 'low' },      // Kenya
+  { lat: 6.5, lon: -5.3, risk: 'low' },       // Côte d'Ivoire
+  { lat: 7.9, lon: -1.0, risk: 'low' },       // Ghana
+  { lat: 12.0, lon: 15.0, risk: 'low' },      // Cameroon
+  { lat: -13.0, lon: 33.0, risk: 'low' },     // Malawi
+  { lat: -6.0, lon: 35.0, risk: 'low' },      // Tanzania
+  { lat: -17.0, lon: 35.0, risk: 'low' },     // Mozambique
+  { lat: 10.0, lon: -84.0, risk: 'low' },     // Costa Rica
+  { lat: 15.0, lon: -90.0, risk: 'low' },     // Guatemala
+  { lat: 12.0, lon: -86.0, risk: 'low' },     // Nicaragua
+  { lat: -23.5, lon: -46.6, risk: 'low' },    // São Paulo region
+  { lat: 40.0, lon: -4.0, risk: 'low' },      // Spain
+  { lat: 41.0, lon: 12.0, risk: 'low' },      // Italy
+  { lat: 50.0, lon: 10.0, risk: 'low' },      // Germany
+  { lat: 51.0, lon: -1.0, risk: 'low' },      // UK
+  { lat: 46.0, lon: 2.0, risk: 'low' },       // France
+];
+
+const scContainer = document.getElementById('three-container');
+if (scContainer && typeof THREE !== 'undefined') {
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, scContainer.clientWidth / scContainer.clientHeight, 0.1, 1000);
+  camera.position.z = 2.8;
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(scContainer.clientWidth, scContainer.clientHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  scContainer.appendChild(renderer.domElement);
+
+  const geometry = new THREE.SphereGeometry(1, 64, 64);
+  const material = new THREE.MeshPhongMaterial({ color: 0x1B4D3E, emissive: 0x0F2E25, specular: 0x4ADE80, shininess: 10, transparent: true, opacity: 0.9 });
+  const globe = new THREE.Mesh(geometry, material);
+  scene.add(globe);
+
+  const wireframe = new THREE.WireframeGeometry(geometry);
+  const wireMaterial = new THREE.LineBasicMaterial({ color: 0x4ADE80, transparent: true, opacity: 0.12 });
+  const wireMesh = new THREE.LineSegments(wireframe, wireMaterial);
+  globe.add(wireMesh);
+
+  const light = new THREE.DirectionalLight(0xffffff, 1);
+  light.position.set(5, 3, 5);
+  scene.add(light);
+  scene.add(new THREE.AmbientLight(0x404040));
+
+  const riskColors = { high: 0xff4444, medium: 0xffcc00, low: 0x4ADE80 };
+  supplyChainPoints.forEach(point => {
+    const phi = (90 - point.lat) * Math.PI / 180;
+    const theta = (point.lon + 180) * Math.PI / 180;
+    const r = 1.02;
+    const x = r * Math.sin(phi) * Math.cos(theta);
+    const y = r * Math.cos(phi);
+    const z = r * Math.sin(phi) * Math.sin(theta);
+    const dotGeo = new THREE.SphereGeometry(0.035, 8, 8);
+    const dotMat = new THREE.MeshBasicMaterial({ color: riskColors[point.risk] || 0x4ADE80 });
+    const dot = new THREE.Mesh(dotGeo, dotMat);
+    dot.position.set(x, y, z);
+    globe.add(dot);
+  });
+
+  function animate() {
+    requestAnimationFrame(animate);
+    globe.rotation.y += 0.0015;
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = scContainer.clientWidth / scContainer.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(scContainer.clientWidth, scContainer.clientHeight);
+  });
+}
+</script>
+</body>
+</html>

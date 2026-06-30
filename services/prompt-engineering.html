@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Engineering and AI Workflow Design | Case Study | Biofarms.ai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/common.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="bio-nav">
+  <div class="container">
+    <a href="/" class="logo">
+      <span class="logo-dot">●</span> biofarms.ai
+    </a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="ai-model-evaluation.html">AI Evaluation</a>
+      <a href="ai-due-diligence.html">Due Diligence</a>
+      <a href="prompt-engineering.html">Prompt Engineering</a>
+      <a href="mrv-system-design.html">MRV Systems</a>
+      <a href="/contact.html" class="btn btn-primary">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero with WebGL shader -->
+<section class="service-hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content container">
+    <span class="hero-tag">AI Workflow Design</span>
+    <h1>Prompt Engineering and AI Workflow Design</h1>
+    <p class="hero-subtitle">Designing custom Chain-of-Thought and zero-shot reasoning workflows for a European conservation NGO to accelerate scientific analysis, policy drafting, and multi-language reporting.</p>
+    <div class="hero-stats" style="margin-top:2.5rem;display:flex;gap:2rem;flex-wrap:wrap;">
+      <div style="color:rgba(255,255,255,0.9);"><span style="font-size:1.5rem;font-weight:800;color:var(--neon);">34</span><br><span style="font-size:0.8rem;opacity:0.7;">Custom Workflows</span></div>
+      <div style="color:rgba(255,255,255,0.9);"><span style="font-size:1.5rem;font-weight:800;color:var(--neon);">67%</span><br><span style="font-size:0.8rem;opacity:0.7;">Time Reduction</span></div>
+      <div style="color:rgba(255,255,255,0.9);"><span style="font-size:1.5rem;font-weight:800;color:var(--neon);">8</span><br><span style="font-size:0.8rem;opacity:0.7;">Languages Supported</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Client Overview -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Client Overview</span>
+      <h2>Anonymous European Conservation NGO</h2>
+      <p>A leading European conservation organization with 200+ staff across 12 countries, working on biodiversity policy, habitat restoration, and scientific monitoring programs.</p>
+    </div>
+    <div class="card-grid">
+      <div class="card reveal">
+        <div class="card-icon">🌿</div>
+        <h3>Conservation Scope</h3>
+        <p>Active programs across 15 European countries and 3 overseas territories, managing 40+ Natura 2000 sites and 12 wetland restoration projects.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">📝</div>
+        <h3>Reporting Burden</h3>
+        <p>Annual requirement to produce 80+ technical reports, policy briefs, and grant applications in English, French, German, Spanish, and Italian.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🔁</div>
+        <h3>Workflow Challenge</h3>
+        <p>Scientific staff spending 40% of time on repetitive drafting, formatting, and translation tasks rather than field research and analysis.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🤖</div>
+        <h3>AI Integration</h3>
+        <p>Needed structured prompt engineering workflows to maintain scientific accuracy while dramatically accelerating report production cycles.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Challenge -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">The Challenge</span>
+      <h2>From Manual Drafting to AI-Accelerated Workflows</h2>
+    </div>
+    <div style="max-width:900px;margin:0 auto;">
+      <p style="margin-bottom:1.5rem;font-size:1.05rem;color:var(--slate);">
+        The emergence of chain-of-thought (CoT) prompting has fundamentally changed how large language models can be guided toward structured reasoning. Wei et al. (2022) demonstrated that simply adding "Let's think step by step" to prompts elicits significantly improved reasoning on complex tasks, with gains of 50%+ on mathematical word problems.
+        <a href="https://arxiv.org/abs/2201.11903" target="_blank" class="citation">Wei et al. (2022) — NeurIPS</a>
+      </p>
+      <p style="margin-bottom:1.5rem;font-size:1.05rem;color:var(--slate);">
+        Kojima et al. (2022) extended this insight to zero-shot settings, showing that even without task-specific examples, models can be prompted to reason systematically. Their "Zero-Shot-CoT" approach achieved state-of-the-art results on multiple benchmarks without any training data, making it ideal for conservation domains where labeled examples are scarce.
+        <a href="https://arxiv.org/abs/2205.11916" target="_blank" class="citation">Kojima et al. (2022) — NeurIPS</a>
+      </p>
+      <p style="margin-bottom:1.5rem;font-size:1.05rem;color:var(--slate);">
+        Building on these foundations, White et al. (2023) developed a comprehensive catalog of prompt patterns — reusable templates for structuring LLM interactions. Their work provides the architectural vocabulary for designing complex, multi-step AI workflows that can be systematically applied across organizational contexts.
+        <a href="https://arxiv.org/abs/2302.11382" target="_blank" class="citation">White et al. (2023) — arXiv</a>
+      </p>
+      <p style="font-size:1.05rem;color:var(--slate);">
+        Our client needed to translate these research advances into production-ready workflows. Their scientific staff were spending excessive time on drafting, data summarization, and translation — tasks that could be AI-accelerated with carefully engineered prompts. However, poorly designed prompts risked hallucinations, scientific inaccuracies, and regulatory compliance failures. They needed a systematic, reproducible framework for prompt engineering tailored to conservation science.
+      </p>
+      <div class="citation-box" style="margin-top:2rem;">
+        <strong>Key Insight:</strong> "Chain-of-thought prompting is an emergent ability of scale — it appears only when models are sufficiently large (≈100B parameters). For smaller models, structured prompt decomposition with few-shot examples remains essential." — Wei et al. (2022), NeurIPS.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Methodology -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Methodology</span>
+      <h2>Our 4D Prompt Engineering Framework</h2>
+    </div>
+    <div style="max-width:900px;margin:0 auto;">
+      <div class="method-block reveal">
+        <h4>Decomposition</h4>
+        <ul>
+          <li>Break complex conservation tasks into atomic sub-tasks (e.g., data extraction → analysis → synthesis → formatting)</li>
+          <li>Map each sub-task to a dedicated prompt template with explicit input/output schemas</li>
+          <li>Use chain-of-thought reasoning for multi-step analytical tasks (species trend analysis, habitat assessment)</li>
+          <li>Implement prompt chaining with output validation between stages</li>
+        </ul>
+      </div>
+      <div class="method-block reveal">
+        <h4>Context Engineering</h4>
+        <ul>
+          <li>Embed domain-specific context (species lists, habitat codes, EU directives) directly in prompt templates</li>
+          <li>Use retrieval-augmented generation (RAG) with organizational knowledge base (1,200+ documents)</li>
+          <li>Include regulatory context (Habitats Directive, Birds Directive, Water Framework Directive) for policy drafting</li>
+          <li>Implement dynamic context windowing to maximize relevant information per prompt</li>
+        </ul>
+      </div>
+      <div class="method-block reveal">
+        <h4>Constraints & Guardrails</h4>
+        <ul>
+          <li>Define explicit constraints: scientific accuracy thresholds, citation requirements, formatting standards</li>
+          <li>Implement output validation rules using JSON schema validation and fact-checking pipelines</li>
+          <li>Use constraint-based prompting to prevent hallucinations (e.g., "Only use data from the provided context")</li>
+          <li>Build human-in-the-loop review checkpoints for all regulatory and grant documents</li>
+        </ul>
+      </div>
+      <div class="method-block reveal">
+        <h4>Chain-of-Thought Templates</h4>
+        <ul>
+          <li>Developed 34 CoT prompt templates for conservation tasks (species identification, habitat assessment, policy analysis)</li>
+          <li>Created zero-shot reasoning templates for novel tasks without training examples</li>
+          <li>Built few-shot prompt libraries with 5-8 exemplars per task type for smaller models</li>
+          <li>Standardized on "Let's work through this step by step" formulation per Kojima et al. (2022)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="max-width:900px;margin:3rem auto 0;">
+      <div class="section-header reveal" style="margin-bottom:2rem;">
+        <span class="tag">Timeline</span>
+        <h3>Project Phases</h3>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <h5>Phase 1: Workflow Audit (Weeks 1-3)</h5>
+          <p>Shadowed 12 team members across 4 departments. Documented 28 recurring tasks. Identified 5 high-impact workflow categories: report drafting, data analysis, translation, policy brief writing, and grant application support.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <h5>Phase 2: Prompt Template Development (Weeks 4-8)</h5>
+          <p>Designed 34 custom prompt templates using the 4D framework. Tested across 4 LLM providers (GPT-4, Claude, Llama 2, Mistral). Benchmarked output quality against human baselines with domain experts.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <h5>Phase 3: Integration & Validation (Weeks 9-12)</h5>
+          <p>Integrated workflows into existing tools (Notion, Google Docs, Slack). Built validation pipelines with JSON schema checking. Conducted A/B testing with 8 staff members comparing AI-assisted vs. manual workflows.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <h5>Phase 4: Training & Rollout (Weeks 13-16)</h5>
+          <p>Trained 12 team members across 4 departments. Documented all templates in shared library. Established feedback loops for continuous improvement. Delivered multi-language support (EN, FR, DE, ES, IT, NL, PT, PL).</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Data Visualization -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Data & Analysis</span>
+      <h2>Workflow Efficiency Gains</h2>
+      <p>Before and after AI implementation: hours per task across 5 core workflow categories.</p>
+    </div>
+    <div class="viz-container">
+      <h3>Task Duration Comparison (Hours per Task)</h3>
+      <div id="chart-bars" class="viz-chart"></div>
+      <p style="font-size:0.85rem;color:var(--slate);margin-top:0.5rem;">Before (manual) vs. After (AI-assisted with engineered prompts). Error bars represent standard deviation across 10 task repetitions.</p>
+    </div>
+
+    <div class="viz-container">
+      <h3>Prompt Workflow Network Visualization</h3>
+      <div id="three-container" style="width:100%;height:400px;"></div>
+      <p style="font-size:0.85rem;color:var(--slate);margin-top:0.5rem;">Three.js particle network showing the interconnection of prompt templates, data sources, and output stages in the AI workflow pipeline.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Results & Impact -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Results</span>
+      <h2>Measurable Impact</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-value" id="stat-workflows">0</div>
+        <div class="stat-label">Custom Workflows Designed</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-value" id="stat-reduction">0</div>
+        <div class="stat-label">Time Reduction %</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-value" id="stat-staff">0</div>
+        <div class="stat-label">Team Members Trained</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-value" id="stat-langs">0</div>
+        <div class="stat-label">Languages Supported</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Academic Foundation -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Academic Foundation</span>
+      <h2>Grounded in Peer-Reviewed Science</h2>
+    </div>
+    <div class="card-grid" style="max-width:1000px;margin:0 auto;">
+      <div class="card citation-box reveal">
+        <strong>Wei et al. (2022)</strong><br>
+        "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models." — NeurIPS 2022.<br>
+        <a href="https://arxiv.org/abs/2201.11903" target="_blank">arXiv:2201.11903</a><br>
+        Demonstrated that chain-of-thought prompting dramatically improves LLM reasoning on complex tasks by breaking problems into explicit intermediate steps.
+      </div>
+      <div class="card citation-box reveal">
+        <strong>Kojima et al. (2022)</strong><br>
+        "Large Language Models are Zero-Shot Reasoners." — NeurIPS 2022.<br>
+        <a href="https://arxiv.org/abs/2205.11916" target="_blank">arXiv:2205.11916</a><br>
+        Showed that even without task-specific examples, models can be prompted to reason step-by-step using the "Let's think step by step" formulation, achieving strong zero-shot performance.
+      </div>
+      <div class="card citation-box reveal">
+        <strong>White et al. (2023)</strong><br>
+        "A Prompt Pattern Catalog to Enhance Prompt Engineering with ChatGPT." — arXiv:2302.11382.<br>
+        <a href="https://arxiv.org/abs/2302.11382" target="_blank">arXiv:2302.11382</a><br>
+        A comprehensive catalog of prompt patterns for structuring LLM interactions, providing reusable templates for context control, output formatting, and reasoning enhancement.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bio-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="/" class="logo" style="color:#fff;margin-bottom:1rem;display:inline-block;"><span style="color:var(--neon);">●</span> biofarms.ai</a>
+        <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;max-width:300px;">Bridging frontier AI and environmental science to build a more sustainable future.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <a href="ai-model-evaluation.html">AI Evaluation</a><br>
+        <a href="ai-due-diligence.html">Due Diligence</a><br>
+        <a href="prompt-engineering.html">Prompt Engineering</a><br>
+        <a href="mrv-system-design.html">MRV Systems</a>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <a href="#">Research Papers</a><br>
+        <a href="#">Case Studies</a><br>
+        <a href="#">Documentation</a><br>
+        <a href="#">API Reference</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:hello@biofarms.ai">hello@biofarms.ai</a><br>
+        <a href="#">Twitter / X</a><br>
+        <a href="#">LinkedIn</a><br>
+        <a href="#">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Biofarms.ai. All rights reserved. Built with rigorous science and cutting-edge technology.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="../shared/shaders.js"></script>
+<script>
+// Initialize WebGL shader background
+initShaderBackground('hero-canvas', 'particleField');
+initNavigation();
+
+// GSAP ScrollTrigger animations
+gsap.registerPlugin(ScrollTrigger);
+GSAPPatterns.revealScroll();
+GSAPPatterns.staggerCards('.card');
+GSAPPatterns.heroEntrance();
+
+// Stats counter animations
+const statWorkflows = { val: 0 };
+gsap.to(statWorkflows, { val: 34, duration: 1.5, ease: 'power2.out', scrollTrigger: { trigger: '#stat-workflows', start: 'top 80%' },
+  onUpdate: () => { document.getElementById('stat-workflows').textContent = Math.round(statWorkflows.val); }
+});
+const statReduction = { val: 0 };
+gsap.to(statReduction, { val: 67, duration: 2, ease: 'power2.out', scrollTrigger: { trigger: '#stat-reduction', start: 'top 80%' },
+  onUpdate: () => { document.getElementById('stat-reduction').textContent = Math.round(statReduction.val) + '%'; }
+});
+const statStaff = { val: 0 };
+gsap.to(statStaff, { val: 12, duration: 1.2, ease: 'power2.out', scrollTrigger: { trigger: '#stat-staff', start: 'top 80%' },
+  onUpdate: () => { document.getElementById('stat-staff').textContent = Math.round(statStaff.val); }
+});
+const statLangs = { val: 0 };
+gsap.to(statLangs, { val: 8, duration: 1.2, ease: 'power2.out', scrollTrigger: { trigger: '#stat-langs', start: 'top 80%' },
+  onUpdate: () => { document.getElementById('stat-langs').textContent = Math.round(statLangs.val); }
+});
+
+// D3 Bar Chart - Before vs After AI
+const barData = [
+  { label: 'Report Drafting', before: 12, after: 4 },
+  { label: 'Data Analysis', before: 8, after: 3 },
+  { label: 'Translation', before: 6, after: 1.5 },
+  { label: 'Policy Brief', before: 10, after: 3.5 },
+  { label: 'Grant Writing', before: 15, after: 5 }
+];
+
+const barContainer = document.getElementById('chart-bars');
+if (barContainer) {
+  const width = 800, height = 400, margin = { top: 20, right: 30, bottom: 60, left: 60 };
+  const innerW = width - margin.left - margin.right;
+  const innerH = height - margin.top - margin.bottom;
+  const svg = d3.select('#chart-bars').append('svg').attr('viewBox', `0 0 ${width} ${height}`).attr('preserveAspectRatio', 'xMidYMid meet');
+  const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+
+  const x0 = d3.scaleBand().domain(barData.map(d => d.label)).range([0, innerW]).padding(0.25);
+  const x1 = d3.scaleBand().domain(['before', 'after']).range([0, x0.bandwidth()]).padding(0.05);
+  const y = d3.scaleLinear().domain([0, 16]).range([innerH, 0]);
+
+  g.append('g').attr('transform', `translate(0,${innerH})`).call(d3.axisBottom(x0)).selectAll('text').style('font-size', '11px').style('fill', '#64748B');
+  g.append('g').call(d3.axisLeft(y));
+  g.append('text').attr('x', -innerH/2).attr('y', -40).attr('transform', 'rotate(-90)').attr('text-anchor', 'middle').style('font-size', '12px').style('fill', '#64748B').text('Hours per Task');
+
+  const colors = { before: '#64748B', after: '#4ADE80' };
+  const labels = { before: 'Before AI', after: 'After AI' };
+
+  ['before', 'after'].forEach((key, idx) => {
+    g.selectAll('.bar-' + key).data(barData).enter().append('rect')
+      .attr('x', d => x0(d.label) + x1(key))
+      .attr('width', x1.bandwidth())
+      .attr('y', innerH)
+      .attr('height', 0)
+      .attr('fill', colors[key])
+      .attr('rx', 3)
+      .transition().duration(800).delay((d, i) => i * 150 + idx * 100)
+      .attr('y', d => y(d[key]))
+      .attr('height', d => innerH - y(d[key]));
+  });
+
+  // Legend
+  const legend = svg.append('g').attr('transform', `translate(${width - 150}, 20)`);
+  ['before', 'after'].forEach((key, idx) => {
+    const l = legend.append('g').attr('transform', `translate(0, ${idx * 22})`);
+    l.append('rect').attr('width', 14).attr('height', 14).attr('rx', 3).attr('fill', colors[key]);
+    l.append('text').attr('x', 22).attr('dy', '0.8em').text(labels[key]).style('font-size', '12px').style('fill', '#334155');
+  });
+}
+
+// Three.js Particle Network Visualization
+const netContainer = document.getElementById('three-container');
+if (netContainer && typeof THREE !== 'undefined') {
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0F2E25);
+  const camera = new THREE.PerspectiveCamera(60, netContainer.clientWidth / netContainer.clientHeight, 0.1, 100);
+  camera.position.set(0, 0, 18);
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(netContainer.clientWidth, netContainer.clientHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  netContainer.appendChild(renderer.domElement);
+
+  const nodeCount = 40;
+  const nodes = [];
+  const nodePositions = [];
+
+  for (let i = 0; i < nodeCount; i++) {
+    const x = (Math.random() - 0.5) * 20;
+    const y = (Math.random() - 0.5) * 12;
+    const z = (Math.random() - 0.5) * 8;
+    nodePositions.push(new THREE.Vector3(x, y, z));
+
+    const geo = new THREE.SphereGeometry(0.15, 8, 8);
+    const mat = new THREE.MeshBasicMaterial({ color: 0x4ADE80 });
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.position.set(x, y, z);
+    scene.add(mesh);
+    nodes.push(mesh);
+  }
+
+  // Connections
+  const lineMat = new THREE.LineBasicMaterial({ color: 0x4ADE80, transparent: true, opacity: 0.15 });
+  for (let i = 0; i < nodeCount; i++) {
+    for (let j = i + 1; j < nodeCount; j++) {
+      const dist = nodePositions[i].distanceTo(nodePositions[j]);
+      if (dist < 6) {
+        const lineGeo = new THREE.BufferGeometry().setFromPoints([nodePositions[i], nodePositions[j]]);
+        const line = new THREE.Line(lineGeo, lineMat);
+        scene.add(line);
+      }
+    }
+  }
+
+  scene.add(new THREE.AmbientLight(0x404040));
+  const dirLight = new THREE.DirectionalLight(0x4ADE80, 0.5);
+  dirLight.position.set(5, 10, 5);
+  scene.add(dirLight);
+
+  let time = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    time += 0.005;
+    nodes.forEach((node, i) => {
+      node.position.x = nodePositions[i].x + Math.sin(time + i * 0.5) * 0.3;
+      node.position.y = nodePositions[i].y + Math.cos(time + i * 0.3) * 0.3;
+    });
+    scene.rotation.y = time * 0.1;
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = netContainer.clientWidth / netContainer.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(netContainer.clientWidth, netContainer.clientHeight);
+  });
+}
+</script>
+</body>
+</html>

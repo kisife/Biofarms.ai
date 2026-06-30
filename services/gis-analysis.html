@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GIS & Spatial Analysis | biofarms.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/common.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../shared/shaders.js"></script>
+  <style>
+    .hero { background: var(--bg-dark); }
+    .hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+    .hero-content { position: relative; z-index: 10; }
+    .challenge-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(74,222,128,0.1); border-radius: 16px; padding: 32px; }
+    .challenge-card h3 { color: var(--neon); font-size: 1.1rem; margin-bottom: 12px; }
+    .challenge-card p { font-size: 0.95rem; }
+    .result-metric { text-align: center; padding: 32px 16px; }
+    .result-metric .value { font-size: 2.5rem; font-weight: 800; color: var(--neon); }
+    .result-metric .label { font-size: 0.8rem; color: var(--slate); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 8px; }
+    .cite-card { padding: 24px; background: rgba(255,255,255,0.02); border-radius: 12px; border: 1px solid rgba(74,222,128,0.08); margin-bottom: 16px; transition: border-color 0.3s ease; }
+    .cite-card:hover { border-color: rgba(74,222,128,0.25); }
+    .cite-card p { font-size: 0.92rem; color: #A1A1AA; font-style: italic; margin-bottom: 8px; line-height: 1.6; }
+    .cite-card a { font-size: 0.8rem; color: var(--neon); text-decoration: none; font-family: 'SF Mono', monospace; }
+    .cite-card a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="../index.html" class="navbar-logo">biofarms<span>.ai</span></a>
+      <ul class="navbar-nav">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="satellite-monitoring.html">Satellite</a></li>
+        <li><a href="drone-survey.html">Drone</a></li>
+        <li><a href="gis-analysis.html">GIS</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <canvas id="hero-shader" class="hero-canvas"></canvas>
+    <div class="hero-content">
+      <span class="label">Spatial Intelligence</span>
+      <h1 class="hero-title">GIS &<br><span class="text-gradient">Spatial Analysis</span></h1>
+      <p class="hero-subtitle">Systematic conservation prioritization using Marxan and Zonation algorithms across six West African countries, integrating biodiversity, threat, and feasibility layers.</p>
+      <a href="#overview" class="hero-cta">Explore Methodology →</a>
+    </div>
+  </section>
+
+  <!-- Client Overview -->
+  <section id="overview" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Client Profile</span>
+      </div>
+      <div class="grid-2">
+        <div class="challenge-card">
+          <h3>Client</h3>
+          <p>Anonymous Conservation Organization — West Africa Priority Mapping Initiative</p>
+        </div>
+        <div class="challenge-card">
+          <h3>Project Scope</h3>
+          <p>Spatial prioritization across 6 West African countries to identify conservation areas maximizing biodiversity representation while minimizing land-use conflict.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Challenge -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">The Challenge</span>
+        <h2>Systematic Conservation Planning</h2>
+        <p>Conservation resources are finite. Systematic spatial analysis identifies where protection yields the greatest biodiversity return per unit investment.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Data Fragmentation</h3>
+          <p class="text-slate">Biodiversity occurrence data is sparse and unevenly distributed across West Africa, requiring careful gap-filling and spatial interpolation.</p>
+        </div>
+        <div class="card">
+          <h3>Conflicting Land Uses</h3>
+          <p class="text-slate">Agricultural expansion, mining concessions, and urban development overlap with high-biodiversity areas, creating complex trade-offs.</p>
+        </div>
+        <div class="card">
+          <h3>Stakeholder Alignment</h3>
+          <p class="text-slate">Priority maps must be defensible to government agencies, local communities, and international donors. Transparency is essential.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Methodology -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Methodology</span>
+        <h2>Spatial Prioritization Pipeline</h2>
+        <p>Our workflow follows the systematic conservation planning framework (Margules & Pressey, 2000), adapted for West African data availability.</p>
+      </div>
+      <div class="method-steps">
+        <div class="method-step">
+          <div class="method-step-number">1</div>
+          <div class="method-step-content">
+            <h4>Data Collection</h4>
+            <p>Species occurrence data from GBIF, IUCN Red List range maps, forest cover from Hansen GFW, and elevation from SRTM.</p>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="method-step-number">2</div>
+          <div class="method-step-content">
+            <h4>Standardization</h4>
+            <p>All layers projected to WGS84 / UTM zones, resampled to 1 km resolution, and normalized to 0-1 range for compatibility.</p>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="method-step-number">3</div>
+          <div class="method-step-content">
+            <h4>Gap Analysis</h4>
+            <p>Species representation evaluated against existing protected areas; representation gaps identified for endemic and threatened taxa.</p>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="method-step-number">4</div>
+          <div class="method-step-content">
+            <h4>Marxan / Zonation</h4>
+            <p>Spatial prioritization algorithms run with biodiversity features, cost layers, and boundary length modifiers for compact solutions.</p>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="method-step-number">5</div>
+          <div class="method-step-content">
+            <h4>Stakeholder Validation</h4>
+            <p>Workshops with national forestry services, NGOs, and community representatives to validate and refine priority area boundaries.</p>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="method-step-number">6</div>
+          <div class="method-step-content">
+            <h4>Output Maps</h4>
+            <p>Final priority maps, sensitivity analysis, and scenario comparisons delivered as QGIS projects, GeoPDFs, and web services.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="dataset-tags mt-4">
+        <span class="dataset-tag">QGIS 3.28</span>
+        <span class="dataset-tag">ArcGIS Pro</span>
+        <span class="dataset-tag">OpenStreetMap</span>
+        <span class="dataset-tag">GBIF Occurrence</span>
+        <span class="dataset-tag">IUCN Red List</span>
+        <span class="dataset-tag">Hansen GFW</span>
+        <span class="dataset-tag">SRTM Elevation</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Data Visualization -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Data Visualization</span>
+        <h2>Conservation Priority by Region</h2>
+        <p>Interactive D3.js stacked bar chart showing conservation priority scores decomposed by biodiversity value, threat level, and feasibility across six West African countries.</p>
+      </div>
+      <div class="viz-container" id="priority-chart" style="min-height:450px;"></div>
+      <p class="viz-caption">Figure 1: Stacked conservation priority scores by country. Higher values indicate greater urgency for protection, driven by endemic species richness, deforestation pressure, and current protection gap.</p>
+
+      <div class="mt-5">
+        <div class="section-header">
+          <h2>3D Priority Area Elevation Model</h2>
+          <p>Three.js interactive terrain model of West Africa showing priority conservation areas overlaid on elevation and topographic features.</p>
+        </div>
+        <div id="three-canvas" style="height:500px;border-radius:16px;border:1px solid rgba(74,222,128,0.1);overflow:hidden;background:#0A1912;"></div>
+        <p class="viz-caption">Figure 2: 3D elevation model of West African priority conservation regions. Colored rings indicate priority conservation areas; terrain color encodes elevation from coastal lowlands to Guinea Highlands.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results / Stats -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="label">Project Results</span>
+        <h2>Key Performance Metrics</h2>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card glass">
+          <div class="stat-value" data-target="6">0</div>
+          <div class="stat-label">Countries Analyzed</div>
+        </div>
+        <div class="stat-card glass">
+          <div class="stat-value" data-target="1247" data-suffix="">0</div>
+          <div class="stat-label">Species Mapped</div>
+        </div>
+        <div class="stat-card glass">
+          <div class="stat-value" data-target="34">0</div>
+          <div class="stat-label">Priority Areas Identified</div>
+        </div>
+        <div class="stat-card glass">
+          <div class="stat-value" data-target="2.3" data-suffix="M ha" data-decimals="1">0</div>
+          <div class="stat-label">Recommended for Protection</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Academic Foundation -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Academic Foundation</span>
+        <h2>Peer-Reviewed Literature</h2>
+        <p>Our systematic conservation planning approach is grounded in foundational and contemporary literature in conservation biology and spatial ecology.</p>
+      </div>
+      <div class="cite-card">
+        <p>Margules, C.R. & Pressey, R.L. (2000). "Systematic conservation planning." <em>Nature</em>, 405(6783), 243-253.</p>
+        <a href="https://doi.org/10.1038/35012251" target="_blank">DOI: 10.1038/35012251</a>
+      </div>
+      <div class="cite-card">
+        <p>Myers, N., Mittermeier, R.A., Mittermeier, C.G., da Fonseca, G.A.B., & Kent, J. (2000). "Biodiversity hotspots for conservation priorities." <em>Nature</em>, 403(6772), 853-858.</p>
+        <a href="https://doi.org/10.1038/35002501" target="_blank">DOI: 10.1038/35002501</a>
+      </div>
+      <div class="cite-card">
+        <p>Moilanen, A., Wilson, K.A., & Possingham, H.P. (2009). <em>Spatial Conservation Prioritization: Quantitative Methods and Computational Tools</em>. Oxford University Press.</p>
+        <a href="https://doi.org/10.1093/oso/9780199547776.001.0001" target="_blank">DOI: 10.1093/oso/9780199547776.001.0001</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Project Timeline</span>
+        <h2>Execution Phases</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-phase">Phase 1</div>
+          <div class="timeline-title">Data Compilation & QA</div>
+          <div class="timeline-desc">Collection of 1,247 species occurrence datasets, remote sensing layers, and socioeconomic data from six national databases. Rigorous QA for spatial accuracy and taxonomic consistency.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-phase">Phase 2</div>
+          <div class="timeline-title">Spatial Analysis & Modeling</div>
+          <div class="timeline-desc">Marxan and Zonation runs across multiple scenarios (species representation, climate refugia, cost minimization). Sensitivity analysis performed for key parameters.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-phase">Phase 3</div>
+          <div class="timeline-title">Stakeholder Workshops</div>
+          <div class="timeline-desc">Three regional workshops in Dakar, Abidjan, and Yaoundé with government representatives, NGOs, and community leaders to validate and refine priority area boundaries.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-phase">Phase 4</div>
+          <div class="timeline-title">Deliverables & Policy Integration</div>
+          <div class="timeline-desc">Final priority maps, technical report, and policy briefs delivered to national environment ministries and the ECOWAS Commission for integration into regional planning frameworks.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">biofarms<span>.ai</span></div>
+          <p class="footer-desc">Precision environmental monitoring for sustainable land use and nature-based solutions.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="satellite-monitoring.html">Satellite Monitoring</a>
+          <a href="drone-survey.html">Drone Survey</a>
+          <a href="gis-analysis.html">GIS Analysis</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="#">Case Studies</a>
+          <a href="#">Publications</a>
+          <a href="#">API Docs</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:hello@biofarms.ai">hello@biofarms.ai</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">Twitter</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 biofarms.ai. All rights reserved.</p>
+        <p>Built with precision, for nature.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Hero shader
+      ShaderBackgrounds.init('hero-shader', ShaderBackgrounds.gisShader);
+
+      // GSAP Animations
+      GSAPPatterns.heroEntrance();
+      GSAPPatterns.fadeUp('.section-header, .challenge-card, .card, .method-step, .cite-card, .timeline-item');
+      GSAPPatterns.stagger('.method-steps', '.method-step');
+      GSAPPatterns.stagger('.stats-grid', '.stat-card');
+      GSAPPatterns.stagger('.grid-3', '.card');
+
+      // Stat counters
+      GSAPPatterns.counter('.stat-value');
+
+      // D3 Stacked Bar Chart
+      const priorityData = [
+        { region: 'Cameroon', Biodiversity: 0.85, Threat: 0.72, Feasibility: 0.68 },
+        { region: 'Gabon', Biodiversity: 0.78, Threat: 0.45, Feasibility: 0.82 },
+        { region: 'Ivory Coast', Biodiversity: 0.65, Threat: 0.88, Feasibility: 0.55 },
+        { region: 'Ghana', Biodiversity: 0.58, Threat: 0.75, Feasibility: 0.62 },
+        { region: 'Nigeria', Biodiversity: 0.70, Threat: 0.90, Feasibility: 0.48 },
+        { region: 'Senegal', Biodiversity: 0.42, Threat: 0.60, Feasibility: 0.70 }
+      ];
+      D3Charts.stackedBar('priority-chart', priorityData, {
+        yLabel: 'Priority Score (0-1)'
+      });
+
+      // Three.js Elevation Model
+      ThreeScenes.elevationModel('three-canvas');
+    });
+  </script>
+</body>
+</html>

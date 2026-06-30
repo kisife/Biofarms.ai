@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Enhanced Sustainability Training | biofarms.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/common.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="../shared/shaders.js"></script>
+  <style>
+    .page-training .d3-axis text { fill: #64748B; font-family: Inter, sans-serif; font-size: 11px; }
+    .page-training .d3-axis path, .page-training .d3-axis line { stroke: rgba(255,255,255,0.1); }
+    .page-training .radar-grid { stroke: rgba(255,255,255,0.08); stroke-dasharray: 3,3; }
+    .page-training .radar-axis { stroke: rgba(255,255,255,0.15); }
+    .page-training .radar-area-before { fill: rgba(100,116,139,0.2); stroke: #64748B; stroke-width: 2; }
+    .page-training .radar-area-after { fill: rgba(74,222,128,0.2); stroke: #4ADE80; stroke-width: 2.5; }
+    .page-training .radar-label { fill: #F5F7F6; font-size: 12px; font-family: Inter, sans-serif; font-weight: 500; }
+    .page-training .radar-point { fill: #4ADE80; }
+    .page-training .radar-legend { fill: #64748B; font-size: 12px; font-family: Inter, sans-serif; }
+    .page-training .legend-box-before { fill: rgba(100,116,139,0.4); }
+    .page-training .legend-box-after { fill: rgba(74,222,128,0.4); }
+    .client-banner { background: linear-gradient(135deg, rgba(27,77,62,0.6) 0%, rgba(15,46,37,0.8) 100%); border: 1px solid rgba(74,222,128,0.15); border-radius: 16px; padding: 32px 40px; display: flex; align-items: center; gap: 24px; }
+    .client-avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #4ADE80, #1B4D3E); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; color: #0F2E25; flex-shrink: 0; }
+  </style>
+</head>
+<body class="page-training">
+
+<nav class="site-nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">biofarms<span>.ai</span></a>
+    <ul class="nav-links">
+      <li><a href="research-design.html">Research</a></li>
+      <li><a href="ai-sustainability-training.html">Training</a></li>
+      <li><a href="stakeholder-engagement.html">Engagement</a></li>
+      <li><a href="environmental-impact-assessment.html">Assessment</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+  <canvas class="hero-shader-bg" id="shaderCanvas"></canvas>
+  <div class="hero-content">
+    <div class="section-label gsap-reveal">Services</div>
+    <h1 class="hero-title gsap-reveal">AI-Enhanced<br>Sustainability Training</h1>
+    <p class="hero-subtitle gsap-reveal">Experiential learning programs combining active pedagogy with AI-powered tools for corporate sustainability teams</p>
+    <a href="#overview" class="btn btn-primary gsap-reveal">Explore Curriculum</a>
+  </div>
+</section>
+
+<section class="section section-dark" id="overview">
+  <div class="container">
+    <div class="gsap-reveal">
+      <span class="section-label">Client</span>
+      <h2>Anonymous European Corporate Sustainability Team</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="client-banner gsap-reveal" style="margin-top: 40px;">
+      <div class="client-avatar">CS</div>
+      <div class="client-info">
+        <h4>Fortune 500 Corporate Sustainability Division</h4>
+        <p>European-headquartered multinational seeking to upskill 24 sustainability professionals in AI literacy, data analysis, and evidence-based decision-making for ESG reporting and climate strategy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-forest" id="challenge">
+  <div class="container">
+    <div class="two-column">
+      <div class="gsap-reveal">
+        <span class="section-label">Challenge</span>
+        <h2>Bridging the AI-Sustainability Skills Gap</h2>
+        <div class="section-divider"></div>
+        <p>Corporate sustainability teams increasingly face data-intensive challenges requiring AI tools, yet traditional training programs remain lecture-based and passive. The client needed an experiential learning approach grounded in established pedagogical research to achieve measurable competency improvements.</p>
+        <ul class="challenge-list" style="margin-top: 32px;">
+          <li>Low baseline AI literacy across the sustainability team</li>
+          <li>Passive training formats failing to retain knowledge</li>
+          <li>Need for hands-on experience with real carbon accounting tools</li>
+          <li>Diverse learning styles and professional backgrounds</li>
+          <li>Requirement for demonstrable ROI on training investment</li>
+        </ul>
+      </div>
+      <div class="gsap-reveal">
+        <div class="viz-container" id="threeParticles"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-dark" id="methodology">
+  <div class="container">
+    <div class="gsap-reveal">
+      <span class="section-label">Methodology</span>
+      <h2>Our Pedagogical Framework</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div style="max-width: 800px; margin-top: 60px;">
+      <div class="methodology-step gsap-reveal">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <h4>Needs Assessment</h4>
+          <p>Pre-training competency audit using Kolb's Learning Style Inventory and structured interviews to map baseline AI literacy, data analysis skills, and policy knowledge across all 24 participants.</p>
+        </div>
+      </div>
+      <div class="methodology-step gsap-reveal">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <h4>Curriculum Design</h4>
+          <p>Problem-based learning modules aligned with Bloom's taxonomy, progressing from foundational AI concepts to applied sustainability use cases (carbon accounting, supply chain analysis, ESG reporting).</p>
+        </div>
+      </div>
+      <div class="methodology-step gsap-reveal">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <h4>Active Learning Modules</h4>
+          <p>Freeman-style active learning: 4 workshop modules with group problem-solving, peer instruction, and real-world dataset analysis replacing traditional lectures.</p>
+        </div>
+      </div>
+      <div class="methodology-step gsap-reveal">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <h4>AI Tool Integration</h4>
+          <p>Hands-on training with Python-based carbon accounting libraries, LLM-assisted policy analysis, and automated sustainability reporting dashboards using real corporate data.</p>
+        </div>
+      </div>
+      <div class="methodology-step gsap-reveal">
+        <div class="step-number">05</div>
+        <div class="step-content">
+          <h4>Assessment</h4>
+          <p>Pre/post competency tests, portfolio review of completed projects, and 360-degree peer feedback on communication and leadership dimensions.</p>
+        </div>
+      </div>
+      <div class="methodology-step gsap-reveal">
+        <div class="step-number">06</div>
+        <div class="step-content">
+          <h4>Iteration</h4>
+          <p>Continuous curriculum refinement based on participant feedback, learning analytics, and emerging AI capabilities in sustainability tooling.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-forest" id="data-viz">
+  <div class="container">
+    <div class="gsap-reveal">
+      <span class="section-label">Data Visualization</span>
+      <h2>Competency Improvement: Before & After</h2>
+      <div class="section-divider"></div>
+      <p style="max-width: 700px;">Radar chart comparing mean competency scores across 5 dimensions before and after the 4-module training programme (n=24, paired t-test, p < 0.001).</p>
+    </div>
+    <div class="d3-chart-container gsap-reveal" style="margin-top: 48px;" id="radarChart"></div>
+  </div>
+</section>
+
+<section class="section section-dark" id="timeline">
+  <div class="container">
+    <div class="gsap-reveal">
+      <span class="section-label">Project Timeline</span>
+      <h2>Training Programme Schedule</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="timeline" style="margin-top: 60px; max-width: 700px;">
+      <div class="timeline-item gsap-reveal">
+        <div class="timeline-date">Week 1</div>
+        <div class="timeline-title">Needs Assessment & Baseline Testing</div>
+        <div class="timeline-desc">Kolb learning styles inventory, competency baseline survey, and AI literacy pre-assessment across all 24 participants.</div>
+      </div>
+      <div class="timeline-item gsap-reveal">
+        <div class="timeline-date">Week 2–3</div>
+        <div class="timeline-title">Module 1: Foundations of AI in Sustainability</div>
+        <div class="timeline-desc">Active learning workshops on machine learning concepts, carbon accounting fundamentals, and Python data analysis introduction.</div>
+      </div>
+      <div class="timeline-item gsap-reveal">
+        <div class="timeline-date">Week 4–5</div>
+        <div class="timeline-title">Module 2: Data Analysis & Visualization</div>
+        <div class="timeline-desc">Hands-on training with real ESG datasets, dashboard creation, and statistical reasoning for sustainability metrics.</div>
+      </div>
+      <div class="timeline-item gsap-reveal">
+        <div class="timeline-date">Week 6–7</div>
+        <div class="timeline-title">Module 3: Policy Knowledge & Communication</div>
+        <div class="timeline-desc">CSRD, EU Taxonomy, and ISSB standards deep-dive; peer-led policy brief presentations and communication skills workshops.</div>
+      </div>
+      <div class="timeline-item gsap-reveal">
+        <div class="timeline-date">Week 8–9</div>
+        <div class="timeline-title">Module 4: Leadership & AI Integration</div>
+        <div class="timeline-desc">Capstone project: teams develop AI-enhanced sustainability strategy proposals with executive presentation.</div>
+      </div>
+      <div class="timeline-item gsap-reveal">
+        <div class="timeline-date">Week 10</div>
+        <div class="timeline-title">Post-Assessment & Iteration</div>
+        <div class="timeline-desc">Post-training competency evaluation, 360-degree feedback, curriculum debrief, and continuous improvement planning.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-forest" id="results">
+  <div class="container">
+    <div class="gsap-reveal">
+      <span class="section-label">Results</span>
+      <h2>Training Outcomes</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="stats-grid" id="statsGrid">
+      <div class="stat-item gsap-reveal">
+        <div class="stat-number" data-target="24">0</div>
+        <div class="stat-label">Participants Trained</div>
+      </div>
+      <div class="stat-item gsap-reveal">
+        <div class="stat-number" data-target="4">0</div>
+        <div class="stat-label">Workshop Modules</div>
+      </div>
+      <div class="stat-item gsap-reveal">
+        <div class="stat-number" data-target="67">0</div>
+        <div class="stat-label">% Competency Improvement</div>
+      </div>
+      <div class="stat-item gsap-reveal">
+        <div class="stat-number" data-target="92">0</div>
+        <div class="stat-label">% Satisfaction Rate</div>
+      </div>
+    </div>
+    <div class="result-highlight gsap-reveal" style="margin-top: 60px;">
+      <h3>Key Finding</h3>
+      <p>The active learning intervention produced a statistically significant 67% mean improvement in competency scores across all five dimensions (paired t(23) = 14.2, p < 0.001). The largest gains were observed in AI Literacy (+82%) and Data Analysis (+71%). Participant satisfaction reached 92% (NPS 74), with 88% of participants reporting increased confidence in applying AI tools to their sustainability work.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-dark" id="academic">
+  <div class="container">
+    <div class="gsap-reveal">
+      <span class="section-label">Academic Foundation</span>
+      <h2>Peer-Reviewed Citations</h2>
+      <div class="section-divider"></div>
+    </div>
+    <ul class="citations-list" style="margin-top: 48px;">
+      <li class="gsap-reveal">
+        <strong>Bloom, B.S., et al. (2014).</strong> "Measuring and Improving the Quality of Science Education." <em>Science</em>, 345(6193), 415–416. <span class="doi">DOI: 10.1126/science.1252185</span>
+      </li>
+      <li class="gsap-reveal">
+        <strong>Freeman, S., et al. (2014).</strong> "Active learning increases student performance in science, engineering, and mathematics." <em>Proceedings of the National Academy of Sciences</em>, 111(23), 8410–8415. <span class="doi">DOI: 10.1073/pnas.1319030111</span>
+      </li>
+      <li class="gsap-reveal">
+        <strong>Hmelo-Silver, C.E. (2004).</strong> "Problem-Based Learning: What and How Do Students Learn?" <em>Educational Psychology Review</em>, 16(3), 235–266. <span class="doi">DOI: 10.1023/B:EDPR.0000034022.16470.f3</span>
+      </li>
+      <li class="gsap-reveal">
+        <strong>Kolb, D.A. (1984).</strong> <em>Experiential Learning: Experience as the Source of Learning and Development</em>. Prentice Hall. ISBN: 978-0132952613
+      </li>
+    </ul>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">biofarms<span>.ai</span></div>
+        <p style="color: #64748B; font-size: 0.9rem; max-width: 300px;">AI-powered research and sustainability solutions for environmental science, forestry, and conservation.</p>
+      </div>
+      <div class="footer-links">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="research-design.html">Research Design</a></li>
+          <li><a href="ai-sustainability-training.html">AI Training</a></li>
+          <li><a href="stakeholder-engagement.html">Stakeholder Engagement</a></li>
+          <li><a href="environmental-impact-assessment.html">Impact Assessment</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h5>Resources</h5>
+        <ul>
+          <li><a href="#">Publications</a></li>
+          <li><a href="#">Methodologies</a></li>
+          <li><a href="#">Datasets</a></li>
+          <li><a href="#">Code Repository</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:hello@biofarms.ai">hello@biofarms.ai</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>biofarms.ai &mdash; Research-driven. Data-informed. Sustainability-focused.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.BiofarmsShaders) {
+    window.BiofarmsShaders.init('#shaderCanvas', 'network');
+  }
+
+  const nav = document.getElementById('siteNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.from('.hero .gsap-reveal', { y: 60, opacity: 0, duration: 1.2, stagger: 0.2, ease: 'power3.out', delay: 0.3 });
+  gsap.utils.toArray('.section .gsap-reveal').forEach(el => {
+    gsap.from(el, { scrollTrigger: { trigger: el, start: 'top 85%', toggleActions: 'play none none none' }, y: 40, opacity: 0, duration: 0.8, ease: 'power3.out' });
+  });
+
+  const statNumbers = document.querySelectorAll('#statsGrid .stat-number');
+  statNumbers.forEach(num => {
+    const target = parseInt(num.dataset.target);
+    gsap.to(num, {
+      scrollTrigger: { trigger: num, start: 'top 85%' },
+      innerText: target, duration: 2.5, snap: { innerText: 1 }, ease: 'power2.out',
+      onUpdate: function() {
+        const val = Math.round(this.targets()[0].innerText);
+        num.innerText = (target === 67 || target === 92) ? val + '%' : val;
+      }
+    });
+  });
+
+  // ==================== D3.js Radar Chart ====================
+  const radarData = {
+    dimensions: ['AI Literacy', 'Data Analysis', 'Policy Knowledge', 'Communication', 'Leadership'],
+    before: [32, 28, 45, 52, 38],
+    after: [58, 48, 68, 74, 61]
+  };
+
+  const radarContainer = document.getElementById('radarChart');
+  const w = radarContainer.clientWidth - 48;
+  const h = 460;
+  const m = { top: 60, right: 120, bottom: 60, left: 60 };
+  const iw = w - m.left - m.right;
+  const ih = h - m.top - m.bottom;
+  const radius = Math.min(iw, ih) / 2;
+  const centerX = iw / 2;
+  const centerY = ih / 2;
+
+  const rsvg = d3.select('#radarChart').append('svg').attr('width', w).attr('height', h);
+  const rg = rsvg.append('g').attr('transform', `translate(${m.left},${m.top})`);
+
+  const levels = 5;
+  for (let i = 1; i <= levels; i++) {
+    const r = (radius / levels) * i;
+    rg.append('circle').attr('cx', centerX).attr('cy', centerY).attr('r', r)
+      .attr('class', 'radar-grid').attr('fill', 'none');
+  }
+
+  const angleSlice = (Math.PI * 2) / radarData.dimensions.length;
+  radarData.dimensions.forEach((dim, i) => {
+    const angle = angleSlice * i - Math.PI / 2;
+    const x = centerX + radius * Math.cos(angle);
+    const y = centerY + radius * Math.sin(angle);
+    rg.append('line').attr('x1', centerX).attr('y1', centerY).attr('x2', x).attr('y2', y).attr('class', 'radar-axis');
+    rg.append('text').attr('x', centerX + (radius + 25) * Math.cos(angle)).attr('y', centerY + (radius + 25) * Math.sin(angle))
+      .attr('text-anchor', 'middle').attr('dominant-baseline', 'middle').attr('class', 'radar-label').text(dim);
+  });
+
+  const rScale = d3.scaleLinear().domain([0, 100]).range([0, radius]);
+
+  function getPoints(values) {
+    return values.map((v, i) => {
+      const angle = angleSlice * i - Math.PI / 2;
+      return [centerX + rScale(v) * Math.cos(angle), centerY + rScale(v) * Math.sin(angle)];
+    });
+  }
+
+  const beforePoints = getPoints(radarData.before);
+  const afterPoints = getPoints(radarData.after);
+
+  const lineGen = d3.line().curve(d3.curveLinearClosed);
+
+  // Before area
+  const beforePath = rg.append('path').attr('d', lineGen(beforePoints)).attr('class', 'radar-area-before')
+    .attr('fill-opacity', 0).attr('stroke-opacity', 0);
+
+  // After area
+  const afterPath = rg.append('path').attr('d', lineGen(afterPoints)).attr('class', 'radar-area-after')
+    .attr('fill-opacity', 0).attr('stroke-opacity', 0);
+
+  // Animate on scroll
+  ScrollTrigger.create({
+    trigger: '#radarChart', start: 'top 80%',
+    onEnter: () => {
+      beforePath.transition().duration(1200).attr('fill-opacity', 0.2).attr('stroke-opacity', 1);
+      afterPath.transition().duration(1200).delay(400).attr('fill-opacity', 0.25).attr('stroke-opacity', 1);
+      beforePoints.forEach((pt, i) => {
+        rg.append('circle').attr('cx', pt[0]).attr('cy', pt[1]).attr('r', 0).attr('class', 'radar-point')
+          .attr('fill', '#64748B').transition().delay(600).duration(600).attr('r', 4);
+      });
+      afterPoints.forEach((pt, i) => {
+        rg.append('circle').attr('cx', pt[0]).attr('cy', pt[1]).attr('r', 0).attr('class', 'radar-point')
+          .attr('fill', '#4ADE80').transition().delay(900).duration(600).attr('r', 5);
+      });
+    }
+  });
+
+  // Legend
+  const legend = rg.append('g').attr('transform', `translate(${iw + 20}, 20)`);
+  legend.append('rect').attr('x', 0).attr('y', 0).attr('width', 16).attr('height', 16).attr('rx', 3).attr('class', 'legend-box-before');
+  legend.append('text').attr('x', 24).attr('y', 13).attr('class', 'radar-legend').text('Before Training');
+  legend.append('rect').attr('x', 0).attr('y', 28).attr('width', 16).attr('height', 16).attr('rx', 3).attr('class', 'legend-box-after');
+  legend.append('text').attr('x', 24).attr('y', 41).attr('class', 'radar-legend').text('After Training');
+
+  // ==================== Three.js Particle Network ====================
+  const pContainer = document.getElementById('threeParticles');
+  const pScene = new THREE.Scene();
+  const pCamera = new THREE.PerspectiveCamera(45, pContainer.clientWidth / pContainer.clientHeight, 0.1, 1000);
+  const pRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  pRenderer.setSize(pContainer.clientWidth, pContainer.clientHeight);
+  pRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  pContainer.appendChild(pRenderer.domElement);
+
+  const particleCount = 120;
+  const particles = [];
+  const particleGeo = new THREE.SphereGeometry(0.05, 16, 16);
+  const particleMat = new THREE.MeshBasicMaterial({ color: 0x4ADE80, transparent: true, opacity: 0.8 });
+  const nodeGroup = new THREE.Group();
+
+  for (let i = 0; i < particleCount; i++) {
+    const mesh = new THREE.Mesh(particleGeo, particleMat.clone());
+    mesh.position.set(
+      (Math.random() - 0.5) * 12,
+      (Math.random() - 0.5) * 8,
+      (Math.random() - 0.5) * 6
+    );
+    mesh.userData = {
+      vel: new THREE.Vector3((Math.random() - 0.5) * 0.01, (Math.random() - 0.5) * 0.01, (Math.random() - 0.5) * 0.005),
+      phase: Math.random() * Math.PI * 2
+    };
+    particles.push(mesh);
+    nodeGroup.add(mesh);
+  }
+  pScene.add(nodeGroup);
+
+  // Connection lines
+  const connections = new THREE.Group();
+  const lineGeo = new THREE.BufferGeometry();
+  const linePos = new Float32Array(300 * 6);
+  lineGeo.setAttribute('position', new THREE.BufferAttribute(linePos, 3));
+  const lineMaterial = new THREE.LineBasicMaterial({ color: 0x4ADE80, transparent: true, opacity: 0.12 });
+  const lines = new THREE.LineSegments(lineGeo, lineMaterial);
+  connections.add(lines);
+  pScene.add(connections);
+
+  pCamera.position.z = 12;
+  pScene.add(new THREE.AmbientLight(0xffffff, 0.5));
+
+  let pTime = 0;
+  function animateParticles() {
+    requestAnimationFrame(animateParticles);
+    pTime += 0.01;
+
+    particles.forEach(p => {
+      p.position.add(p.userData.vel);
+      p.position.y += Math.sin(pTime + p.userData.phase) * 0.003;
+      if (Math.abs(p.position.x) > 6) p.userData.vel.x *= -1;
+      if (Math.abs(p.position.y) > 4) p.userData.vel.y *= -1;
+      if (Math.abs(p.position.z) > 3) p.userData.vel.z *= -1;
+      const dist = p.position.distanceTo(new THREE.Vector3(0, 0, 0));
+      p.material.opacity = 0.4 + (1 - Math.min(dist / 8, 1)) * 0.6;
+    });
+
+    // Update connections
+    let idx = 0;
+    const maxLines = 100;
+    for (let i = 0; i < particles.length && idx < maxLines; i++) {
+      for (let j = i + 1; j < particles.length && idx < maxLines; j++) {
+        const dist = particles[i].position.distanceTo(particles[j].position);
+        if (dist < 2.5) {
+          linePos[idx * 6] = particles[i].position.x;
+          linePos[idx * 6 + 1] = particles[i].position.y;
+          linePos[idx * 6 + 2] = particles[i].position.z;
+          linePos[idx * 6 + 3] = particles[j].position.x;
+          linePos[idx * 6 + 4] = particles[j].position.y;
+          linePos[idx * 6 + 5] = particles[j].position.z;
+          idx++;
+        }
+      }
+    }
+    for (let i = idx * 6; i < linePos.length; i++) linePos[i] = 0;
+    lineGeo.attributes.position.needsUpdate = true;
+
+    nodeGroup.rotation.y = pTime * 0.05;
+    pRenderer.render(pScene, pCamera);
+  }
+  animateParticles();
+
+  window.addEventListener('resize', () => {
+    const w = pContainer.clientWidth;
+    const h = pContainer.clientHeight;
+    pCamera.aspect = w / h;
+    pCamera.updateProjectionMatrix();
+    pRenderer.setSize(w, h);
+  });
+});
+</script>
+</body>
+</html>

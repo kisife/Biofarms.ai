@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Model Evaluation and Benchmarking | Case Study | Biofarms.ai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/common.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="bio-nav">
+  <div class="container">
+    <a href="/" class="logo">
+      <span class="logo-dot">●</span> biofarms.ai
+    </a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="ai-model-evaluation.html">AI Evaluation</a>
+      <a href="ai-due-diligence.html">Due Diligence</a>
+      <a href="prompt-engineering.html">Prompt Engineering</a>
+      <a href="mrv-system-design.html">MRV Systems</a>
+      <a href="/contact.html" class="btn btn-primary">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero with WebGL shader -->
+<section class="service-hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content container">
+    <span class="hero-tag">Enterprise AI Benchmarking</span>
+    <h1>AI Model Evaluation and Benchmarking</h1>
+    <p class="hero-subtitle">Rigorous, multi-dimensional assessment of large language models on climate science, ecology, and environmental reasoning tasks for a frontier AI research laboratory.</p>
+    <div class="hero-stats" style="margin-top:2.5rem;display:flex;gap:2rem;flex-wrap:wrap;">
+      <div style="color:rgba(255,255,255,0.9);"><span style="font-size:1.5rem;font-weight:800;color:var(--neon);">1,247</span><br><span style="font-size:0.8rem;opacity:0.7;">Challenge Items</span></div>
+      <div style="color:rgba(255,255,255,0.9);"><span style="font-size:1.5rem;font-weight:800;color:var(--neon);">57</span><br><span style="font-size:0.8rem;opacity:0.7;">Sub-domains</span></div>
+      <div style="color:rgba(255,255,255,0.9);"><span style="font-size:1.5rem;font-weight:800;color:var(--neon);">94.2%</span><br><span style="font-size:0.8rem;opacity:0.7;">Inter-rater Agreement</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Client Overview -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Client Overview</span>
+      <h2>Anonymous Frontier AI Lab</h2>
+      <p>A leading artificial intelligence research laboratory developing large-scale multimodal models for scientific reasoning, climate modeling, and ecological assessment.</p>
+    </div>
+    <div class="card-grid">
+      <div class="card reveal">
+        <div class="card-icon">🧠</div>
+        <h3>Model Scale</h3>
+        <p>Evaluating models ranging from 7B to 175B parameters across multiple instruction-tuned and base checkpoints.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🌍</div>
+        <h3>Domain Focus</h3>
+        <p>Climate science, ecology, biodiversity, environmental policy, and earth-system modeling domains.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">📊</div>
+        <h3>Benchmarking Need</h3>
+        <p>Systematic evaluation of model capabilities in high-stakes environmental decision-support scenarios.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🔬</div>
+        <h3>Scientific Rigor</h3>
+        <p>Peer-reviewed methodology aligned with MMLU, TruthfulQA, and BIG-bench evaluation standards.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Challenge -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">The Challenge</span>
+      <h2>Building a Domain-Specific Evaluation Benchmark</h2>
+    </div>
+    <div style="max-width:900px;margin:0 auto;">
+      <p style="margin-bottom:1.5rem;font-size:1.05rem;color:var(--slate);">
+        Existing AI benchmarks like MMLU (Hendrycks et al., 2021) and BIG-bench (Srivastava et al., 2022) provide broad assessments of general knowledge, but they lack the granular domain specificity needed for evaluating environmental and climate-science reasoning. 
+        <a href="https://openreview.net/forum?id=d7KBjmI3GmQ" target="_blank" class="citation">Hendrycks et al. (2021) — ICLR</a>
+        <a href="https://arxiv.org/abs/2206.04615" target="_blank" class="citation">Srivastava et al. (2022) — arXiv</a>
+      </p>
+      <p style="margin-bottom:1.5rem;font-size:1.05rem;color:var(--slate);">
+        Furthermore, the challenge of truthful question answering in specialized domains is particularly acute. Lin et al. (2022) demonstrated that large language models frequently mimic human falsehoods, and this risk is amplified in scientific domains where expert reviewers are scarce and misinformation carries high societal cost.
+        <a href="https://doi.org/10.18653/v1/2022.acl-long.229" target="_blank" class="citation">Lin et al. (2022) — ACL</a>
+      </p>
+      <p style="font-size:1.05rem;color:var(--slate);">
+        Our client required a custom benchmark that could assess model performance across 6 dimensions of environmental reasoning, with 57 sub-domains spanning ecology, climate policy, and geographic knowledge. The benchmark needed to be academically defensible, with inter-rater reliability exceeding 90% and coverage of both multiple-choice and free-response evaluation formats.
+      </p>
+      <div class="citation-box" style="margin-top:2rem;">
+        <strong>Key Insight:</strong> "Many benchmarks test models on tasks that are easily verified by humans, but environmental reasoning requires evaluating models on tasks that require expert-level knowledge synthesis." — Based on methodology from Hendrycks et al. (2021) and Lin et al. (2022).
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Methodology -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Methodology</span>
+      <h2>Our 4D Evaluation Framework</h2>
+    </div>
+    <div style="max-width:900px;margin:0 auto;">
+      <div class="method-block reveal">
+        <h4>Domain Definition</h4>
+        <ul>
+          <li>Mapped the full taxonomy of environmental and climate knowledge</li>
+          <li>Identified 57 sub-domains across 6 primary capability areas</li>
+          <li>Cross-referenced against IPCC AR6, IPBES assessments, and major ecology journals</li>
+          <li>Consulted with domain experts from 4 research institutions</li>
+        </ul>
+      </div>
+      <div class="method-block reveal">
+        <h4>Difficulty Stratification</h4>
+        <ul>
+          <li>Classified each item into 3 difficulty tiers (Undergraduate, Graduate, Expert)</li>
+          <li>Validated difficulty using pre-testing with human cohorts (n=120)</li>
+          <li>Ensured balanced representation across all difficulty levels</li>
+          <li>Calibrated item difficulty using Item Response Theory (IRT) models</li>
+        </ul>
+      </div>
+      <div class="method-block reveal">
+        <h4>Discrimination Analysis</h4>
+        <ul>
+          <li>Measured item discrimination using point-biserial correlation</li>
+          <li>Removed items with poor discrimination (r < 0.3) after pilot testing</li>
+          <li>Balanced items to distinguish between model capability levels</li>
+          <li>Integrated adversarial filtering to identify and eliminate spuriously "easy" items</li>
+        </ul>
+      </div>
+      <div class="method-block reveal">
+        <h4>Documentation & Metadata</h4>
+        <ul>
+          <li>Created detailed metadata for each item including source, difficulty, and sub-domain</li>
+          <li>Documented all reasoning chains and correct answer justifications</li>
+          <li>Provided full provenance tracking for each challenge item</li>
+          <li>Published methodology appendix with item development procedures</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="max-width:900px;margin:3rem auto 0;">
+      <div class="section-header reveal" style="margin-bottom:2rem;">
+        <span class="tag">Timeline</span>
+        <h3>Project Phases</h3>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <h5>Phase 1: Domain Mapping (Weeks 1-4)</h5>
+          <p>Literature review of 200+ peer-reviewed papers in climate science and ecology. Consulted with domain experts. Established 6 primary capability dimensions and 57 sub-domains.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <h5>Phase 2: Item Development (Weeks 5-12)</h5>
+          <p>Drafted 2,400 candidate items. Expert review and iteration. Reduced to 1,800 items after internal review. Developed reasoning chains for each item.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <h5>Phase 3: Pilot Testing (Weeks 13-16)</h5>
+          <p>Human pilot testing with 120 participants. IRT calibration. Item difficulty and discrimination analysis. Inter-rater reliability assessment.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <h5>Phase 4: Model Evaluation (Weeks 17-20)</h5>
+          <p>Evaluated 6 model families across 4 parameter scales. Generated performance reports with radar visualizations. Delivered final benchmark dataset and documentation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Data Visualization -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Data & Analysis</span>
+      <h2>Model Capability Assessment</h2>
+      <p>Radar chart showing performance scores across six key dimensions of environmental reasoning.</p>
+    </div>
+    <div class="viz-container">
+      <h3>Multi-dimensional Capability Assessment</h3>
+      <div id="chart-radar" class="viz-chart"></div>
+      <p style="font-size:0.85rem;color:var(--slate);margin-top:0.5rem;">Scores represent percentage of items answered correctly. Model A (7B) vs. Model B (70B) vs. Domain Expert baseline.</p>
+    </div>
+
+    <div class="viz-container">
+      <h3>Global Distribution of Climate & Ecology Test Items</h3>
+      <div id="three-container" style="width:100%;height:400px;"></div>
+      <p style="font-size:0.85rem;color:var(--slate);margin-top:0.5rem;">Three.js globe showing geographic distribution of test items by region. Points represent item clusters by geographic domain.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Results & Impact -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Results</span>
+      <h2>Measurable Impact</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-value" id="stat-items">0</div>
+        <div class="stat-label">Challenge Items Created</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-value" id="stat-domains">0</div>
+        <div class="stat-label">Sub-domains Covered</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-value" id="stat-agreement">0</div>
+        <div class="stat-label">Inter-rater Agreement %</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-value" id="stat-models">0</div>
+        <div class="stat-label">Model Families Tested</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Academic Foundation -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Academic Foundation</span>
+      <h2>Grounded in Peer-Reviewed Science</h2>
+    </div>
+    <div class="card-grid" style="max-width:1000px;margin:0 auto;">
+      <div class="card citation-box reveal">
+        <strong>Hendrycks et al. (2021)</strong><br>
+        "Measuring Massive Multitask Language Understanding" — ICLR 2021.<br>
+        The foundational MMLU benchmark for measuring language model knowledge across 57 subject areas. Our methodology extends this framework to environmental domains.<br>
+        <a href="https://openreview.net/forum?id=d7KBjmI3GmQ" target="_blank">https://openreview.net/forum?id=d7KBjmI3GmQ</a>
+      </div>
+      <div class="card citation-box reveal">
+        <strong>Srivastava et al. (2022)</strong><br>
+        "Beyond the Imitation Game: Quantifying and Extrapolating the Capabilities of Language Models" — arXiv:2206.04615.<br>
+        The BIG-bench framework for evaluating emergent capabilities. Our benchmark incorporates BIG-bench task formats for environmental reasoning.<br>
+        <a href="https://arxiv.org/abs/2206.04615" target="_blank">https://arxiv.org/abs/2206.04615</a>
+      </div>
+      <div class="card citation-box reveal">
+        <strong>Lin et al. (2022)</strong><br>
+        "TruthfulQA: Measuring How Models Mimic Human Falsehoods" — ACL 2022.<br>
+        DOI: <a href="https://doi.org/10.18653/v1/2022.acl-long.229" target="_blank">10.18653/v1/2022.acl-long.229</a><br>
+        The TruthfulQA framework for evaluating model truthfulness. Our adversarial filtering methodology builds on their approach to identify misleading items.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bio-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="/" class="logo" style="color:#fff;margin-bottom:1rem;display:inline-block;"><span style="color:var(--neon);">●</span> biofarms.ai</a>
+        <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;max-width:300px;">Bridging frontier AI and environmental science to build a more sustainable future.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <a href="ai-model-evaluation.html">AI Evaluation</a><br>
+        <a href="ai-due-diligence.html">Due Diligence</a><br>
+        <a href="prompt-engineering.html">Prompt Engineering</a><br>
+        <a href="mrv-system-design.html">MRV Systems</a>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <a href="#">Research Papers</a><br>
+        <a href="#">Case Studies</a><br>
+        <a href="#">Documentation</a><br>
+        <a href="#">API Reference</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:hello@biofarms.ai">hello@biofarms.ai</a><br>
+        <a href="#">Twitter / X</a><br>
+        <a href="#">LinkedIn</a><br>
+        <a href="#">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Biofarms.ai. All rights reserved. Built with rigorous science and cutting-edge technology.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="../shared/shaders.js"></script>
+<script>
+// Initialize WebGL shader background
+initShaderBackground('hero-canvas', 'gradientMesh');
+initNavigation();
+
+// GSAP ScrollTrigger animations
+gsap.registerPlugin(ScrollTrigger);
+
+// Reveal animations
+GSAPPatterns.revealScroll();
+GSAPPatterns.staggerCards('.card');
+GSAPPatterns.heroEntrance();
+
+// Stats counter animations
+const statItems = { val: 0 };
+gsap.to(statItems, { val: 1247, duration: 2, ease: 'power2.out', scrollTrigger: { trigger: '#stat-items', start: 'top 80%' },
+  onUpdate: () => { document.getElementById('stat-items').textContent = Math.round(statItems.val).toLocaleString(); }
+});
+const statDomains = { val: 0 };
+gsap.to(statDomains, { val: 57, duration: 1.5, ease: 'power2.out', scrollTrigger: { trigger: '#stat-domains', start: 'top 80%' },
+  onUpdate: () => { document.getElementById('stat-domains').textContent = Math.round(statDomains.val); }
+});
+const statAgreement = { val: 0 };
+gsap.to(statAgreement, { val: 94.2, duration: 2, ease: 'power2.out', scrollTrigger: { trigger: '#stat-agreement', start: 'top 80%' },
+  onUpdate: () => { document.getElementById('stat-agreement').textContent = statAgreement.val.toFixed(1) + '%'; }
+});
+const statModels = { val: 0 };
+gsap.to(statModels, { val: 6, duration: 1.2, ease: 'power2.out', scrollTrigger: { trigger: '#stat-models', start: 'top 80%' },
+  onUpdate: () => { document.getElementById('stat-models').textContent = Math.round(statModels.val); }
+});
+
+// D3 Radar Chart
+const radarData = {
+  axes: ['Climate Knowledge', 'Ecological Reasoning', 'Policy Analysis', 'Statistical Literacy', 'Geographic Knowledge', 'Temporal Reasoning'],
+  datasets: [
+    { label: 'Model A (7B)', values: [62, 55, 48, 70, 45, 58] },
+    { label: 'Model B (70B)', values: [88, 82, 76, 91, 68, 79] },
+    { label: 'Expert Baseline', values: [95, 93, 90, 88, 85, 92] }
+  ]
+};
+
+const radarContainer = document.getElementById('chart-radar');
+if (radarContainer) {
+  const width = 600, height = 500, margin = 80;
+  const radius = Math.min(width, height) / 2 - margin;
+  const svg = d3.select('#chart-radar').append('svg')
+    .attr('viewBox', `0 0 ${width} ${height}`)
+    .attr('preserveAspectRatio', 'xMidYMid meet');
+  const g = svg.append('g').attr('transform', `translate(${width/2},${height/2})`);
+  const axes = radarData.axes;
+  const angleSlice = (Math.PI * 2) / axes.length;
+  const rScale = d3.scaleLinear().range([0, radius]).domain([0, 100]);
+
+  // Grid circles
+  for (let i = 1; i <= 5; i++) {
+    g.append('circle').attr('r', radius * i / 5).attr('fill', 'none').attr('stroke', '#e2e8f0').attr('stroke-dasharray', '4,4');
+  }
+  // Grid labels
+  for (let i = 1; i <= 5; i++) {
+    g.append('text').attr('x', 5).attr('y', -radius * i / 5).text((i * 20) + '%').style('font-size', '10px').style('fill', '#94a3b8');
+  }
+
+  // Axes
+  axes.forEach((axis, i) => {
+    const angle = angleSlice * i - Math.PI / 2;
+    g.append('line').attr('x1', 0).attr('y1', 0).attr('x2', rScale(100) * Math.cos(angle)).attr('y2', rScale(100) * Math.sin(angle)).attr('stroke', '#e2e8f0');
+    g.append('text').attr('x', (rScale(100) + 25) * Math.cos(angle)).attr('y', (rScale(100) + 25) * Math.sin(angle)).attr('text-anchor', 'middle').attr('dy', '0.35em').style('font-size', '12px').style('font-weight', '600').style('fill', '#64748B').text(axis);
+  });
+
+  // Colors
+  const colors = ['#1B4D3E', '#4ADE80', '#64748B'];
+  const fills = ['rgba(27,77,62,0.2)', 'rgba(74,222,128,0.2)', 'rgba(100,116,139,0.2)'];
+
+  // Draw data paths
+  radarData.datasets.forEach((dataset, idx) => {
+    const pathData = dataset.values.map((d, i) => {
+      const angle = angleSlice * i - Math.PI / 2;
+      return [rScale(d) * Math.cos(angle), rScale(d) * Math.sin(angle)];
+    });
+    const lineGen = d3.line().curve(d3.curveLinearClosed);
+    const path = g.append('path').datum(pathData).attr('d', lineGen).attr('fill', fills[idx]).attr('stroke', colors[idx]).attr('stroke-width', 2.5);
+
+    // Animate path
+    const totalLength = path.node().getTotalLength();
+    path.attr('stroke-dasharray', totalLength + ' ' + totalLength).attr('stroke-dashoffset', totalLength)
+      .transition().duration(1500).delay(idx * 300).ease(d3.easeCubicOut).attr('stroke-dashoffset', 0);
+  });
+
+  // Legend
+  const legend = svg.append('g').attr('transform', `translate(20, ${height - 60})`);
+  radarData.datasets.forEach((dataset, idx) => {
+    const l = legend.append('g').attr('transform', `translate(${idx * 180}, 0)`);
+    l.append('circle').attr('r', 6).attr('fill', colors[idx]);
+    l.append('text').attr('x', 14).attr('dy', '0.35em').text(dataset.label).style('font-size', '12px').style('fill', '#334155');
+  });
+}
+
+// Three.js Globe with data points
+const globePoints = [
+  { lat: 51.5, lon: -0.1 }, { lat: 40.7, lon: -74.0 }, { lat: 35.7, lon: 139.7 },
+  { lat: -1.3, lon: 36.8 }, { lat: -23.5, lon: -46.6 }, { lat: 19.4, lon: -99.1 },
+  { lat: 28.6, lon: 77.2 }, { lat: -33.9, lon: 18.4 }, { lat: 55.8, lon: 37.6 },
+  { lat: 1.4, lon: 104.0 }, { lat: -6.2, lon: 106.8 }, { lat: 13.8, lon: 100.5 },
+  { lat: 52.5, lon: 13.4 }, { lat: 41.9, lon: 12.5 }, { lat: 48.9, lon: 2.3 },
+  { lat: 39.9, lon: 116.4 }, { lat: 37.6, lon: 126.9 }, { lat: -37.8, lon: 144.9 },
+  { lat: 6.5, lon: 3.4 }, { lat: -15.8, lon: -47.9 }, { lat: 30.0, lon: 31.2 },
+  { lat: 47.6, lon: -122.3 }, { lat: 43.7, lon: -79.4 }, { lat: 45.5, lon: -73.6 },
+  { lat: 25.2, lon: 55.3 }, { lat: 59.9, lon: 10.7 }, { lat: 60.2, lon: 24.9 },
+  { lat: 64.1, lon: -21.9 }, { lat: 3.1, lon: 101.7 }, { lat: 14.6, lon: 121.0 },
+  { lat: 31.2, lon: 121.5 }, { lat: 22.3, lon: 114.2 }, { lat: 12.9, lon: 100.9 },
+  { lat: 50.8, lon: -0.1 }, { lat: 53.5, lon: -2.2 }, { lat: 48.1, lon: 11.5 },
+  { lat: 45.4, lon: 11.9 }, { lat: 40.4, lon: -3.7 }, { lat: 38.7, lon: -9.1 },
+  { lat: 59.3, lon: 18.1 }, { lat: 55.7, lon: 12.5 }, { lat: 52.2, lon: 21.0 },
+  { lat: 50.1, lon: 14.4 }, { lat: 47.4, lon: 8.5 }, { lat: 41.4, lon: 2.2 },
+  { lat: 51.9, lon: 4.5 }, { lat: 48.2, lon: 16.4 }, { lat: 46.9, lon: 7.4 },
+  { lat: 43.7, lon: 7.3 }, { lat: 40.8, lon: 29.9 }, { lat: 33.9, lon: 35.5 },
+  { lat: 24.7, lon: 46.7 }, { lat: 25.3, lon: 55.2 }, { lat: 23.4, lon: 90.4 },
+  { lat: 19.1, lon: 72.9 }, { lat: 28.6, lon: 77.2 }, { lat: 13.0, lon: 80.3 },
+  { lat: 22.6, lon: 88.4 }, { lat: 12.9, lon: 77.6 }, { lat: 18.5, lon: 73.9 },
+  { lat: 1.3, lon: 103.8 }, { lat: 3.1, lon: 101.7 }, { lat: -6.2, lon: 106.8 },
+  { lat: 14.6, lon: 121.0 }, { lat: 10.8, lon: 106.7 }, { lat: 13.7, lon: 100.5 },
+  { lat: 35.7, lon: 139.7 }, { lat: 37.6, lon: 126.9 }, { lat: 34.7, lon: 135.5 },
+  { lat: 43.1, lon: 141.3 }, { lat: 35.2, lon: 136.9 }, { lat: 33.6, lon: 130.4 },
+  { lat: 36.4, lon: 127.4 }, { lat: 37.5, lon: 127.0 }, { lat: 35.9, lon: 128.6 },
+  { lat: -33.9, lon: 151.2 }, { lat: -37.8, lon: 144.9 }, { lat: -31.9, lon: 115.9 },
+  { lat: -41.3, lon: 174.8 }, { lat: -36.8, lon: 174.7 }, { lat: -43.5, lon: 172.6 },
+  { lat: 55.0, lon: -3.4 }, { lat: 51.5, lon: -0.1 }, { lat: 53.4, lon: -3.0 },
+  { lat: 56.0, lon: -3.2 }, { lat: 57.1, lon: -2.1 }, { lat: 54.6, lon: -5.9 }
+];
+
+ThreeScenes.globe('three-container', globePoints);
+</script>
+</body>
+</html>

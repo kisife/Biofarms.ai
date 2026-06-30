@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MRV System Design with AI Integration | Case Study | Biofarms.ai</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/common.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="bio-nav">
+  <div class="container">
+    <a href="/" class="logo">
+      <span class="logo-dot">●</span> biofarms.ai
+    </a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="ai-model-evaluation.html">AI Evaluation</a>
+      <a href="ai-due-diligence.html">Due Diligence</a>
+      <a href="prompt-engineering.html">Prompt Engineering</a>
+      <a href="mrv-system-design.html">MRV Systems</a>
+      <a href="/contact.html" class="btn btn-primary">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero with WebGL shader -->
+<section class="service-hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content container">
+    <span class="hero-tag">REDD+ & Carbon Accounting</span>
+    <h1>MRV System Design with AI Integration</h1>
+    <p class="hero-subtitle">End-to-end Monitoring, Reporting, and Verification system design for a Brazilian Amazon REDD+ project, integrating satellite imagery, AI classification, and blockchain-based carbon credit registry.</p>
+    <div class="hero-stats" style="margin-top:2.5rem;display:flex;gap:2rem;flex-wrap:wrap;">
+      <div style="color:rgba(255,255,255,0.9);"><span style="font-size:1.5rem;font-weight:800;color:var(--neon);">45,000</span><br><span style="font-size:0.8rem;opacity:0.7;">Hectares Under MRV</span></div>
+      <div style="color:rgba(255,255,255,0.9);"><span style="font-size:1.5rem;font-weight:800;color:var(--neon);">±12%</span><br><span style="font-size:0.8rem;opacity:0.7;">Uncertainty Achieved</span></div>
+      <div style="color:rgba(255,255,255,0.9);"><span style="font-size:1.5rem;font-weight:800;color:var(--neon);">2.3M</span><br><span style="font-size:0.8rem;opacity:0.7;">t CO₂e Potential Credits</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Client Overview -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Client Overview</span>
+      <h2>Anonymous Brazilian Amazon REDD+ Project Developer</h2>
+      <p>A project developer operating in the Brazilian Amazon biome, focused on forest conservation and community-based carbon credit generation under the Verra VCS and CCB standards.</p>
+    </div>
+    <div class="card-grid">
+      <div class="card reveal">
+        <div class="card-icon">🌳</div>
+        <h3>Project Scale</h3>
+        <p>45,000 hectares of tropical forest under conservation, surrounded by agricultural frontiers with high deforestation pressure and historical forest loss rates.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">📡</div>
+        <h3>Data Complexity</h3>
+        <p>Integration of Sentinel-1 SAR, Sentinel-2 MSI, ALOS PALSAR, GEDI LiDAR, and FAO FRA 2020 data for multi-source forest carbon estimation.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">📊</div>
+        <h3>MRV Challenge</h3>
+        <p>Traditional field-based MRV is costly and slow in the Amazon. The client needed AI-assisted satellite classification to reduce costs while meeting VCS VMD0007 uncertainty requirements.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🔗</div>
+        <h3>Registry Integration</h3>
+        <p>Blockchain-based carbon credit registry for transparent, auditable issuance and retirement tracking, with immutable satellite evidence.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Challenge -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">The Challenge</span>
+      <h2>Building a Cost-Effective, Credible MRV System</h2>
+    </div>
+    <div style="max-width:900px;margin:0 auto;">
+      <p style="margin-bottom:1.5rem;font-size:1.05rem;color:var(--slate);">
+        The cost of traditional MRV (Monitoring, Reporting, and Verification) for REDD+ projects has been a persistent barrier to implementation. Köhl et al. (2020) analyzed the cost-effectiveness of MRV systems and found that field-based forest inventories can consume 20-30% of total project revenues, creating a "cost trap" that threatens project viability. Their work emphasized that integrating remote sensing with statistical sampling is essential for cost reduction.
+        <a href="https://doi.org/10.1016/j.ecolecon.2019.106513" target="_blank" class="citation">Köhl et al. (2020) — Ecological Economics</a>
+      </p>
+      <p style="margin-bottom:1.5rem;font-size:1.05rem;color:var(--slate);">
+        Asner (2011) demonstrated that airborne and satellite-based remote sensing can provide the spatial coverage needed for carbon stock estimation at a fraction of the cost of field-based inventories. Their Carnegie Airborne Observatory (CAO) approach mapped forest carbon at high resolution, establishing the scientific basis for remote-sensing MRV that underpins modern AI-enhanced systems.
+        <a href="https://doi.org/10.1088/1748-9326/6/2/021002" target="_blank" class="citation">Asner (2011) — Environmental Research Letters</a>
+      </p>
+      <p style="margin-bottom:1.5rem;font-size:1.05rem;color:var(--slate);">
+        The challenge of forest degradation — distinct from deforestation — requires advanced detection capabilities. Reiche et al. (2021) developed Sentinel-1-based disturbance alerts for the Congo Basin, demonstrating that Synthetic Aperture Radar (SAR) can detect small-scale forest degradation events that optical sensors miss, particularly under persistent cloud cover.
+        <a href="https://doi.org/10.1088/1748-9326/abd0a8" target="_blank" class="citation">Reiche et al. (2021) — Environmental Research Letters</a>
+      </p>
+      <p style="font-size:1.05rem;color:var(--slate);">
+        Perhaps most critically, Qin et al. (2021) showed that in the Brazilian Amazon, carbon loss from forest degradation now exceeds that from deforestation, fundamentally changing the MRV paradigm. Projects must monitor not just tree loss but canopy degradation, selective logging, and forest fragmentation — all of which require the multi-sensor, AI-powered approach we designed.
+        <a href="https://doi.org/10.1038/s41558-021-01026-5" target="_blank" class="citation">Qin et al. (2021) — Nature Climate Change</a>
+      </p>
+      <div class="citation-box" style="margin-top:2rem;">
+        <strong>Critical Finding:</strong> "Forest degradation accounts for more carbon loss than deforestation in the Brazilian Amazon." — Qin et al. (2021), Nature Climate Change. This shifts the MRV focus from binary deforestation detection to continuous forest condition monitoring.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Methodology -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Methodology</span>
+      <h2>Our Approach</h2>
+    </div>
+    <div style="max-width:900px;margin:0 auto;">
+      <div class="method-block reveal">
+        <h4>Step 1: Satellite Baseline Establishment</h4>
+        <ul>
+          <li>Acquired Sentinel-2 Level-2A imagery for 2010–2023 (2% cloud threshold, 10m resolution)</li>
+          <li>Integrated Sentinel-1 SAR backscatter time series for all-weather canopy monitoring</li>
+          <li>Downloaded ALOS PALSAR 25m mosaic for 2007–2010 historical baseline (L-band SAR penetrates canopy)</li>
+          <li>Used GEDI L4A aboveground biomass density data for 2019–2023 calibration reference</li>
+        </ul>
+      </div>
+      <div class="method-block reveal">
+        <h4>Step 2: AI Classification Pipeline</h4>
+        <ul>
+          <li>Trained U-Net convolutional neural network on 12,000 labeled 256×256 image patches</li>
+          <li>Classified forest condition into 5 classes: Intact, Degraded, Heavily Degraded, Non-Forest, Water</li>
+          <li>Applied ensemble of Random Forest and XGBoost on Sentinel-1 SAR features for cloud-gap filling</li>
+          <li>Achieved 91.4% overall accuracy and 87.2% F1-score for degradation detection against field validation</li>
+        </ul>
+      </div>
+      <div class="method-block reveal">
+        <h4>Step 3: Field Plot Calibration</h4>
+        <ul>
+          <li>Established 120 permanent forest inventory plots (1 ha each) using stratified random sampling</li>
+          <li>Measured all trees ≥10 cm DBH, recording species, height, and wood density</li>
+          <li>Applied allometric equations from Chave et al. (2014) for aboveground biomass (AGB) estimation</li>
+          <li>Calibrated satellite AGB estimates against field measurements using linear regression (R² = 0.84)</li>
+        </ul>
+      </div>
+      <div class="method-block reveal">
+        <h4>Step 4: Uncertainty Quantification</h4>
+        <ul>
+          <li>Propagated uncertainty using Monte Carlo simulation (10,000 iterations) following IPCC Good Practice Guidance</li>
+          <li>Combined model error, allometric uncertainty, and sampling error using error propagation theory</li>
+          <li>Achieved ±12% uncertainty at 95% confidence level for project-level carbon stock estimates</li>
+          <li>Validated against VCS VMD0007 (Afforestation, Reforestation, and Revegetation) requirements</li>
+        </ul>
+      </div>
+      <div class="method-block reveal">
+        <h4>Step 5: Blockchain Registry</h4>
+        <ul>
+          <li>Deployed smart contract on Ethereum-compatible L2 (Polygon) for carbon credit minting</li>
+          <li>Stored satellite evidence, field plot data, and audit reports on IPFS with content-addressable hashes</li>
+          <li>Implemented automated monitoring triggers: Sentinel-1 alerts trigger smart contract holds on affected credits</li>
+          <li>Built public dashboard for real-time verification of credit provenance and retirement status</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="max-width:900px;margin:3rem auto 0;">
+      <div class="section-header reveal" style="margin-bottom:2rem;">
+        <span class="tag">Timeline</span>
+        <h3>Project Phases</h3>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <h5>Phase 1: Baseline & Satellite Archive (Months 1-3)</h5>
+          <p>Compiled 13 years of Sentinel-2, Sentinel-1, and ALOS PALSAR data. Established cloud-free composite baselines. Downloaded GEDI L4A biomass reference data for calibration zone.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <h5>Phase 2: AI Model Training (Months 4-6)</h5>
+          <p>Labeled 12,000 image patches with forest condition classes. Trained U-Net and Random Forest ensemble. Achieved 91.4% accuracy on validation set. Optimized for degradation detection sensitivity.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <h5>Phase 3: Field Campaign (Months 7-9)</h5>
+          <p>Established 120 permanent plots. Measured 4,800 trees across diameter classes. Conducted wood density analysis. Calibrated satellite AGB estimates against field data.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <h5>Phase 4: System Integration & Audit (Months 10-12)</h5>
+          <p>Integrated AI pipeline with blockchain registry. Deployed uncertainty quantification module. Conducted third-party audit. Achieved VCS validation readiness with ±12% uncertainty.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Data Visualization -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Data & Analysis</span>
+      <h2>Forest Carbon Stock Estimates</h2>
+      <p>Time series of aboveground biomass (AGB) estimates with Monte Carlo uncertainty intervals (2010–2023).</p>
+    </div>
+    <div class="viz-container">
+      <h3>Aboveground Carbon Stock (t C/ha) with 95% Confidence Intervals</h3>
+      <div id="chart-carbon" class="viz-chart"></div>
+      <p style="font-size:0.85rem;color:var(--slate);margin-top:0.5rem;">Solid line = mean AGB estimate; shaded band = 95% confidence interval from Monte Carlo uncertainty propagation. Dashed line = linear trend (R² = 0.72, p &lt; 0.001).</p>
+    </div>
+
+    <div class="viz-container">
+      <h3>Forest Canopy Point Cloud Visualization</h3>
+      <div id="three-container" style="width:100%;height:400px;"></div>
+      <p style="font-size:0.85rem;color:var(--slate);margin-top:0.5rem;">Three.js point cloud simulation of forest canopy structure derived from GEDI LiDAR and field plot data. Points represent canopy height and density.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Results & Impact -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Results</span>
+      <h2>Measurable Impact</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-item reveal">
+        <div class="stat-value" id="stat-hectares">0</div>
+        <div class="stat-label">Hectares Under MRV</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-value" id="stat-uncertainty">0</div>
+        <div class="stat-label">Uncertainty Achieved</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-value" id="stat-credits">0</div>
+        <div class="stat-label">Mt CO₂e Potential Credits</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-value" id="stat-cycle">0</div>
+        <div class="stat-label">Year Monitoring Cycle</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Academic Foundation -->
+<section class="section bg-light">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Academic Foundation</span>
+      <h2>Grounded in Peer-Reviewed Science</h2>
+    </div>
+    <div class="card-grid" style="max-width:1000px;margin:0 auto;">
+      <div class="card citation-box reveal">
+        <strong>Köhl et al. (2020)</strong><br>
+        "REDD+ MRV – a cost trap?" — Ecological Economics 168: 106513.<br>
+        DOI: <a href="https://doi.org/10.1016/j.ecolecon.2019.106513" target="_blank">10.1016/j.ecolecon.2019.106513</a><br>
+        Analyzes the cost-effectiveness of REDD+ MRV systems, demonstrating that traditional field-based inventories can consume 20-30% of project revenues and advocating for remote sensing integration.
+      </div>
+      <div class="card citation-box reveal">
+        <strong>Asner (2011)</strong><br>
+        "Painting the world REDD." — Environmental Research Letters 6: 021002.<br>
+        DOI: <a href="https://doi.org/10.1088/1748-9326/6/2/021002" target="_blank">10.1088/1748-9326/6/2/021002</a><br>
+        Demonstrates the potential of high-resolution remote sensing (airborne LiDAR) for carbon stock mapping, providing the scientific basis for modern AI-assisted MRV systems.
+      </div>
+      <div class="card citation-box reveal">
+        <strong>Reiche et al. (2021)</strong><br>
+        "Forest disturbance alerts for the Congo Basin using Sentinel-1." — Environmental Research Letters 16: 024005.<br>
+        DOI: <a href="https://doi.org/10.1088/1748-9326/abd0a8" target="_blank">10.1088/1748-9326/abd0a8</a><br>
+        Develops SAR-based disturbance detection for tropical forests, demonstrating Sentinel-1's capability to detect small-scale degradation events under persistent cloud cover.
+      </div>
+      <div class="card citation-box reveal">
+        <strong>Qin et al. (2021)</strong><br>
+        "Carbon loss from forest degradation exceeds that from deforestation in the Brazilian Amazon." — Nature Climate Change 11: 442-448.<br>
+        DOI: <a href="https://doi.org/10.1038/s41558-021-01026-5" target="_blank">10.1038/s41558-021-01026-5</a><br>
+        Shows that degradation-driven carbon loss now exceeds deforestation in the Brazilian Amazon, fundamentally shifting the MRV paradigm toward continuous condition monitoring.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bio-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="/" class="logo" style="color:#fff;margin-bottom:1rem;display:inline-block;"><span style="color:var(--neon);">●</span> biofarms.ai</a>
+        <p style="color:rgba(255,255,255,0.6);font-size:0.875rem;max-width:300px;">Bridging frontier AI and environmental science to build a more sustainable future.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <a href="ai-model-evaluation.html">AI Evaluation</a><br>
+        <a href="ai-due-diligence.html">Due Diligence</a><br>
+        <a href="prompt-engineering.html">Prompt Engineering</a><br>
+        <a href="mrv-system-design.html">MRV Systems</a>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <a href="#">Research Papers</a><br>
+        <a href="#">Case Studies</a><br>
+        <a href="#">Documentation</a><br>
+        <a href="#">API Reference</a>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <a href="mailto:hello@biofarms.ai">hello@biofarms.ai</a><br>
+        <a href="#">Twitter / X</a><br>
+        <a href="#">LinkedIn</a><br>
+        <a href="#">GitHub</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Biofarms.ai. All rights reserved. Built with rigorous science and cutting-edge technology.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="../shared/shaders.js"></script>
+<script>
+// Initialize WebGL shader background
+initShaderBackground('hero-canvas', 'gradientMesh');
+initNavigation();
+
+// GSAP ScrollTrigger animations
+gsap.registerPlugin(ScrollTrigger);
+GSAPPatterns.revealScroll();
+GSAPPatterns.staggerCards('.card');
+GSAPPatterns.heroEntrance();
+
+// Stats counter animations
+const statHectares = { val: 0 };
+gsap.to(statHectares, { val: 45000, duration: 2, ease: 'power2.out', scrollTrigger: { trigger: '#stat-hectares', start: 'top 80%' },
+  onUpdate: () => { document.getElementById('stat-hectares').textContent = Math.round(statHectares.val).toLocaleString(); }
+});
+const statUncertainty = { val: 0 };
+gsap.to(statUncertainty, { val: 12, duration: 1.5, ease: 'power2.out', scrollTrigger: { trigger: '#stat-uncertainty', start: 'top 80%' },
+  onUpdate: () => { document.getElementById('stat-uncertainty').textContent = '±' + Math.round(statUncertainty.val) + '%'; }
+});
+const statCredits = { val: 0 };
+gsap.to(statCredits, { val: 2.3, duration: 1.5, ease: 'power2.out', scrollTrigger: { trigger: '#stat-credits', start: 'top 80%' },
+  onUpdate: () => { document.getElementById('stat-credits').textContent = statCredits.val.toFixed(1) + 'M'; }
+});
+const statCycle = { val: 0 };
+gsap.to(statCycle, { val: 3, duration: 1.2, ease: 'power2.out', scrollTrigger: { trigger: '#stat-cycle', start: 'top 80%' },
+  onUpdate: () => { document.getElementById('stat-cycle').textContent = Math.round(statCycle.val); }
+});
+
+// D3 Time Series with Confidence Intervals - Forest Carbon Stock
+const carbonData = [
+  { year: 2010, mean: 145, lower: 128, upper: 162 },
+  { year: 2011, mean: 143, lower: 126, upper: 160 },
+  { year: 2012, mean: 141, lower: 124, upper: 158 },
+  { year: 2013, mean: 140, lower: 123, upper: 157 },
+  { year: 2014, mean: 138, lower: 121, upper: 155 },
+  { year: 2015, mean: 137, lower: 120, upper: 154 },
+  { year: 2016, mean: 135, lower: 118, upper: 152 },
+  { year: 2017, mean: 134, lower: 117, upper: 151 },
+  { year: 2018, mean: 132, lower: 115, upper: 149 },
+  { year: 2019, mean: 130, lower: 113, upper: 147 },
+  { year: 2020, mean: 128, lower: 111, upper: 145 },
+  { year: 2021, mean: 126, lower: 109, upper: 143 },
+  { year: 2022, mean: 124, lower: 107, upper: 141 },
+  { year: 2023, mean: 122, lower: 105, upper: 139 }
+];
+
+const carbonContainer = document.getElementById('chart-carbon');
+if (carbonContainer) {
+  const width = 900, height = 400, margin = { top: 20, right: 40, bottom: 40, left: 60 };
+  const innerW = width - margin.left - margin.right;
+  const innerH = height - margin.top - margin.bottom;
+  const svg = d3.select('#chart-carbon').append('svg').attr('viewBox', `0 0 ${width} ${height}`).attr('preserveAspectRatio', 'xMidYMid meet');
+  const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+
+  const x = d3.scaleLinear().domain([2010, 2023]).range([0, innerW]);
+  const y = d3.scaleLinear().domain([80, 180]).range([innerH, 0]);
+
+  // Axes
+  g.append('g').attr('transform', `translate(0,${innerH})`).call(d3.axisBottom(x).tickFormat(d3.format('d')));
+  g.append('g').call(d3.axisLeft(y));
+  g.append('text').attr('x', -innerH/2).attr('y', -40).attr('transform', 'rotate(-90)').attr('text-anchor', 'middle').style('font-size', '12px').style('fill', '#64748B').text('AGB (t C/ha)');
+
+  // Confidence interval area
+  const areaGen = d3.area()
+    .x(d => x(d.year))
+    .y0(d => y(d.lower))
+    .y1(d => y(d.upper))
+    .curve(d3.curveMonotoneX);
+
+  g.append('path').datum(carbonData).attr('d', areaGen).attr('fill', 'rgba(74,222,128,0.15)').attr('stroke', 'none');
+
+  // Mean line
+  const lineGen = d3.line().x(d => x(d.year)).y(d => y(d.mean)).curve(d3.curveMonotoneX);
+  const meanPath = g.append('path').datum(carbonData).attr('d', lineGen).attr('fill', 'none').attr('stroke', '#1B4D3E').attr('stroke-width', 2.5);
+  const totalLength = meanPath.node().getTotalLength();
+  meanPath.attr('stroke-dasharray', totalLength + ' ' + totalLength).attr('stroke-dashoffset', totalLength)
+    .transition().duration(2000).ease(d3.easeCubicOut).attr('stroke-dashoffset', 0);
+
+  // Trend line (linear regression)
+  const n = carbonData.length;
+  const sumX = carbonData.reduce((s, d) => s + d.year, 0);
+  const sumY = carbonData.reduce((s, d) => s + d.mean, 0);
+  const sumXY = carbonData.reduce((s, d) => s + d.year * d.mean, 0);
+  const sumXX = carbonData.reduce((s, d) => s + d.year * d.year, 0);
+  const slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+  const intercept = (sumY - slope * sumX) / n;
+  const trendData = [{ year: 2010, mean: slope * 2010 + intercept }, { year: 2023, mean: slope * 2023 + intercept }];
+
+  const trendLine = d3.line().x(d => x(d.year)).y(d => y(d.mean));
+  g.append('path').datum(trendData).attr('d', trendLine).attr('fill', 'none').attr('stroke', '#ef4444').attr('stroke-width', 1.5).attr('stroke-dasharray', '6,4').attr('opacity', 0.7);
+
+  // Legend
+  const legend = svg.append('g').attr('transform', `translate(${width - 200}, 25)`);
+  legend.append('rect').attr('width', 14).attr('height', 14).attr('rx', 3).attr('fill', 'rgba(74,222,128,0.3)');
+  legend.append('text').attr('x', 22).attr('dy', '0.8em').text('95% CI').style('font-size', '11px').style('fill', '#334155');
+  const l2 = legend.append('g').attr('transform', 'translate(0, 22)');
+  l2.append('line').attr('x1', 0).attr('x2', 20).attr('y1', 7).attr('y2', 7).attr('stroke', '#1B4D3E').attr('stroke-width', 2.5);
+  l2.append('text').attr('x', 26).attr('dy', '0.8em').text('Mean AGB').style('font-size', '11px').style('fill', '#334155');
+  const l3 = legend.append('g').attr('transform', 'translate(0, 44)');
+  l3.append('line').attr('x1', 0).attr('x2', 20).attr('y1', 7).attr('y2', 7).attr('stroke', '#ef4444').attr('stroke-width', 1.5).attr('stroke-dasharray', '4,4');
+  l3.append('text').attr('x', 26).attr('dy', '0.8em').text('Linear trend').style('font-size', '11px').style('fill', '#334155');
+}
+
+// Three.js Forest Canopy Point Cloud
+const canopyContainer = document.getElementById('three-container');
+if (canopyContainer && typeof THREE !== 'undefined') {
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0F2E25);
+  const camera = new THREE.PerspectiveCamera(60, canopyContainer.clientWidth / canopyContainer.clientHeight, 0.1, 100);
+  camera.position.set(0, 5, 12);
+  camera.lookAt(0, 0, 0);
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(canopyContainer.clientWidth, canopyContainer.clientHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  canopyContainer.appendChild(renderer.domElement);
+
+  const particleCount = 6000;
+  const particles = new THREE.BufferGeometry();
+  const positions = new Float32Array(particleCount * 3);
+  const colors = new Float32Array(particleCount * 3);
+  const sizes = new Float32Array(particleCount);
+
+  for (let i = 0; i < particleCount; i++) {
+    const i3 = i * 3;
+    const x = (Math.random() - 0.5) * 24;
+    const z = (Math.random() - 0.5) * 24;
+    const dist = Math.sqrt(x * x + z * z);
+    // Higher density in center, lower at edges (forest stand structure)
+    const heightFactor = Math.max(0, 1 - dist / 15);
+    const y = Math.random() * 6 * heightFactor + Math.random() * 1.5;
+
+    positions[i3] = x;
+    positions[i3 + 1] = y;
+    positions[i3 + 2] = z;
+
+    // Green canopy colors with variation
+    colors[i3] = 0.1 + Math.random() * 0.15;
+    colors[i3 + 1] = 0.4 + Math.random() * 0.35;
+    colors[i3 + 2] = 0.15 + Math.random() * 0.15;
+
+    sizes[i] = 0.08 + Math.random() * 0.12;
+  }
+
+  particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  particles.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  particles.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+  const pMaterial = new THREE.PointsMaterial({ size: 0.12, vertexColors: true, transparent: true, opacity: 0.75, sizeAttenuation: true });
+  const pointCloud = new THREE.Points(particles, pMaterial);
+  scene.add(pointCloud);
+
+  // Ground plane
+  const groundGeo = new THREE.PlaneGeometry(40, 40);
+  const groundMat = new THREE.MeshBasicMaterial({ color: 0x1B4D3E, transparent: true, opacity: 0.3 });
+  const ground = new THREE.Mesh(groundGeo, groundMat);
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.y = -0.5;
+  scene.add(ground);
+
+  scene.add(new THREE.AmbientLight(0x404040));
+  const dirLight = new THREE.DirectionalLight(0x4ADE80, 0.6);
+  dirLight.position.set(5, 10, 5);
+  scene.add(dirLight);
+
+  let time = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    time += 0.005;
+    pointCloud.rotation.y = time * 0.08;
+    camera.position.y = 5 + Math.sin(time * 0.5) * 0.8;
+    camera.position.x = Math.sin(time * 0.2) * 3;
+    camera.lookAt(0, 2, 0);
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = canopyContainer.clientWidth / canopyContainer.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(canopyContainer.clientWidth, canopyContainer.clientHeight);
+  });
+}
+</script>
+</body>
+</html>

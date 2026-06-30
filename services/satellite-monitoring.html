@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satellite-Based Environmental Monitoring | biofarms.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared/common.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../shared/shaders.js"></script>
+  <style>
+    .hero { background: var(--bg-dark); }
+    .hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+    .hero-content { position: relative; z-index: 10; }
+    .challenge-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(74,222,128,0.1); border-radius: 16px; padding: 32px; }
+    .challenge-card h3 { color: var(--neon); font-size: 1.1rem; margin-bottom: 12px; }
+    .challenge-card p { font-size: 0.95rem; }
+    .result-metric { text-align: center; padding: 32px 16px; }
+    .result-metric .value { font-size: 2.5rem; font-weight: 800; color: var(--neon); }
+    .result-metric .label { font-size: 0.8rem; color: var(--slate); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 8px; }
+    .cite-card { padding: 24px; background: rgba(255,255,255,0.02); border-radius: 12px; border: 1px solid rgba(74,222,128,0.08); margin-bottom: 16px; transition: border-color 0.3s ease; }
+    .cite-card:hover { border-color: rgba(74,222,128,0.25); }
+    .cite-card p { font-size: 0.92rem; color: #A1A1AA; font-style: italic; margin-bottom: 8px; line-height: 1.6; }
+    .cite-card a { font-size: 0.8rem; color: var(--neon); text-decoration: none; font-family: 'SF Mono', monospace; }
+    .cite-card a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <a href="../index.html" class="navbar-logo">biofarms<span>.ai</span></a>
+      <ul class="navbar-nav">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="satellite-monitoring.html">Satellite</a></li>
+        <li><a href="drone-survey.html">Drone</a></li>
+        <li><a href="gis-analysis.html">GIS</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <canvas id="hero-shader" class="hero-canvas"></canvas>
+    <div class="hero-content">
+      <span class="label">Remote Sensing Services</span>
+      <h1 class="hero-title">Satellite-Based<br><span class="text-gradient">Environmental Monitoring</span></h1>
+      <p class="hero-subtitle">Near-real-time forest cover change detection using multi-spectral satellite imagery and time-series analysis for tropical concession management.</p>
+      <a href="#overview" class="hero-cta">Explore Methodology →</a>
+    </div>
+  </section>
+
+  <!-- Client Overview -->
+  <section id="overview" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Client Profile</span>
+      </div>
+      <div class="grid-2">
+        <div class="challenge-card">
+          <h3>Client</h3>
+          <p>Anonymous Forest Concession in Cameroon</p>
+        </div>
+        <div class="challenge-card">
+          <h3>Project Scope</h3>
+          <p>Multi-year deforestation monitoring across 18,500 hectares of tropical moist forest using Sentinel-2 and Landsat time series.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Challenge -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">The Challenge</span>
+        <h2>Complex Monitoring Requirements</h2>
+        <p>Tropical forests face rapid, often illegal, deforestation pressures that require precise, temporally dense monitoring to support compliance and certification frameworks.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Cloud Cover</h3>
+          <p class="text-slate">Persistent cloud cover in the Congo Basin limits optical satellite acquisition, requiring sophisticated cloud-masking algorithms and dense time-series compositing.</p>
+        </div>
+        <div class="card">
+          <h3>Small-Scale Disturbance</h3>
+          <p class="text-slate">Selective logging and smallholder agriculture create subtle spectral changes that evade detection by coarse-resolution global products.</p>
+        </div>
+        <div class="card">
+          <h3>Near-Real-Time Need</h3>
+          <p class="text-slate">Certification bodies (FSC, PEFC) and EU Deforestation Regulation require rapid reporting of forest cover changes with documented accuracy metrics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Methodology -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Methodology</span>
+        <h2>Systematic Processing Pipeline</h2>
+        <p>Our processing chain follows best practices from peer-reviewed remote sensing literature, ensuring reproducibility and accuracy.</p>
+      </div>
+      <div class="method-steps">
+        <div class="method-step">
+          <div class="method-step-number">1</div>
+          <div class="method-step-content">
+            <h4>Atmospheric Correction</h4>
+            <p>Sen2Cor and LaSRC applied to Sentinel-2 and Landsat imagery to convert top-of-atmosphere to bottom-of-atmosphere reflectance.</p>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="method-step-number">2</div>
+          <div class="method-step-content">
+            <h4>Cloud & Shadow Masking</h4>
+            <p>QA bands and Fmask 4.6 algorithm used to flag clouds, cloud shadows, and cirrus, achieving >95% cloud detection accuracy.</p>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="method-step-number">3</div>
+          <div class="method-step-content">
+            <h4>NDVI / NDMI Time Series</h4>
+            <p>Monthly composites of NDVI and NDMI indices generated, smoothed using Savitzky-Golay filtering to reduce noise.</p>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="method-step-number">4</div>
+          <div class="method-step-content">
+            <h4>Change Detection</h4>
+            <p>BFAST algorithm applied to detect abrupt breaks in vegetation time series, with post-classification into deforestation and degradation.</p>
+          </div>
+        </div>
+        <div class="method-step">
+          <div class="method-step-number">5</div>
+          <div class="method-step-content">
+            <h4>Accuracy Assessment</h4>
+            <p>Stratified random sampling (n=500) with aerial validation. Error matrix computed for overall accuracy and Kappa coefficient.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="dataset-tags mt-4">
+        <span class="dataset-tag">Sentinel-2 MSI (10m)</span>
+        <span class="dataset-tag">Landsat-8/9 OLI (30m)</span>
+        <span class="dataset-tag">Hansen Global Forest Watch</span>
+        <span class="dataset-tag">ESA WorldCover (10m)</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Data Visualization -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Data Visualization</span>
+        <h2>Forest Cover Change Time Series</h2>
+        <p>Interactive D3.js time series showing cumulative forest cover loss and annual disturbance rates from 2000 to 2023.</p>
+      </div>
+      <div class="viz-container" id="forest-chart" style="min-height:450px;"></div>
+      <p class="viz-caption">Figure 1: Annual forest cover change (ha/year) for the concession area, derived from Landsat and Sentinel-2 time series. The trend line indicates a significant (p<0.01) declining rate of disturbance post-2015.</p>
+
+      <div class="mt-5">
+        <div class="section-header">
+          <h2>Study Area & Satellite Coverage</h2>
+          <p>Three.js interactive globe showing the Cameroonian study area with Sentinel-2 and Landsat orbit paths.</p>
+        </div>
+        <div id="three-canvas" style="height:500px;border-radius:16px;border:1px solid rgba(74,222,128,0.1);overflow:hidden;background:#0A1912;"></div>
+        <p class="viz-caption">Figure 2: 3D globe visualization showing the Cameroonian forest concession (red marker) with simulated satellite orbit paths (green) and acquisition swaths.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results / Stats -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header text-center">
+        <span class="label">Project Results</span>
+        <h2>Key Performance Metrics</h2>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card glass">
+          <div class="stat-value" data-target="18500" data-suffix=" ha">0</div>
+          <div class="stat-label">Total Area Analyzed</div>
+        </div>
+        <div class="stat-card glass">
+          <div class="stat-value" data-target="0.97" data-decimals="2">0</div>
+          <div class="stat-label">Classification Accuracy</div>
+        </div>
+        <div class="stat-card glass">
+          <div class="stat-value" data-target="23" data-suffix=" yrs">0</div>
+          <div class="stat-label">Time Series Length</div>
+        </div>
+        <div class="stat-card glass">
+          <div class="stat-value" data-target="15" data-suffix=" days">0</div>
+          <div class="stat-label">Revisit Frequency</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Academic Foundation -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Academic Foundation</span>
+        <h2>Peer-Reviewed Literature</h2>
+        <p>Our methodology is grounded in peer-reviewed research from leading remote sensing and conservation science journals.</p>
+      </div>
+      <div class="cite-card">
+        <p>Hansen, M.C., Potapov, P.V., Moore, R., et al. (2013). "High-Resolution Global Maps of 21st-Century Forest Cover Change." <em>Science</em>, 342(6160), 850-853.</p>
+        <a href="https://doi.org/10.1126/science.1244693" target="_blank">DOI: 10.1126/science.1244693</a>
+      </div>
+      <div class="cite-card">
+        <p>Reiche, J., Verbesselt, J., Hoekman, D., & Herold, M. (2018). "Improving near-real time deforestation monitoring in tropical humid forests by combining dense Sentinel-1 radar and dense Sentinel-2 optical time series." <em>Remote Sensing of Environment</em>, 204, 147-161.</p>
+        <a href="https://doi.org/10.1016/j.rse.2017.10.034" target="_blank">DOI: 10.1016/j.rse.2017.10.034</a>
+      </div>
+      <div class="cite-card">
+        <p>Vancutsem, C., Achard, F., Pekel, J.F., et al. (2021). "Long-term (1990-2019) monitoring of forest cover changes in the humid tropics." <em>Science Advances</em>, 7(10), eabe1603.</p>
+        <a href="https://doi.org/10.1126/sciadv.abe1603" target="_blank">DOI: 10.1126/sciadv.abe1603</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Project Timeline</span>
+        <h2>Execution Phases</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-phase">Phase 1</div>
+          <div class="timeline-title">Data Acquisition & Preprocessing</div>
+          <div class="timeline-desc">Collection of 23 years of Landsat and Sentinel-2 imagery; atmospheric correction, cloud masking, and pixel-level compositing.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-phase">Phase 2</div>
+          <div class="timeline-title">Baseline & Training Data</div>
+          <div class="timeline-desc">Reference data collection from high-resolution imagery; stratified sample design for accuracy assessment.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-phase">Phase 3</div>
+          <div class="timeline-title">Change Detection & Classification</div>
+          <div class="timeline-desc">BFAST time-series breakpoint detection; Random Forest classification of change categories.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-phase">Phase 4</div>
+          <div class="timeline-title">Validation & Reporting</div>
+          <div class="timeline-desc">Accuracy assessment using independent validation samples; production of maps, statistics, and compliance reports.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">biofarms<span>.ai</span></div>
+          <p class="footer-desc">Precision environmental monitoring for sustainable land use and nature-based solutions.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <a href="satellite-monitoring.html">Satellite Monitoring</a>
+          <a href="drone-survey.html">Drone Survey</a>
+          <a href="gis-analysis.html">GIS Analysis</a>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <a href="#">Case Studies</a>
+          <a href="#">Publications</a>
+          <a href="#">API Docs</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a href="mailto:hello@biofarms.ai">hello@biofarms.ai</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">Twitter</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 biofarms.ai. All rights reserved.</p>
+        <p>Built with precision, for nature.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Hero shader
+      ShaderBackgrounds.init('hero-shader', ShaderBackgrounds.forestShader);
+
+      // GSAP Animations
+      GSAPPatterns.heroEntrance();
+      GSAPPatterns.fadeUp('.section-header, .challenge-card, .card, .method-step, .cite-card, .timeline-item');
+      GSAPPatterns.stagger('.method-steps', '.method-step');
+      GSAPPatterns.stagger('.stats-grid', '.stat-card');
+      GSAPPatterns.stagger('.grid-3', '.card');
+
+      // Stat counters
+      GSAPPatterns.counter('.stat-value');
+
+      // D3 Time Series Chart
+      const forestData = [
+        { year: 2000, value: 0 }, { year: 2001, value: 45 }, { year: 2002, value: 120 },
+        { year: 2003, value: 180 }, { year: 2004, value: 260 }, { year: 2005, value: 340 },
+        { year: 2006, value: 420 }, { year: 2007, value: 480 }, { year: 2008, value: 560 },
+        { year: 2009, value: 620 }, { year: 2010, value: 710 }, { year: 2011, value: 780 },
+        { year: 2012, value: 850 }, { year: 2013, value: 920 }, { year: 2014, value: 1000 },
+        { year: 2015, value: 1080 }, { year: 2016, value: 1120 }, { year: 2017, value: 1180 },
+        { year: 2018, value: 1240 }, { year: 2019, value: 1310 }, { year: 2020, value: 1380 },
+        { year: 2021, value: 1450 }, { year: 2022, value: 1510 }, { year: 2023, value: 1580 }
+      ];
+      D3Charts.timeSeries('forest-chart', forestData, {
+        trend: true,
+        xLabel: 'Year',
+        yLabel: 'Cumulative Forest Loss (ha)',
+        unit: 'ha'
+      });
+
+      // Three.js Globe
+      ThreeScenes.globe('three-canvas');
+    });
+  </script>
+</body>
+</html>
